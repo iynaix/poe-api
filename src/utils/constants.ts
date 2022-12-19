@@ -1,5 +1,7 @@
 export const NINJA_API_URL = "https://poe.ninja"
 
+export const CACHE_THRESHOLD = process.env.NODE_ENV === "production" ? 10 * 60 : 60 * 60
+
 const TMPSTANDARD = "Sanctum"
 
 export const LEAGUES = {
@@ -13,7 +15,9 @@ export const LEAGUES = {
     hardcoreruthless: "Hardcore Ruthless",
 } as const
 
-export const CURRENCY_ENDPOINTS = ["Currency", "Fragment"]
+export const CURRENCY_ENDPOINTS = ["Currency", "Fragment"] as const
+
+export type CurrencyEndpointEnum = typeof CURRENCY_ENDPOINTS[number]
 
 export const ITEM_ENDPOINTS = [
     // General
@@ -45,4 +49,6 @@ export const ITEM_ENDPOINTS = [
     "Beast",
     "Essence",
     "Vial",
-]
+] as const
+
+export type ItemEndpointEnum = typeof ITEM_ENDPOINTS[number]

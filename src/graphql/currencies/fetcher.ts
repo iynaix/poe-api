@@ -1,38 +1,14 @@
-import { URL, URLSearchParams } from "url"
-
-import { timestamp, truncateFloat } from "../../utils"
-import { CURRENCY_ENDPOINTS, LEAGUES, NINJA_API_URL } from "../../utils/constants"
+import { timestamp, truncateFloat, LeagueName, fetchNinja } from "../../utils"
+import { CURRENCY_ENDPOINTS, CACHE_THRESHOLD } from "../../utils/constants"
 import { NinjaCurrencies } from "./ninja_types"
 import { Currency, LineWithChaos } from "./types"
-
-const CACHE_THRESHOLD = process.env.NODE_ENV === "production" ? 10 * 60 : 60 * 60
 
 export let CURRENCY_LAST_FETCHED: number | undefined = undefined
 export let DIVINE_VALUE = 0
 export let CURRENCIES: Currency[] = []
 
-export type LeagueType = keyof typeof LEAGUES
-
-const getNinjaUrl = (endpoint: string, league: LeagueType = "tmpstandard") => {
-    const url = new URL(NINJA_API_URL)
-    const now = new Date()
-
-    url.pathname = `/api/data/${
-        CURRENCY_ENDPOINTS.includes(endpoint) ? "currencyoverview" : "itemoverview"
-    }`
-    url.search = new URLSearchParams({
-        league: LEAGUES[league] || LEAGUES.tmpstandard,
-        type: endpoint,
-        date: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`,
-    }).toString()
-    return url.toString()
-}
-
-const fetchNinja = async <T>(endpoint: string, league: LeagueType = "tmpstandard") =>
-    fetch(getNinjaUrl(endpoint, league)).then((resp) => resp.json()) as T
-
 // fetches and returns the currencies
-export const fetchCurrencies = async (league: LeagueType = "tmpstandard") => {
+export const fetchCurrencies = async (league: LeagueName = "tmpstandard") => {
     const fetchTime = timestamp()
 
     // use cache if below threshold

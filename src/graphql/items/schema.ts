@@ -1,11 +1,11 @@
 import { Aggregator } from "mingo"
 
-import { fetchCurrencies } from "./fetcher"
+import { fetchItems } from "./fetcher"
 import { builder, LeagueEnum } from "../builder"
 import { StringFilter, NumberFilter, createWhere } from "../../utils/filters"
 import { createOrderBy } from "../../utils/orderby"
 
-builder.objectType("Currency", {
+builder.objectType("Item", {
     fields: (t) => ({
         id: t.exposeID("id"),
         name: t.exposeString("name"),
@@ -16,21 +16,17 @@ builder.objectType("Currency", {
     }),
 })
 
-const [whereInput, whereAgg] = createWhere("CurrencyWhereInput", {
+const [whereInput, whereAgg] = createWhere("ItemWhereInput", {
     name: StringFilter,
     chaosValue: NumberFilter,
     divineValue: NumberFilter,
 })
 
-const [orderBy, orderByAgg] = createOrderBy("CurrencyOrderBy", [
-    "name",
-    "chaosValue",
-    "divineValue",
-])
+const [orderBy, orderByAgg] = createOrderBy("ItemOrderBy", ["name", "chaosValue", "divineValue"])
 
 builder.queryFields((t) => ({
-    currencies: t.field({
-        type: ["Currency"],
+    items: t.field({
+        type: ["Item"],
         args: {
             league: t.arg({ type: LeagueEnum, required: false }),
             where: t.arg({ type: whereInput, required: false }),
@@ -43,8 +39,8 @@ builder.queryFields((t) => ({
             // console.log("$match", $match)
             const agg = new Aggregator([{ $match }, { $sort }])
 
-            const currencies = await fetchCurrencies(args.league || "tmpstandard")
-            return agg.run(currencies) as unknown as typeof currencies
+            const items = await fetchItems(args.league || "tmpstandard")
+            return agg.run(items) as unknown as typeof items
         },
     }),
 }))

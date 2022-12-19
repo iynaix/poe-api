@@ -1,4 +1,4 @@
-export interface NinjaItem {
+export interface NinjaItems {
     lines: Line[]
 }
 
