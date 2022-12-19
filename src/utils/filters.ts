@@ -32,7 +32,6 @@ export const NumberFilter = builder.inputType("NumberFilter", {
     }),
 })
 
-// utility function for handling search operations
 const _stringOperator = ([op, val]: [string, string | string[]]) => {
     switch (op) {
         case "_eq":
@@ -80,6 +79,7 @@ const filterNumber = (fieldName: string, fieldValue: Record<string, number>) => 
     return { [fieldName]: mapKeys(fieldValue, (_, k) => k.replace("_", "$")) }
 }
 
+// creates both the where input type for arg and the $match aggregation for mingo
 export const createWhere = (
     name: string,
     where: Record<string, typeof StringFilter | typeof NumberFilter>

@@ -3,7 +3,7 @@ import "mingo/init/system"
 import { Aggregator } from "mingo"
 
 import { fetchCurrencies } from "./fetcher"
-import { builder } from "../builder"
+import { builder, LeagueEnum } from "../builder"
 import { StringFilter, NumberFilter, createWhere } from "../../utils/filters"
 
 builder.objectType("Currency", {
@@ -27,6 +27,7 @@ builder.queryType({
         currencies: t.field({
             type: ["Currency"],
             args: {
+                league: t.arg({ type: LeagueEnum, required: false }),
                 where: t.arg({ type: whereInput, required: false }),
             },
             resolve: async (_, args) => {
@@ -34,7 +35,7 @@ builder.queryType({
                 // console.log("$match", $match)
                 const agg = new Aggregator([{ $match }])
 
-                const currencies = await fetchCurrencies()
+                const currencies = await fetchCurrencies(args.league || "tmpstandard")
                 return agg.run(currencies) as unknown as typeof currencies
             },
         }),

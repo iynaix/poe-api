@@ -6,3 +6,16 @@ export const builder = new SchemaBuilder<{
         Currency: Currency
     }
 }>({})
+
+export const LeagueEnum = builder.enumType("League", {
+    values: [
+        "tmpstandard",
+        "tmpruthless",
+        "tmphardcore",
+        "tmphardcoreruthless",
+        "standard",
+        "hardcore",
+        "ruthless",
+        "hardcoreruthless",
+    ] as const,
+})

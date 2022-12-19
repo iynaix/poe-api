@@ -4,10 +4,14 @@ const TMPSTANDARD = "Sanctum"
 
 export const LEAGUES = {
     tmpstandard: TMPSTANDARD,
+    tmpruthless: `Ruthless ${TMPSTANDARD}`,
     tmphardcore: `Hardcore ${TMPSTANDARD}`,
+    tmphardcoreruthless: `Hardcore Ruthless ${TMPSTANDARD}`,
     standard: "Standard",
     hardcore: "Hardcore",
-}
+    ruthless: "Ruthless",
+    hardcoreruthless: "Hardcore Ruthless",
+} as const
 
 export const CURRENCY_ENDPOINTS = ["Currency", "Fragment"]
 
