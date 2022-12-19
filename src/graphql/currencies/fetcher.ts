@@ -1,13 +1,13 @@
 import { URL, URLSearchParams } from "url"
 
-import { truncateFloat, truncateTimestamp } from "../../utils"
+import { timestamp, truncateFloat } from "../../utils"
 import { CURRENCY_ENDPOINTS, LEAGUES, NINJA_API_URL } from "../../utils/constants"
 import { NinjaCurrencies } from "./ninja_types"
 import { Currency, LineWithChaos } from "./types"
 
 const CACHE_THRESHOLD = process.env.NODE_ENV === "production" ? 10 * 60 : 60 * 60
 
-export let CURRENCY_LAST_FETCHED = undefined
+export let CURRENCY_LAST_FETCHED: number | undefined = undefined
 export let DIVINE_VALUE = 0
 export let CURRENCIES: Currency[] = []
 
@@ -33,9 +33,15 @@ const fetchNinja = async <T>(endpoint: string, league: LeagueType = "tmpstandard
 
 // fetches and returns the currencies
 export const fetchCurrencies = async (league: LeagueType = "tmpstandard") => {
-    const fetchTime = truncateTimestamp(undefined, CACHE_THRESHOLD)
+    const fetchTime = timestamp()
 
-    // TODO: handle cache invalidation here
+    // use cache if below threshold
+    if (CURRENCY_LAST_FETCHED && fetchTime - CURRENCY_LAST_FETCHED < CACHE_THRESHOLD) {
+        return CURRENCIES
+    }
+
+    CURRENCY_LAST_FETCHED = fetchTime
+    CURRENCIES = []
 
     await Promise.all(
         CURRENCY_ENDPOINTS.map(async (endpoint) => {
@@ -56,8 +62,9 @@ export const fetchCurrencies = async (league: LeagueType = "tmpstandard") => {
                     const line = linesByType[item.name]
                     return {
                         ...item,
+                        // fill with zero first, actual value is added below
+                        divineValue: 0,
                         ...line,
-                        divineValue: truncateFloat(line.chaosValue / DIVINE_VALUE, 5),
                         endpoint,
                     }
                 })
@@ -68,5 +75,6 @@ export const fetchCurrencies = async (league: LeagueType = "tmpstandard") => {
 
     return CURRENCIES.map((item) => ({
         ...item,
+        divineValue: truncateFloat(item.chaosValue / DIVINE_VALUE, 5),
     }))
 }
