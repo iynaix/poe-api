@@ -40,6 +40,8 @@ export const fetchCurrencies = async (league: LeagueType = "tmpstandard") => {
         return CURRENCIES
     }
 
+    console.log(`Fetching currencies from poe.ninja... (${fetchTime})`)
+
     CURRENCY_LAST_FETCHED = fetchTime
     CURRENCIES = []
 

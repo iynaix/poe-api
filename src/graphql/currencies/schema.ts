@@ -4,7 +4,7 @@ import { Aggregator } from "mingo"
 
 import { fetchCurrencies } from "./fetcher"
 import { builder } from "../builder"
-import { StringFilter } from "../../utils/filters"
+import { StringFilter, NumberFilter } from "../../utils/filters"
 
 builder.objectType("Currency", {
     fields: (t) => ({
@@ -18,10 +18,9 @@ builder.objectType("Currency", {
 
 const CurrencyWhereInput = builder.inputType("CurrencyWhereInput", {
     fields: (t) => ({
-        name: t.field({
-            type: StringFilter,
-            required: false,
-        }),
+        name: t.field({ type: StringFilter, required: false }),
+        chaosValue: t.field({ type: NumberFilter, required: false }),
+        divineValue: t.field({ type: NumberFilter, required: false }),
     }),
 })
 
