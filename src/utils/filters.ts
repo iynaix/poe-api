@@ -101,7 +101,7 @@ export const createWhere = (
     ) => {
         if (!whereArg) return {}
 
-        const $match = Object.assign(
+        return Object.assign(
             {},
             ...Object.entries(whereArg).map(([filterName, filterValue]) => {
                 if (!filterValue) return
@@ -118,8 +118,6 @@ export const createWhere = (
                 }
             })
         )
-
-        return $match
     }
 
     return [whereInput, whereAgg] as const
