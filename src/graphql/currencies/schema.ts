@@ -4,7 +4,7 @@ import { Aggregator } from "mingo"
 
 import { fetchCurrencies } from "./fetcher"
 import { builder } from "../builder"
-import { StringFilter, NumberFilter } from "../../utils/filters"
+import { StringFilter, NumberFilter, createWhere } from "../../utils/filters"
 
 builder.objectType("Currency", {
     fields: (t) => ({
@@ -16,12 +16,10 @@ builder.objectType("Currency", {
     }),
 })
 
-const CurrencyWhereInput = builder.inputType("CurrencyWhereInput", {
-    fields: (t) => ({
-        name: t.field({ type: StringFilter, required: false }),
-        chaosValue: t.field({ type: NumberFilter, required: false }),
-        divineValue: t.field({ type: NumberFilter, required: false }),
-    }),
+const [whereInput, whereAgg] = createWhere("CurrencyWhereInput", {
+    name: StringFilter,
+    chaosValue: NumberFilter,
+    divineValue: NumberFilter,
 })
 
 builder.queryType({
@@ -29,12 +27,11 @@ builder.queryType({
         currencies: t.field({
             type: ["Currency"],
             args: {
-                where: t.arg({ type: CurrencyWhereInput, required: false }),
+                where: t.arg({ type: whereInput, required: false }),
             },
             resolve: async (_, args) => {
-                const agg = new Aggregator([
-                    { $match: { name: { $regex: args.where?.name?._eq } } },
-                ])
+                const $match = whereAgg(args.where)
+                const agg = new Aggregator([{ $match: $match }])
 
                 const currencies = await fetchCurrencies()
                 return agg.run(currencies) as unknown as typeof currencies
