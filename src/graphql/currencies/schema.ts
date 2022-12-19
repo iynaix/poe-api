@@ -31,7 +31,8 @@ builder.queryType({
             },
             resolve: async (_, args) => {
                 const $match = whereAgg(args.where)
-                const agg = new Aggregator([{ $match: $match }])
+                // console.log("$match", $match)
+                const agg = new Aggregator([{ $match }])
 
                 const currencies = await fetchCurrencies()
                 return agg.run(currencies) as unknown as typeof currencies

@@ -1,22 +1,6 @@
 import { InputFieldMap, InputShapeFromFields } from "@pothos/core"
 import { builder } from "../graphql/builder"
-
-type StringFilterType = {
-    _eq?: string
-    _ieq?: string
-    _ne?: string
-    _ine?: string
-    _contains?: string
-    _icontains?: string
-    _startswith?: string
-    _istartswith?: string
-    _endswith?: string
-    _iendswith?: string
-    _regex?: string
-    _iregex?: string
-    _in?: string[]
-    _nin?: string[]
-}
+import { mapKeys } from "lodash"
 
 export const StringFilter = builder.inputType("StringFilter", {
     fields: (t) => ({
@@ -36,15 +20,6 @@ export const StringFilter = builder.inputType("StringFilter", {
         _nin: t.stringList({ required: false }),
     }),
 })
-
-type NumberFilterType = {
-    _eq?: number
-    _ne?: number
-    _lt?: number
-    _lte?: number
-    _gt?: number
-    _gte?: number
-}
 
 export const NumberFilter = builder.inputType("NumberFilter", {
     fields: (t) => ({
@@ -91,7 +66,7 @@ const _stringOperator = ([op, val]: [string, string | string[]]) => {
     }
 }
 
-export const filterString = (name: string, val: StringFilterType) => {
+const filterString = (name: string, val: Record<string, string | string[]>) => {
     const mongoParams = Object.entries(val).map(_stringOperator)
 
     return {
@@ -99,6 +74,10 @@ export const filterString = (name: string, val: StringFilterType) => {
             [name]: v,
         })),
     }
+}
+
+const filterNumber = (fieldName: string, fieldValue: Record<string, number>) => {
+    return { [fieldName]: mapKeys(fieldValue, (_, k) => k.replace("_", "$")) }
 }
 
 export const createWhere = (
@@ -122,15 +101,23 @@ export const createWhere = (
     ) => {
         if (!whereArg) return {}
 
-        const $match = {
+        const $match = Object.assign(
+            {},
             ...Object.entries(whereArg).map(([filterName, filterValue]) => {
                 if (!filterValue) return
 
                 if (where[filterName] === StringFilter) {
-                    return filterString(filterName, filterValue as StringFilterType)
+                    return filterString(
+                        filterName,
+                        filterValue as Record<string, string | string[]>
+                    )
                 }
-            }),
-        }
+
+                if (where[filterName] === NumberFilter) {
+                    return filterNumber(filterName, filterValue as Record<string, number>)
+                }
+            })
+        )
 
         return $match
     }
