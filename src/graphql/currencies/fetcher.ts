@@ -33,7 +33,7 @@ export const fetchCurrencyEndpoint = async (endpoint: CurrencyEndpointEnum, leag
 
 // fetches and returns the currencies
 export const fetchCurrencies = async (league: LeagueName = "tmpstandard") =>
-    cachedLeagueData<Currency[]>("__cache__currencies.json", league, async () => {
+    cachedLeagueData<Currency[]>("/tmp/__cache__currencies.json", league, async () => {
         let CURRENCIES: Currency[] = []
 
         const throttle = pThrottle({ limit: 5, interval: 1000 })

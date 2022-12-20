@@ -16,7 +16,7 @@ export const fetchItemEndpoint = async (endpoint: ItemEndpointEnum, league: Leag
 
 // fetches and inserts the items if needed
 export const fetchItems = async (league: LeagueName) =>
-    cachedLeagueData<Item[]>("__cache__items.json", league, async () => {
+    cachedLeagueData<Item[]>("/tmp/__cache__items.json", league, async () => {
         let ITEMS: Item[] = []
         const throttle = pThrottle({ limit: 5, interval: 1000 })
         const throttledFetch = throttle(fetchItemEndpoint)
