@@ -14,7 +14,7 @@ builder.objectType("ItemModifier", {
 
 builder.objectType("Item", {
     fields: (t) => ({
-        id: t.exposeID("id"),
+        id: t.exposeID("detailsId"),
         name: t.exposeString("name"),
         icon: t.exposeString("icon", { nullable: true }),
         chaosValue: t.exposeFloat("chaosValue"),
@@ -24,7 +24,6 @@ builder.objectType("Item", {
         // itemClass: t.exposeInt("itemClass", { nullable: true }),
         itemType: t.exposeString("itemType", { nullable: true }),
         // count: t.exposeInt("count"),
-        detailsId: t.exposeString("detailsId"),
         endpoint: t.exposeString("endpoint"),
         links: t.exposeInt("links", { nullable: true }),
         variant: t.exposeString("variant", { nullable: true }),
@@ -32,12 +31,10 @@ builder.objectType("Item", {
         implicitModifiers: t.field({
             type: ["ItemModifier"],
             resolve: (parent) => parent.implicitModifiers,
-            nullable: true,
         }),
         explicitModifiers: t.field({
             type: ["ItemModifier"],
             resolve: (parent) => parent.explicitModifiers,
-            nullable: true,
         }),
     }),
 })
@@ -46,9 +43,26 @@ const [whereInput, whereAgg] = createWhere("ItemWhereInput", {
     name: StringFilter,
     chaosValue: NumberFilter,
     divineValue: NumberFilter,
+    levelRequired: NumberFilter,
+    baseType: StringFilter,
+    itemType: StringFilter,
+    links: NumberFilter,
+    variant: StringFilter,
+    // TODO: implicit and explicit modifiers
+    // TODO: endpoint?
+    // TODO: low confidence filter?
 })
 
-const [orderBy, orderByAgg] = createOrderBy("ItemOrderBy", ["name", "chaosValue", "divineValue"])
+const [orderBy, orderByAgg] = createOrderBy("ItemOrderBy", [
+    "name",
+    "chaosValue",
+    "divineValue",
+    "levelRequired",
+    "baseType",
+    "itemType",
+    "links",
+    "variant",
+])
 
 builder.queryFields((t) => ({
     items: t.field({

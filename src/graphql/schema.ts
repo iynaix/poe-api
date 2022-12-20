@@ -3,6 +3,7 @@ import "mingo/init/system"
 
 import "./currencies/schema"
 import "./items/schema"
+import "./combined/schema"
 
 import { builder } from "./builder"
 

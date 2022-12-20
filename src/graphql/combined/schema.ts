@@ -1,13 +1,15 @@
 import { Aggregator } from "mingo"
 
-import { fetchCurrencies, fetchCurrencyEndpoint } from "./fetcher"
 import { builder, LeagueEnum } from "../builder"
+import { fetchCurrencies } from "../currencies/fetcher"
+import { fetchItems } from "../items/fetcher"
 import { StringFilter, NumberFilter, createWhere } from "../../utils/filters"
 import { createOrderBy } from "../../utils/orderby"
+import { Combined } from "./types"
 
-builder.objectType("Currency", {
+builder.objectType("Combined", {
     fields: (t) => ({
-        id: t.exposeID("currencyTypeName"),
+        id: t.exposeID("id"),
         name: t.exposeString("name"),
         icon: t.exposeString("icon", { nullable: true }),
         chaosValue: t.exposeFloat("chaosValue"),
@@ -16,52 +18,50 @@ builder.objectType("Currency", {
     }),
 })
 
-const [whereInput, whereAgg] = createWhere("CurrencyWhereInput", {
+const [whereInput, whereAgg] = createWhere("CombinedWhereInput", {
     name: StringFilter,
     chaosValue: NumberFilter,
     divineValue: NumberFilter,
-    // TODO: endpoint?
 })
 
-const [orderBy, orderByAgg] = createOrderBy("CurrencyOrderBy", [
+const [orderBy, orderByAgg] = createOrderBy("CombinedOrderBy", [
     "name",
     "chaosValue",
     "divineValue",
 ])
 
 builder.queryFields((t) => ({
-    currencies: t.field({
-        type: ["Currency"],
+    combined: t.field({
+        type: ["Combined"],
         args: {
             league: t.arg({ type: LeagueEnum, required: false, defaultValue: "tmpstandard" }),
             where: t.arg({ type: whereInput, required: false }),
             orderBy: t.arg({ type: orderBy, required: false }),
         },
         resolve: async (_, args) => {
+            const currencies = await fetchCurrencies(args.league || "tmpstandard")
+            const items = await fetchItems(args.league || "tmpstandard")
+
+            const all: Combined[] = [
+                // overwrite id with currencyTypeName
+                ...currencies.map(({ currencyTypeName, ...currency }) => ({
+                    ...currency,
+                    id: currencyTypeName,
+                })),
+                // overwrite id with detailsId
+                ...items.map(({ detailsId, ...item }) => ({
+                    ...item,
+                    id: detailsId,
+                })),
+            ]
+
             const $match = whereAgg(args.where)
             const $sort = orderByAgg(args.orderBy)
 
             // console.log("$match", $match)
             const agg = new Aggregator([{ $match }, { $sort }])
 
-            const currencies = await fetchCurrencies(args.league || "tmpstandard")
-            return agg.run(currencies) as unknown as typeof currencies
-        },
-    }),
-    divineValue: t.field({
-        type: "Float",
-        resolve: async () => {
-            const currencies = await fetchCurrencyEndpoint("Currency", "tmpstandard")
-
-            const divineOrb = currencies.find(
-                (currency) => currency.currencyTypeName === "Divine Orb"
-            )
-
-            if (!divineOrb?.chaosValue) {
-                throw new Error("Divine Orb not found")
-            }
-
-            return divineOrb.chaosValue
+            return agg.run(all) as unknown as typeof all
         },
     }),
 }))
