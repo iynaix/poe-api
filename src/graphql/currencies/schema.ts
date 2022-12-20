@@ -1,6 +1,6 @@
 import { Aggregator } from "mingo"
 
-import { fetchCurrencies } from "./fetcher"
+import { fetchCurrencies, fetchCurrencyEndpoint } from "./fetcher"
 import { builder, LeagueEnum } from "../builder"
 import { StringFilter, NumberFilter, createWhere } from "../../utils/filters"
 import { createOrderBy } from "../../utils/orderby"
@@ -45,6 +45,22 @@ builder.queryFields((t) => ({
 
             const currencies = await fetchCurrencies(args.league || "tmpstandard")
             return agg.run(currencies) as unknown as typeof currencies
+        },
+    }),
+    divineValue: t.field({
+        type: "Float",
+        resolve: async () => {
+            const currencies = await fetchCurrencyEndpoint("Currency", "tmpstandard")
+
+            const divineOrb = currencies.find(
+                (currency) => currency.currencyTypeName === "Divine Orb"
+            )
+
+            if (!divineOrb?.chaosValue) {
+                throw new Error("Divine Orb not found")
+            }
+
+            return divineOrb.chaosValue
         },
     }),
 }))
