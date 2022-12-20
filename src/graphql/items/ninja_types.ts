@@ -7,7 +7,7 @@ export interface Line {
     name: string
     icon: string
     levelRequired?: number
-    baseType: string
+    baseType?: string
     itemClass: number
     sparkline: Sparkline
     lowConfidenceSparkline: LowConfidenceSparkline
