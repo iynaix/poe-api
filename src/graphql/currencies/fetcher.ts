@@ -1,58 +1,54 @@
-import { timestamp, truncateFloat, LeagueName, fetchNinja } from "../../utils"
-import { CURRENCY_ENDPOINTS, CACHE_THRESHOLD } from "../../utils/constants"
+import pThrottle from "p-throttle"
+import { truncateFloat, LeagueName, fetchNinja, cachedLeagueData } from "../../utils"
+import { CURRENCY_ENDPOINTS, CurrencyEndpointEnum } from "../../utils/constants"
 import { NinjaCurrencies } from "./ninja_types"
 import { Currency, LineWithChaos } from "./types"
 
-export let CURRENCY_LAST_FETCHED: number | undefined = undefined
-export let DIVINE_VALUE = 0
-export let CURRENCIES: Currency[] = []
+let DIVINE_VALUE = 0
+
+export const fetchCurrencyEndpoint = async (endpoint: CurrencyEndpointEnum, league: LeagueName) => {
+    const { currencyDetails, lines } = await fetchNinja<NinjaCurrencies>(endpoint, league)
+
+    const linesByType: Record<string, LineWithChaos> = {}
+    lines.forEach((line) => {
+        const { currencyTypeName, chaosEquivalent } = line
+        linesByType[currencyTypeName] = { ...line, chaosValue: chaosEquivalent, endpoint }
+        if (currencyTypeName === "Divine Orb") {
+            DIVINE_VALUE = chaosEquivalent
+        }
+    })
+
+    return currencyDetails
+        .filter(({ name }) => name in linesByType)
+        .map((item) => {
+            const line = linesByType[item.name]
+            return {
+                ...item,
+                // fill with zero first, actual value is added below
+                divineValue: 0,
+                ...line,
+            }
+        })
+}
 
 // fetches and returns the currencies
-export const fetchCurrencies = async (league: LeagueName = "tmpstandard") => {
-    const fetchTime = timestamp()
+export const fetchCurrencies = async (league: LeagueName = "tmpstandard") =>
+    cachedLeagueData<Currency[]>("__cache__currencies.json", league, async () => {
+        let CURRENCIES: Currency[] = []
 
-    // use cache if below threshold
-    if (CURRENCY_LAST_FETCHED && fetchTime - CURRENCY_LAST_FETCHED < CACHE_THRESHOLD) {
-        return CURRENCIES
-    }
+        const throttle = pThrottle({ limit: 5, interval: 1000 })
+        const throttledFetch = throttle(fetchCurrencyEndpoint)
 
-    console.log(`Fetching currencies from poe.ninja... (${fetchTime})`)
+        await Promise.all(
+            CURRENCY_ENDPOINTS.map(async (endpoint) => {
+                const fetchedCurrencies = await throttledFetch(endpoint, league)
 
-    CURRENCY_LAST_FETCHED = fetchTime
-    CURRENCIES = []
-
-    await Promise.all(
-        CURRENCY_ENDPOINTS.map(async (endpoint) => {
-            const { currencyDetails, lines } = await fetchNinja<NinjaCurrencies>(endpoint, league)
-
-            const linesByType: Record<string, LineWithChaos> = {}
-            lines.forEach((line) => {
-                const { currencyTypeName, chaosEquivalent } = line
-                linesByType[currencyTypeName] = { ...line, chaosValue: chaosEquivalent }
-                if (currencyTypeName === "Divine Orb") {
-                    DIVINE_VALUE = chaosEquivalent
-                }
+                CURRENCIES = CURRENCIES.concat(fetchedCurrencies)
             })
+        )
 
-            const allCurrencies = currencyDetails
-                .filter(({ name }) => name in linesByType)
-                .map((item) => {
-                    const line = linesByType[item.name]
-                    return {
-                        ...item,
-                        // fill with zero first, actual value is added below
-                        divineValue: 0,
-                        ...line,
-                        endpoint,
-                    }
-                })
-
-            CURRENCIES = CURRENCIES.concat(allCurrencies)
-        })
-    )
-
-    return CURRENCIES.map((item) => ({
-        ...item,
-        divineValue: truncateFloat(item.chaosValue / DIVINE_VALUE, 5),
-    }))
-}
+        return CURRENCIES.map((item) => ({
+            ...item,
+            divineValue: truncateFloat(item.chaosValue / DIVINE_VALUE, 5),
+        }))
+    })

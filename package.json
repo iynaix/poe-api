@@ -1,32 +1,33 @@
 {
-  "name": "poe-tools",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@next/font": "13.0.7",
-    "@pothos/core": "^3.23.2",
-    "@types/node": "18.11.17",
-    "@types/react": "18.0.26",
-    "@types/react-dom": "18.0.9",
-    "eslint": "8.30.0",
-    "eslint-config-next": "13.0.7",
-    "graphql": "^16.6.0",
-    "graphql-yoga": "^3.1.1",
-    "lodash": "^4.17.21",
-    "mingo": "^6.2.0",
-    "next": "13.0.7",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "typescript": "4.9.4"
-  },
-  "devDependencies": {
-    "@types/lodash": "^4.14.191",
-    "prettier": "^2.8.1"
-  }
+    "name": "poe-tools",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint"
+    },
+    "dependencies": {
+        "@next/font": "13.0.7",
+        "@pothos/core": "^3.23.2",
+        "@types/node": "18.11.17",
+        "@types/react": "18.0.26",
+        "@types/react-dom": "18.0.9",
+        "eslint": "8.30.0",
+        "eslint-config-next": "13.0.7",
+        "graphql": "^16.6.0",
+        "graphql-yoga": "^3.1.1",
+        "lodash": "^4.17.21",
+        "mingo": "^6.2.0",
+        "next": "13.0.7",
+        "p-throttle": "^5.0.0",
+        "react": "18.2.0",
+        "react-dom": "18.2.0",
+        "typescript": "4.9.4"
+    },
+    "devDependencies": {
+        "@types/lodash": "^4.14.191",
+        "prettier": "^2.8.1"
+    }
 }

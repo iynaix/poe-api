@@ -1,41 +1,33 @@
-import { timestamp, LeagueName, fetchNinja } from "../../utils"
-import { ITEM_ENDPOINTS, LEAGUES } from "../../utils/constants"
+import pThrottle from "p-throttle"
+import { LeagueName, fetchNinja, cachedLeagueData } from "../../utils"
+import { ItemEndpointEnum, ITEM_ENDPOINTS } from "../../utils/constants"
 import { NinjaItems } from "./ninja_types"
 import { Item } from "./types"
 
-const CACHE_THRESHOLD = process.env.NODE_ENV === "production" ? 10 * 60 : 60 * 60
-export let ITEMS_LAST_FETCHED: number | undefined = undefined
-export let DIVINE_VALUE = 0
-export let ITEMS: Item[] = []
+export const fetchItemEndpoint = async (endpoint: ItemEndpointEnum, league: LeagueName) => {
+    const items = await fetchNinja<NinjaItems>(endpoint, league)
 
-export type LeagueType = keyof typeof LEAGUES
+    return items["lines"].map((item) => ({
+        ...item,
+        relic: item.icon ? item.icon.includes("relic=1") : false,
+        endpoint,
+    }))
+}
 
 // fetches and inserts the items if needed
-export const fetchItems = async (league: LeagueName) => {
-    const fetchTime = timestamp()
+export const fetchItems = async (league: LeagueName) =>
+    cachedLeagueData<Item[]>("__cache__items.json", league, async () => {
+        let ITEMS: Item[] = []
+        const throttle = pThrottle({ limit: 5, interval: 1000 })
+        const throttledFetch = throttle(fetchItemEndpoint)
 
-    // use cache if below threshold
-    if (ITEMS_LAST_FETCHED && fetchTime - ITEMS_LAST_FETCHED < CACHE_THRESHOLD) {
+        await Promise.all(
+            ITEM_ENDPOINTS.map(async (endpoint) => {
+                const fetchedItems = await throttledFetch(endpoint, league)
+
+                ITEMS = ITEMS.concat(fetchedItems)
+            })
+        )
+
         return ITEMS
-    }
-
-    console.log(`Fetching items from poe.ninja... (${fetchTime})`)
-
-    ITEMS_LAST_FETCHED = fetchTime
-    ITEMS = []
-
-    await Promise.all(
-        ITEM_ENDPOINTS.map(async (endpoint) => {
-            const items = await fetchNinja<NinjaItems>(endpoint, league)
-            ITEMS = ITEMS.concat(
-                items["lines"].map((item) => ({
-                    ...item,
-                    relic: item.icon ? item.icon.includes("relic=1") : false,
-                    endpoint,
-                }))
-            )
-        })
-    )
-
-    return ITEMS
-}
+    })

@@ -1,9 +1,11 @@
+import fs from "fs"
 import {
     NINJA_API_URL,
     CURRENCY_ENDPOINTS,
     LEAGUES,
     CurrencyEndpointEnum,
     ItemEndpointEnum,
+    CACHE_THRESHOLD,
 } from "./constants"
 
 export type LeagueName = keyof typeof LEAGUES
@@ -21,7 +23,6 @@ const ninjaAPIUrl = (endpoint: AllEndpoints, league: LeagueName = "tmpstandard")
     url.search = new URLSearchParams({
         league: LEAGUES[league] || LEAGUES.tmpstandard,
         type: endpoint,
-        date: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`,
     }).toString()
     return url.toString()
 }
@@ -42,3 +43,43 @@ export const quot = (n: number, divisor: number) => n - (n % divisor)
 
 // unix timestamp in seconds
 export const timestamp = (dt: Date = new Date()) => Math.floor(dt.getTime() / 1000)
+
+export const cachedLeagueData = async <TData>(
+    cacheFilename: string,
+    league: LeagueName,
+    dataFn: () => Promise<TData>
+) => {
+    const fetchTime = timestamp()
+
+    // use cache if it is available
+    if (fs.existsSync(cacheFilename)) {
+        const cache = JSON.parse(fs.readFileSync(cacheFilename).toString()) as Record<
+            LeagueName,
+            { fetchTime: number; data: TData }
+        >
+        if (league in cache) {
+            const { fetchTime: cacheFetchTime, data: cachedData } = cache[league]
+
+            // use cache if below threshold
+            if (cacheFetchTime && fetchTime - cacheFetchTime < CACHE_THRESHOLD) {
+                return cachedData
+            }
+        }
+    }
+
+    // cache not available or outdated, fetch data
+    const newData = await dataFn()
+
+    // update cache
+    fs.writeFileSync(
+        cacheFilename,
+        JSON.stringify({
+            [league]: {
+                fetchTime,
+                data: newData,
+            },
+        })
+    )
+
+    return newData
+}
