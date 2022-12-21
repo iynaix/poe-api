@@ -1,5 +1,5 @@
-import { InputFieldMap, InputShapeFromFields } from "@pothos/core"
-import { builder } from "../graphql/builder"
+import { EnumParam, EnumRef, InputFieldMap, InputShapeFromFields } from "@pothos/core"
+import { builder, ItemEndpoint } from "../graphql/builder"
 import { mapKeys } from "lodash"
 
 export const StringFilter = builder.inputType("StringFilter", {
@@ -75,6 +75,16 @@ export const NumberFilter = builder.inputType("NumberFilter", {
     }),
 })
 
+export const EnumFilter = (enumName: string, enumType: EnumRef<EnumParam>) =>
+    builder.inputType(`${enumName}EnumFilter`, {
+        fields: (t) => ({
+            _eq: t.field({ type: enumType, required: false }),
+            _ne: t.field({ type: enumType, required: false }),
+            _in: t.field({ type: [enumType], required: false }),
+            _nin: t.field({ type: [enumType], required: false }),
+        }),
+    })
+
 const filterNumber = (fieldName: string, fieldValue: Record<string, number>) => {
     return { [fieldName]: mapKeys(fieldValue, (_, k) => k.replace("_", "$")) }
 }
@@ -110,7 +120,7 @@ const filterModifier = (name: string, val: Record<string, string | string[]>) =>
 // creates both the where input type for arg and the $match aggregation for mingo
 export const createWhere = (
     name: string,
-    where: Record<string, typeof StringFilter | typeof NumberFilter>
+    where: Record<string, typeof StringFilter | typeof NumberFilter | ReturnType<typeof EnumFilter>>
 ) => {
     // create the where input to be passed into t.arg
     const whereInput = builder.inputType(name, {
@@ -151,6 +161,17 @@ export const createWhere = (
                         filterValue as Record<string, string | string[]>
                     )
                 }
+
+                // enum filter special case
+                if (where[filterName].name.endsWith("EnumFilter")) {
+                    // handle enum filter as string filter
+                    return filterString(
+                        filterName,
+                        filterValue as Record<string, string | string[]>
+                    )
+                }
+
+                // throw Error(`Invalid filter for ${filterName} of type ${where[filterName]}]}`)
             })
         )
     }

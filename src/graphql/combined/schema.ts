@@ -1,6 +1,6 @@
 import { Aggregator } from "mingo"
 
-import { builder, LeagueEnum } from "../builder"
+import { builder, League } from "../builder"
 import { fetchCurrencies } from "../currencies/fetcher"
 import { fetchItems } from "../items/fetcher"
 import { StringFilter, NumberFilter, createWhere } from "../../utils/filters"
@@ -34,7 +34,7 @@ builder.queryFields((t) => ({
     combined: t.field({
         type: ["Combined"],
         args: {
-            league: t.arg({ type: LeagueEnum, required: false, defaultValue: "tmpstandard" }),
+            league: t.arg({ type: League, required: false, defaultValue: "tmpstandard" }),
             where: t.arg({ type: whereInput, required: false }),
             orderBy: t.arg({ type: orderBy, required: false }),
         },

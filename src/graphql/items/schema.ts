@@ -1,8 +1,14 @@
 import { Aggregator } from "mingo"
 
 import { fetchItems } from "./fetcher"
-import { builder, LeagueEnum } from "../builder"
-import { StringFilter, NumberFilter, ModifierFilter, createWhere } from "../../utils/filters"
+import { builder, ItemEndpoint, League } from "../builder"
+import {
+    StringFilter,
+    NumberFilter,
+    ModifierFilter,
+    createWhere,
+    EnumFilter,
+} from "../../utils/filters"
 import { createOrderBy } from "../../utils/orderby"
 
 builder.objectType("ItemModifier", {
@@ -24,8 +30,11 @@ builder.objectType("Item", {
         // itemClass: t.exposeInt("itemClass", { nullable: true }),
         itemType: t.exposeString("itemType", { nullable: true }),
         // count: t.exposeInt("count"),
-        endpoint: t.exposeString("endpoint"),
-        links: t.exposeInt("links", { nullable: true }),
+        endpoint: t.field({
+            type: ItemEndpoint,
+            resolve: (parent) => parent.endpoint,
+        }),
+        // links: t.exposeInt("links", { nullable: true }),
         variant: t.exposeString("variant", { nullable: true }),
         // modfiers
         implicitModifiers: t.field({
@@ -48,10 +57,9 @@ const [whereInput, whereAgg] = createWhere("ItemWhereInput", {
     itemType: StringFilter,
     links: NumberFilter,
     variant: StringFilter,
-    // modifer filters
+    endpoint: EnumFilter("ItemEndpoint", ItemEndpoint),
     implicitModifiers: ModifierFilter,
     explicitModifiers: ModifierFilter,
-    // TODO: endpoint?
     // TODO: low confidence filter?
 })
 
@@ -70,7 +78,7 @@ builder.queryFields((t) => ({
     items: t.field({
         type: ["Item"],
         args: {
-            league: t.arg({ type: LeagueEnum, required: false }),
+            league: t.arg({ type: League, required: false }),
             where: t.arg({ type: whereInput, required: false }),
             orderBy: t.arg({ type: orderBy, required: false }),
         },

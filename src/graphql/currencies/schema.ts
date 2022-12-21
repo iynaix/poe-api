@@ -1,8 +1,8 @@
 import { Aggregator } from "mingo"
 
 import { fetchCurrencies, fetchCurrencyEndpoint } from "./fetcher"
-import { builder, LeagueEnum } from "../builder"
-import { StringFilter, NumberFilter, createWhere } from "../../utils/filters"
+import { builder, League, CurrencyEndpoint } from "../builder"
+import { StringFilter, NumberFilter, createWhere, EnumFilter } from "../../utils/filters"
 import { createOrderBy } from "../../utils/orderby"
 
 builder.objectType("Currency", {
@@ -20,7 +20,7 @@ const [whereInput, whereAgg] = createWhere("CurrencyWhereInput", {
     name: StringFilter,
     chaosValue: NumberFilter,
     divineValue: NumberFilter,
-    // TODO: endpoint?
+    endpoint: EnumFilter("CurrencyEndpoint", CurrencyEndpoint),
 })
 
 const [orderBy, orderByAgg] = createOrderBy("CurrencyOrderBy", [
@@ -33,7 +33,7 @@ builder.queryFields((t) => ({
     currencies: t.field({
         type: ["Currency"],
         args: {
-            league: t.arg({ type: LeagueEnum, required: false, defaultValue: "tmpstandard" }),
+            league: t.arg({ type: League, required: false, defaultValue: "tmpstandard" }),
             where: t.arg({ type: whereInput, required: false }),
             orderBy: t.arg({ type: orderBy, required: false }),
         },
