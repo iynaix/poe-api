@@ -128,25 +128,12 @@ const filterModifier = (name: string, val: Record<string, string | string[]>) =>
     }
 }
 
-// creates both the where input type for arg and the $match aggregation for mingo
-export const createWhere = (
-    name: string,
-    where: Record<
-        string,
-        typeof StringFilter | typeof IntFilter | typeof FloatFilter | ReturnType<typeof EnumFilter>
-    >
-) => {
-    // create the where input to be passed into t.arg
-    const whereInput = builder.inputType(name, {
-        fields: (t) => {
-            const fields: InputFieldMap = {}
-            for (const [key, value] of Object.entries(where)) {
-                fields[key] = t.field({ type: value, required: false })
-            }
-            return fields
-        },
-    })
+type WhereInitializer = Record<
+    string,
+    typeof StringFilter | typeof IntFilter | typeof FloatFilter | ReturnType<typeof EnumFilter>
+>
 
+const _createWhereAggreation = (where: WhereInitializer) => {
     // create the $match aggregation for mingo
     const whereAgg = (
         whereArg: InputShapeFromFields<InputFieldMap<"InputObject">> | null | undefined
@@ -192,5 +179,31 @@ export const createWhere = (
         )
     }
 
-    return [whereInput, whereAgg] as const
+    return whereAgg
+}
+
+// creates both the where input type for arg and the $match aggregation for mingo
+export const createWhere = (name: string, where: WhereInitializer) => {
+    // create the where input to be passed into t.arg
+    const recursiveWhereInput = builder.inputRef(name).implement({
+        fields: (t) => {
+            // create the non recursive fields
+            const baseFields: InputFieldMap = {}
+            for (const [key, value] of Object.entries(where)) {
+                baseFields[key] = t.field({ type: value, required: false })
+            }
+
+            return {
+                ...baseFields,
+                // add recursive fields
+                _and: t.field({ type: [recursiveWhereInput], required: false }),
+                _not: t.field({ type: [recursiveWhereInput], required: false }),
+                _or: t.field({ type: [recursiveWhereInput], required: false }),
+            }
+        },
+    })
+
+    const whereAgg = _createWhereAggreation(where)
+
+    return [recursiveWhereInput, whereAgg] as const
 }
