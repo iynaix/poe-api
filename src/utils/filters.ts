@@ -21,17 +21,6 @@ export const StringFilter = builder.inputType("StringFilter", {
     }),
 })
 
-export const NumberFilter = builder.inputType("NumberFilter", {
-    fields: (t) => ({
-        _eq: t.float({ required: false }),
-        _ne: t.float({ required: false }),
-        _lt: t.float({ required: false }),
-        _lte: t.float({ required: false }),
-        _gt: t.float({ required: false }),
-        _gte: t.float({ required: false }),
-    }),
-})
-
 const _stringOperator = ([op, val]: [string, string | string[]]) => {
     switch (op) {
         case "_eq":
@@ -75,8 +64,47 @@ const filterString = (name: string, val: Record<string, string | string[]>) => {
     }
 }
 
+export const NumberFilter = builder.inputType("NumberFilter", {
+    fields: (t) => ({
+        _eq: t.float({ required: false }),
+        _ne: t.float({ required: false }),
+        _lt: t.float({ required: false }),
+        _lte: t.float({ required: false }),
+        _gt: t.float({ required: false }),
+        _gte: t.float({ required: false }),
+    }),
+})
+
 const filterNumber = (fieldName: string, fieldValue: Record<string, number>) => {
     return { [fieldName]: mapKeys(fieldValue, (_, k) => k.replace("_", "$")) }
+}
+
+export const ModifierFilter = builder.inputType("ModifierFilter", {
+    fields: (t) => ({
+        _eq: t.string({ required: false }),
+        _ieq: t.string({ required: false }),
+        _ne: t.string({ required: false }),
+        _ine: t.string({ required: false }),
+        _contains: t.string({ required: false }),
+        _icontains: t.string({ required: false }),
+        _startswith: t.string({ required: false }),
+        _istartswith: t.string({ required: false }),
+        _endswith: t.string({ required: false }),
+        _iendswith: t.string({ required: false }),
+        _regex: t.string({ required: false }),
+        _iregex: t.string({ required: false }),
+        _in: t.stringList({ required: false }),
+        _nin: t.stringList({ required: false }),
+    }),
+})
+
+const filterModifier = (name: string, val: Record<string, string | string[]>) => {
+    const origMongoParams = filterString(name, val)
+    return {
+        ...origMongoParams,
+        // append .text to the end of the field name for filterString
+        $and: origMongoParams["$and"].map((strOp) => mapKeys(strOp, (_, k) => `${k}.text`)),
+    }
 }
 
 // creates both the where input type for arg and the $match aggregation for mingo
@@ -115,6 +143,13 @@ export const createWhere = (
 
                 if (where[filterName] === NumberFilter) {
                     return filterNumber(filterName, filterValue as Record<string, number>)
+                }
+
+                if (where[filterName] === ModifierFilter) {
+                    return filterModifier(
+                        filterName,
+                        filterValue as Record<string, string | string[]>
+                    )
                 }
             })
         )

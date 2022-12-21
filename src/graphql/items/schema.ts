@@ -2,7 +2,7 @@ import { Aggregator } from "mingo"
 
 import { fetchItems } from "./fetcher"
 import { builder, LeagueEnum } from "../builder"
-import { StringFilter, NumberFilter, createWhere } from "../../utils/filters"
+import { StringFilter, NumberFilter, ModifierFilter, createWhere } from "../../utils/filters"
 import { createOrderBy } from "../../utils/orderby"
 
 builder.objectType("ItemModifier", {
@@ -48,7 +48,9 @@ const [whereInput, whereAgg] = createWhere("ItemWhereInput", {
     itemType: StringFilter,
     links: NumberFilter,
     variant: StringFilter,
-    // TODO: implicit and explicit modifiers
+    // modifer filters
+    implicitModifiers: ModifierFilter,
+    explicitModifiers: ModifierFilter,
     // TODO: endpoint?
     // TODO: low confidence filter?
 })
@@ -76,7 +78,7 @@ builder.queryFields((t) => ({
             const $match = whereAgg(args.where)
             const $sort = orderByAgg(args.orderBy)
 
-            // console.log("$match", $match)
+            console.log("$match", $match)
             const agg = new Aggregator([{ $match }, { $sort }])
 
             const items = await fetchItems(args.league || "tmpstandard")
