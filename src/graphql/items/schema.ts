@@ -4,7 +4,8 @@ import { fetchItems } from "./fetcher"
 import { builder, ItemEndpoint, League } from "../builder"
 import {
     StringFilter,
-    NumberFilter,
+    IntFilter,
+    FloatFilter,
     ModifierFilter,
     createWhere,
     EnumFilter,
@@ -50,12 +51,12 @@ builder.objectType("Item", {
 
 const [whereInput, whereAgg] = createWhere("ItemWhereInput", {
     name: StringFilter,
-    chaosValue: NumberFilter,
-    divineValue: NumberFilter,
-    levelRequired: NumberFilter,
+    chaosValue: FloatFilter,
+    divineValue: FloatFilter,
+    levelRequired: IntFilter,
     baseType: StringFilter,
     itemType: StringFilter,
-    links: NumberFilter,
+    links: IntFilter,
     variant: StringFilter,
     endpoint: EnumFilter("ItemEndpoint", ItemEndpoint),
     implicitModifiers: ModifierFilter,

@@ -2,7 +2,7 @@ import { Aggregator } from "mingo"
 
 import { fetchCurrencies, fetchCurrencyEndpoint } from "./fetcher"
 import { builder, League, CurrencyEndpoint } from "../builder"
-import { StringFilter, NumberFilter, createWhere, EnumFilter } from "../../utils/filters"
+import { StringFilter, FloatFilter, createWhere, EnumFilter } from "../../utils/filters"
 import { createOrderBy } from "../../utils/orderby"
 
 builder.objectType("Currency", {
@@ -18,8 +18,8 @@ builder.objectType("Currency", {
 
 const [whereInput, whereAgg] = createWhere("CurrencyWhereInput", {
     name: StringFilter,
-    chaosValue: NumberFilter,
-    divineValue: NumberFilter,
+    chaosValue: FloatFilter,
+    divineValue: FloatFilter,
     endpoint: EnumFilter("CurrencyEndpoint", CurrencyEndpoint),
 })
 

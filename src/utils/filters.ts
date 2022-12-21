@@ -64,7 +64,18 @@ const filterString = (name: string, val: Record<string, string | string[]>) => {
     }
 }
 
-export const NumberFilter = builder.inputType("NumberFilter", {
+export const IntFilter = builder.inputType("IntFilter", {
+    fields: (t) => ({
+        _eq: t.int({ required: false }),
+        _ne: t.int({ required: false }),
+        _lt: t.int({ required: false }),
+        _lte: t.int({ required: false }),
+        _gt: t.int({ required: false }),
+        _gte: t.int({ required: false }),
+    }),
+})
+
+export const FloatFilter = builder.inputType("FloatFilter", {
     fields: (t) => ({
         _eq: t.float({ required: false }),
         _ne: t.float({ required: false }),
@@ -120,7 +131,10 @@ const filterModifier = (name: string, val: Record<string, string | string[]>) =>
 // creates both the where input type for arg and the $match aggregation for mingo
 export const createWhere = (
     name: string,
-    where: Record<string, typeof StringFilter | typeof NumberFilter | ReturnType<typeof EnumFilter>>
+    where: Record<
+        string,
+        typeof StringFilter | typeof IntFilter | typeof FloatFilter | ReturnType<typeof EnumFilter>
+    >
 ) => {
     // create the where input to be passed into t.arg
     const whereInput = builder.inputType(name, {
@@ -144,26 +158,28 @@ export const createWhere = (
             ...Object.entries(whereArg).map(([filterName, filterValue]) => {
                 if (!filterValue) return
 
-                if (where[filterName] === StringFilter) {
+                const filterType = where[filterName].name
+
+                if (filterType === "StringFilter") {
                     return filterString(
                         filterName,
                         filterValue as Record<string, string | string[]>
                     )
                 }
 
-                if (where[filterName] === NumberFilter) {
+                if (filterType === "IntFilter" || filterType === "FloatFilter") {
                     return filterNumber(filterName, filterValue as Record<string, number>)
                 }
 
-                if (where[filterName] === ModifierFilter) {
+                if (filterType === "ModifierFilter") {
                     return filterModifier(
                         filterName,
                         filterValue as Record<string, string | string[]>
                     )
                 }
 
-                // enum filter special case
-                if (where[filterName].name.endsWith("EnumFilter")) {
+                // enum filter is a function that returns an input type
+                if (filterType.endsWith("EnumFilter")) {
                     // handle enum filter as string filter
                     return filterString(
                         filterName,
@@ -171,7 +187,7 @@ export const createWhere = (
                     )
                 }
 
-                // throw Error(`Invalid filter for ${filterName} of type ${where[filterName]}]}`)
+                throw Error(`Invalid filter for ${filterName} of type ${where[filterName]}]}`)
             })
         )
     }

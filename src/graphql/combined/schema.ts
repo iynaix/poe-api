@@ -3,7 +3,7 @@ import { Aggregator } from "mingo"
 import { builder, League } from "../builder"
 import { fetchCurrencies } from "../currencies/fetcher"
 import { fetchItems } from "../items/fetcher"
-import { StringFilter, NumberFilter, createWhere } from "../../utils/filters"
+import { StringFilter, FloatFilter, createWhere } from "../../utils/filters"
 import { createOrderBy } from "../../utils/orderby"
 import { Combined } from "./types"
 
@@ -20,8 +20,8 @@ builder.objectType("Combined", {
 
 const [whereInput, whereAgg] = createWhere("CombinedWhereInput", {
     name: StringFilter,
-    chaosValue: NumberFilter,
-    divineValue: NumberFilter,
+    chaosValue: FloatFilter,
+    divineValue: FloatFilter,
 })
 
 const [orderBy, orderByAgg] = createOrderBy("CombinedOrderBy", [
