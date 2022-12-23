@@ -133,19 +133,26 @@ type WhereInitializer = Record<
     typeof StringFilter | typeof IntFilter | typeof FloatFilter | ReturnType<typeof EnumFilter>
 >
 
-const _createWhereAggreation = (where: WhereInitializer) => {
-    // create the $match aggregation for mingo
-    const whereAgg = (
-        whereArg: InputShapeFromFields<InputFieldMap<"InputObject">> | null | undefined
-    ) => {
-        if (!whereArg) return {}
+type WhereArgumentBasic = InputShapeFromFields<InputFieldMap<"InputObject">> | null | undefined
+type WhereArgument = WhereArgumentBasic & {
+    _and?: WhereArgument[]
+    _or?: WhereArgument[]
+    _not?: WhereArgument[]
+}
 
-        return Object.assign(
+const _createWhereAggreation = (whereDefintion: WhereInitializer) => {
+    // create the $match aggregation for mingo
+    const whereAggregation = (whereArgument: WhereArgument | undefined | null) => {
+        if (!whereArgument) return {}
+
+        const { _and, _or, _not, ...basicWhereArg } = whereArgument
+
+        const basicFilter = Object.assign(
             {},
-            ...Object.entries(whereArg).map(([filterName, filterValue]) => {
+            ...Object.entries(basicWhereArg).map(([filterName, filterValue]) => {
                 if (!filterValue) return
 
-                const filterType = where[filterName].name
+                const filterType = whereDefintion[filterName].name
 
                 if (filterType === "StringFilter") {
                     return filterString(
@@ -174,12 +181,35 @@ const _createWhereAggreation = (where: WhereInitializer) => {
                     )
                 }
 
-                throw Error(`Invalid filter for ${filterName} of type ${where[filterName]}]}`)
-            })
+                throw Error(
+                    `Invalid filter for ${filterName} of type ${whereDefintion[filterName]}]}`
+                )
+            }),
+            // handle the recursive portions
+            _createWhereAggreationRecursive(whereArgument, whereAggregation)
         )
+
+        return basicFilter
     }
 
-    return whereAgg
+    return whereAggregation
+}
+
+const _createWhereAggreationRecursive = (
+    whereArg: WhereArgument,
+    whereAggregation: (whereArg: WhereArgument) => any
+) => {
+    const { _and, _or, _not } = whereArg
+
+    const $and = _and ? { $and: _and?.map((andArg) => whereAggregation(andArg)) } : undefined
+    const $or = _or ? { $or: _or?.map((orArg) => whereAggregation(orArg)) } : undefined
+    const $not = _not ? { $not: _not?.map((notArg) => whereAggregation(notArg)) } : undefined
+
+    return {
+        ...$and,
+        ...$or,
+        ...$not,
+    }
 }
 
 // creates both the where input type for arg and the $match aggregation for mingo
