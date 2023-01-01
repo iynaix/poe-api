@@ -1,8 +1,10 @@
 import pThrottle from "p-throttle"
-import { LeagueName, fetchNinja, cachedLeagueData } from "../../utils"
-import { ItemEndpointEnum, ITEM_ENDPOINTS } from "../../utils/constants"
-import { NinjaItems } from "./ninja_types"
-import { Item } from "./types"
+import type { LeagueName } from "../../utils"
+import { fetchNinja, cachedLeagueData } from "../../utils"
+import type { ItemEndpointEnum } from "../../utils/constants"
+import { ITEM_ENDPOINTS } from "../../utils/constants"
+import type { NinjaItems } from "./ninja_types"
+import type { Item } from "./types"
 
 export const fetchItemEndpoint = async (endpoint: ItemEndpointEnum, league: LeagueName) => {
     const items = await fetchNinja<NinjaItems>(endpoint, league)

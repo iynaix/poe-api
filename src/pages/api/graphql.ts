@@ -2,7 +2,7 @@
 import { createYoga } from "graphql-yoga"
 import type { NextApiRequest, NextApiResponse } from "next"
 
-import { schema } from "../../src/graphql/schema"
+import { schema } from "../../graphql/schema"
 
 export const config = {
     api: {

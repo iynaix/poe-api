@@ -1,5 +1,5 @@
-import { EnumParam, EnumRef, InputFieldMap, InputShapeFromFields } from "@pothos/core"
-import { builder, ItemEndpoint } from "../graphql/builder"
+import type { EnumParam, EnumRef, InputFieldMap, InputShapeFromFields } from "@pothos/core"
+import { builder } from "../graphql/builder"
 import { mapKeys } from "lodash"
 
 export const StringFilter = builder.inputType("StringFilter", {
@@ -145,6 +145,7 @@ const _createWhereAggreation = (whereDefintion: WhereInitializer) => {
     const whereAggregation = (whereArgument: WhereArgument | undefined | null) => {
         if (!whereArgument) return {}
 
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { _and, _or, _not, ...basicWhereArg } = whereArgument
 
         const basicFilter = Object.assign(
@@ -152,7 +153,11 @@ const _createWhereAggreation = (whereDefintion: WhereInitializer) => {
             ...Object.entries(basicWhereArg).map(([filterName, filterValue]) => {
                 if (!filterValue) return
 
-                const filterType = whereDefintion[filterName].name
+                const filterType = whereDefintion[filterName]?.name
+
+                if (!filterType) {
+                    throw Error(`Invalid filter for ${filterName}`)
+                }
 
                 if (filterType === "StringFilter") {
                     return filterString(

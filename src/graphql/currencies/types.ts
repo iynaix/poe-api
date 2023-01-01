@@ -1,5 +1,5 @@
-import { CurrencyEndpointEnum } from "../../utils/constants"
-import { Line, CurrencyDetail } from "./ninja_types"
+import type { CurrencyEndpointEnum } from "../../utils/constants"
+import type { Line, CurrencyDetail } from "./ninja_types"
 
 export type LineWithChaos = Omit<Line, "chaosEquivalent"> & {
     chaosValue: number

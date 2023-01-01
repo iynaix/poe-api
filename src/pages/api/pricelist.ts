@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { fetchCurrencies } from "../../src/graphql/currencies/fetcher"
-import { fetchItems } from "../../src/graphql/items/fetcher"
-import { Currency } from "../../src/graphql/currencies/types"
-import { Item } from "../../src/graphql/items/types"
+import { fetchCurrencies } from "../../graphql/currencies/fetcher"
+import { fetchItems } from "../../graphql/items/fetcher"
+import type { Currency } from "../../graphql/currencies/types"
+import type { Item } from "../../graphql/items/types"
 
 // TODO: customizable league?
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -43,7 +43,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         itemIds.map((itemId) => {
             const item = matchesByItemId[itemId]
 
-            return { Name: item.name, Chaos: item.chaosValue, Divine: item.divineValue }
+            return item
+                ? { Name: item.name, Chaos: item.chaosValue, Divine: item.divineValue }
+                : { Name: itemId, Chaos: "error", Divine: "errro" }
         })
     )
 }

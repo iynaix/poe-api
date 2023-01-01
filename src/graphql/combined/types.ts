@@ -1,4 +1,4 @@
-import { CurrencyEndpointEnum, ItemEndpointEnum } from "../../utils/constants"
+import type { CurrencyEndpointEnum, ItemEndpointEnum } from "../../utils/constants"
 
 export type Combined = {
     id: string

@@ -5,7 +5,7 @@ import { fetchCurrencies } from "../currencies/fetcher"
 import { fetchItems } from "../items/fetcher"
 import { StringFilter, FloatFilter, createWhere } from "../../utils/filters"
 import { createOrderBy } from "../../utils/orderby"
-import { Combined } from "./types"
+import type { Combined } from "./types"
 
 builder.objectType("Combined", {
     fields: (t) => ({

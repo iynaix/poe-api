@@ -1,12 +1,6 @@
 import fs from "fs"
-import {
-    NINJA_API_URL,
-    CURRENCY_ENDPOINTS,
-    LEAGUES,
-    CurrencyEndpointEnum,
-    ItemEndpointEnum,
-    CACHE_THRESHOLD,
-} from "./constants"
+import type { CurrencyEndpointEnum, ItemEndpointEnum } from "./constants"
+import { NINJA_API_URL, CURRENCY_ENDPOINTS, LEAGUES, CACHE_THRESHOLD } from "./constants"
 
 export type LeagueName = keyof typeof LEAGUES
 
@@ -17,7 +11,7 @@ const ninjaAPIUrl = (endpoint: AllEndpoints, league: LeagueName = "tmpstandard")
     const now = new Date()
 
     url.pathname = `/api/data/${
-        // @ts-expect-error
+        // @ts-expect-error ignore includes error
         CURRENCY_ENDPOINTS.includes(endpoint) ? "currencyoverview" : "itemoverview"
     }`
     url.search = new URLSearchParams({

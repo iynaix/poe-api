@@ -1,8 +1,8 @@
 import SchemaBuilder from "@pothos/core"
-import { Currency } from "./currencies/types"
-import { Item } from "./items/types"
-import { ExplicitModifier } from "./items/ninja_types"
-import { Combined } from "./combined/types"
+import type { Currency } from "./currencies/types"
+import type { Item } from "./items/types"
+import type { ExplicitModifier } from "./items/ninja_types"
+import type { Combined } from "./combined/types"
 import { CURRENCY_ENDPOINTS, ITEM_ENDPOINTS } from "../utils/constants"
 
 export const builder = new SchemaBuilder<{

@@ -1,8 +1,10 @@
 import pThrottle from "p-throttle"
-import { truncateFloat, LeagueName, fetchNinja, cachedLeagueData } from "../../utils"
-import { CURRENCY_ENDPOINTS, CurrencyEndpointEnum } from "../../utils/constants"
-import { NinjaCurrencies } from "./ninja_types"
-import { Currency, LineWithChaos } from "./types"
+import type { LeagueName } from "../../utils"
+import { truncateFloat, fetchNinja, cachedLeagueData } from "../../utils"
+import type { CurrencyEndpointEnum } from "../../utils/constants"
+import { CURRENCY_ENDPOINTS } from "../../utils/constants"
+import type { NinjaCurrencies } from "./ninja_types"
+import type { Currency, LineWithChaos } from "./types"
 
 let DIVINE_VALUE = 0
 
@@ -43,6 +45,7 @@ export const fetchCurrencies = async (league: LeagueName = "tmpstandard") =>
             CURRENCY_ENDPOINTS.map(async (endpoint) => {
                 const fetchedCurrencies = await throttledFetch(endpoint, league)
 
+                // @ts-expect-error fixed in the following map
                 CURRENCIES = CURRENCIES.concat(fetchedCurrencies)
             })
         )
