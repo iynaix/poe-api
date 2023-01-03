@@ -13,6 +13,15 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+  // for poe images
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "web.poecdn.com",
+      }
+    ],
+  },
   redirects: async () => {
     return [
       {
