@@ -1,5 +1,6 @@
+import useMap from "react-use/esm/useMap"
+
 import { trpc } from "../utils/trpc"
-import { useState } from "react"
 import type { Asset } from "../components/asset"
 import AssetRow from "../components/asset"
 import SearchById from "../components/search_by_id"
@@ -8,25 +9,7 @@ const CHAOS_ICON =
     "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollRare.png?scale=1&w=1&h=1"
 
 const useAssets = (initialAssets: Record<string, Asset>) => {
-    const [assets, setAssets] = useState<Record<string, Asset>>(initialAssets)
-
-    const updateAssetCount = (id: string, count: number) => {
-        setAssets((prevAssets) => {
-            const asset = prevAssets[id]
-
-            if (!asset) {
-                throw new Error(`Asset ${id} not found`)
-            }
-
-            return {
-                ...prevAssets,
-                [id]: {
-                    ...asset,
-                    count,
-                },
-            }
-        })
-    }
+    const [assets, operations] = useMap(initialAssets)
 
     const totalChaos = Object.values(assets).reduce((acc, asset) => {
         return acc + asset.count * asset.price.chaosValue
@@ -34,7 +17,7 @@ const useAssets = (initialAssets: Record<string, Asset>) => {
 
     return {
         assets,
-        updateAsset: updateAssetCount,
+        ...operations,
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         totalDivines: totalChaos / assets["Divine Orb"]!.price.divineValue,
         totalChaos,
@@ -46,7 +29,13 @@ type ProgressProps = {
 }
 
 const Progress = ({ assets: initialAssets }: ProgressProps) => {
-    const { assets, updateAsset, totalDivines, totalChaos } = useAssets(initialAssets)
+    const {
+        assets,
+        set: setAsset,
+        remove: removeAsset,
+        totalDivines,
+        totalChaos,
+    } = useAssets(initialAssets)
 
     return (
         <>
@@ -54,16 +43,25 @@ const Progress = ({ assets: initialAssets }: ProgressProps) => {
 
             <div className="grid grid-cols-1 gap-6">
                 {Object.entries(assets).map(([key, asset]) => {
-                    return <AssetRow key={key} asset={asset} updateAsset={updateAsset} />
+                    return (
+                        <AssetRow
+                            key={key}
+                            asset={asset}
+                            updateAsset={setAsset}
+                            removeAsset={removeAsset}
+                        />
+                    )
                 })}
 
                 <span className="">Total Divines: {totalDivines}</span>
                 <span className="">Total Chaos: {totalChaos}</span>
             </div>
 
-            <SearchById />
-
-            {/* <pre>{JSON.stringify(assets, null, 2)}</pre> */}
+            <SearchById
+                onClick={(price) => {
+                    setAsset(price.id, { price, count: 1 })
+                }}
+            />
         </>
     )
 }

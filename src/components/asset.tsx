@@ -10,33 +10,49 @@ export type Asset = {
 
 type AssetProps = {
     asset: Asset
-    label?: string
-    updateAsset: (id: string, count: number) => void
+    updateAsset: (id: string, asset: Asset) => void
+    removeAsset: (id: string) => void
 }
 
-const Asset = ({ label, asset, updateAsset }: AssetProps) => {
-    const name = label ?? asset.price.name
+const Asset = ({ asset, updateAsset, removeAsset }: AssetProps) => {
+    const showDelete = !(asset.price.name === "Divine Orb" || asset.price.name === "Chaos Orb")
 
     return (
         <label htmlFor={asset.price.name} className="block">
             {asset.price.icon && (
                 <Image
                     src={asset.price.icon}
-                    alt={name}
+                    alt={asset.price.name}
                     className="inline-block h-6 w-6"
                     width={POE_ICON_SIZE}
                     height={POE_ICON_SIZE}
                 />
             )}
-            <span className="text-gray-50">{name}</span>
+            <span className="text-gray-50">{asset.price.name}</span>
             <input
                 className="bg-gray-800 text-gray-50"
                 type="number"
                 name={asset.price.name}
                 value={asset.count}
                 min={0}
-                onChange={(ev) => updateAsset(asset.price.id, Number(ev.target.value))}
+                onChange={(ev) =>
+                    updateAsset(asset.price.id, {
+                        ...asset,
+                        count: Number(ev.target.value),
+                    })
+                }
             />
+
+            {showDelete && (
+                <span
+                    className="ml-2"
+                    onClick={() => {
+                        removeAsset(asset.price.id)
+                    }}
+                >
+                    x
+                </span>
+            )}
         </label>
     )
 }

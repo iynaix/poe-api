@@ -15,9 +15,9 @@ export const priceRouter = router({
     byName: publicProcedure
         .input(z.object({ query: z.string() }))
         .query(async ({ input: { query } }): Promise<Price[]> => {
-            if (!query) return []
+            if (!query || query.length < 3) return []
 
-            const re = new RegExp(query, "i")
+            const re = new RegExp(query.replace(" ", ".*"), "i")
             const prices = await fetchCombined("tmpstandard")
 
             return prices.filter((price) => re.test(price.name))
