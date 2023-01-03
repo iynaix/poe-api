@@ -1,7 +1,5 @@
-import Image from "next/image"
+import PoeIcon from "./poe_icon"
 import type { Price } from "../server/trpc/router/prices"
-
-const POE_ICON_SIZE = 47
 
 export type Asset = {
     price: Price
@@ -14,18 +12,16 @@ type AssetProps = {
     removeAsset: (id: string) => void
 }
 
-const Asset = ({ asset, updateAsset, removeAsset }: AssetProps) => {
+const AssetRow = ({ asset, updateAsset, removeAsset }: AssetProps) => {
     const showDelete = !(asset.price.name === "Divine Orb" || asset.price.name === "Chaos Orb")
 
     return (
         <label htmlFor={asset.price.name} className="block">
             {asset.price.icon && (
-                <Image
-                    src={asset.price.icon}
+                <PoeIcon
+                    icon={asset.price.icon}
                     alt={asset.price.name}
-                    className="inline-block h-6 w-6"
-                    width={POE_ICON_SIZE}
-                    height={POE_ICON_SIZE}
+                    className="h-[36px] w-[36px]"
                 />
             )}
             <span className="text-gray-50">{asset.price.name}</span>
@@ -57,4 +53,4 @@ const Asset = ({ asset, updateAsset, removeAsset }: AssetProps) => {
     )
 }
 
-export default Asset
+export default AssetRow

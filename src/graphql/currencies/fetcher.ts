@@ -1,6 +1,7 @@
 import pThrottle from "p-throttle"
 import type { LeagueName } from "../../utils"
-import { truncateFloat, fetchNinja, cachedLeagueData } from "../../utils"
+import { truncateFloat, fetchNinja } from "../../utils"
+import { cachedLeagueData } from "../../utils/cache"
 import type { CurrencyEndpointEnum } from "../../utils/constants"
 import { CURRENCY_ENDPOINTS } from "../../utils/constants"
 import type { NinjaCurrencies } from "./ninja_types"
@@ -52,6 +53,6 @@ export const fetchCurrencies = async (league: LeagueName = "tmpstandard") =>
 
         return CURRENCIES.map((item) => ({
             ...item,
-            divineValue: truncateFloat(item.chaosValue / DIVINE_VALUE, 5),
+            divineValue: truncateFloat(item.chaosValue / DIVINE_VALUE, 3),
         }))
     })

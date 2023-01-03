@@ -1,6 +1,5 @@
-import fs from "fs"
 import type { CurrencyEndpointEnum, ItemEndpointEnum } from "./constants"
-import { NINJA_API_URL, CURRENCY_ENDPOINTS, LEAGUES, CACHE_THRESHOLD } from "./constants"
+import { NINJA_API_URL, CURRENCY_ENDPOINTS, LEAGUES } from "./constants"
 
 export type LeagueName = keyof typeof LEAGUES
 
@@ -33,46 +32,3 @@ export const truncateFloat = (n: number, places: number) => {
 
 // quotient of n / divisor
 export const quot = (n: number, divisor: number) => n - (n % divisor)
-
-// unix timestamp in seconds
-export const timestamp = (dt: Date = new Date()) => Math.floor(dt.getTime() / 1000)
-
-export const cachedLeagueData = async <TData>(
-    cacheFilename: string,
-    league: LeagueName,
-    dataFn: () => Promise<TData>
-) => {
-    const fetchTime = timestamp()
-
-    // use cache if it is available
-    if (fs.existsSync(cacheFilename)) {
-        const cache = JSON.parse(fs.readFileSync(cacheFilename).toString()) as Record<
-            LeagueName,
-            { fetchTime: number; data: TData }
-        >
-        if (league in cache) {
-            const { fetchTime: cacheFetchTime, data: cachedData } = cache[league]
-
-            // use cache if below threshold
-            if (cacheFetchTime && fetchTime - cacheFetchTime < CACHE_THRESHOLD) {
-                return cachedData
-            }
-        }
-    }
-
-    // cache not available or outdated, fetch data
-    const newData = await dataFn()
-
-    // update cache
-    fs.writeFileSync(
-        cacheFilename,
-        JSON.stringify({
-            [league]: {
-                fetchTime,
-                data: newData,
-            },
-        })
-    )
-
-    return newData
-}

@@ -1,6 +1,7 @@
 import pThrottle from "p-throttle"
 import type { LeagueName } from "../../utils"
-import { fetchNinja, cachedLeagueData } from "../../utils"
+import { fetchNinja } from "../../utils"
+import { cachedLeagueData } from "../../utils/cache"
 import type { ItemEndpointEnum } from "../../utils/constants"
 import { ITEM_ENDPOINTS } from "../../utils/constants"
 import type { NinjaItems } from "./ninja_types"

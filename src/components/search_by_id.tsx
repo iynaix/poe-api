@@ -1,9 +1,7 @@
 import React, { useState } from "react"
-import Image from "next/image"
+import PoeIcon from "./poe_icon"
 import type { Price } from "../server/trpc/router/prices"
 import { trpc } from "../utils/trpc"
-
-const POE_ICON_SIZE = 47
 
 type SearchResultsProps = {
     prices: Price[]
@@ -16,23 +14,22 @@ const SearchResults = ({ prices, onClick }: SearchResultsProps) => {
             {prices.map((price) => {
                 return (
                     <div
+                        className="my-2 grid grid-cols-5 items-center"
                         key={price.id}
                         onClick={() => {
                             onClick(price)
                         }}
                     >
                         {price.icon && (
-                            <Image
-                                src={price.icon}
+                            <PoeIcon
+                                icon={price.icon}
                                 alt={price.name}
-                                className="inline-block h-6 w-6"
-                                width={POE_ICON_SIZE}
-                                height={POE_ICON_SIZE}
+                                className="h-[30px] w-[30px]"
                             />
                         )}
-                        <span className="px-2">{price.name}</span>
-                        <span className="px-2">{price.id}</span>
-                        <span className="px-2">{price.divineValue}</span>
+                        <span className="">{price.name}</span>
+                        <span className="">{price.id}</span>
+                        <span className="">{price.divineValue}</span>
                         <span>{price.chaosValue}</span>
                     </div>
                 )
@@ -42,17 +39,18 @@ const SearchResults = ({ prices, onClick }: SearchResultsProps) => {
 }
 
 type SearchByIdProps = {
+    label: string
     onClick: (price: Price) => void
 }
 
-const SearchById = ({ onClick }: SearchByIdProps) => {
+const SearchById = ({ label, onClick }: SearchByIdProps) => {
     const [query, setQuery] = useState<string>("")
 
     const { data, isLoading } = trpc.prices.byName.useQuery({ query })
 
     return (
         <>
-            <span>Add Asset</span>
+            <span>{label}</span>
             <input
                 className="bg-gray-800 text-gray-50"
                 name="Search"
