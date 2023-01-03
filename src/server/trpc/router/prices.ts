@@ -1,57 +1,39 @@
 import { z } from "zod"
 
 import { router, publicProcedure } from "../trpc"
-import { fetchCurrencies } from "../../../graphql/currencies/fetcher"
-import { fetchItems } from "../../../graphql/items/fetcher"
+import { fetchCombined } from "../../../graphql/combined/schema"
 
 export type Price = {
     id: string
     name: string
-    icon: string | undefined
+    icon?: string
     divineValue: number
     chaosValue: number
 }
 
 export const priceRouter = router({
-    prices: publicProcedure
-        .input(z.object({ text: z.string().nullish() }).nullish())
-        .query(({ input }) => {
-            return {
-                greeting: `Hello ${input?.text ?? "world"}`,
-            }
+    byName: publicProcedure
+        .input(z.object({ query: z.string() }))
+        .query(async ({ input: { query } }): Promise<Price[]> => {
+            if (!query) return []
+
+            const re = new RegExp(query, "i")
+            const prices = await fetchCombined("tmpstandard")
+
+            return prices.filter((price) => re.test(price.name))
         }),
     list: publicProcedure
         .input(z.object({ ids: z.array(z.string()) }))
-        .query(async ({ input: { ids } }) => {
+        .query(async ({ input: { ids } }): Promise<Record<string, Price>> => {
             // each id will only produce a single result
             const matchesByItemId: Record<string, Price> = {}
 
-            const currencies = await fetchCurrencies("tmpstandard")
-            for (const currency of currencies) {
-                const match = ids.find((itemId) => itemId === currency.currencyTypeName)
-                if (match) {
-                    matchesByItemId[match] = {
-                        id: currency.currencyTypeName,
-                        name: currency.currencyTypeName,
-                        icon: currency.icon,
-                        chaosValue: currency.chaosValue,
-                        divineValue: currency.divineValue,
-                    }
-                }
-            }
-
-            const items = await fetchItems("tmpstandard")
-
-            for (const item of items) {
-                const match = ids.find((itemId) => itemId === item.detailsId)
-                if (match) {
-                    matchesByItemId[match] = {
-                        id: item.detailsId,
-                        name: item.name,
-                        icon: item.icon,
-                        chaosValue: item.chaosValue,
-                        divineValue: item.divineValue,
-                    }
+            const prices = await fetchCombined("tmpstandard")
+            for (const price of prices) {
+                // must be exact match
+                const matchedId = ids.find((id) => id === price.id)
+                if (matchedId) {
+                    matchesByItemId[matchedId] = price
                 }
             }
 

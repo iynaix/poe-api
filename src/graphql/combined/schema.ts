@@ -5,6 +5,7 @@ import { fetchCurrencies } from "../currencies/fetcher"
 import { fetchItems } from "../items/fetcher"
 import { StringFilter, FloatFilter, createWhere } from "../../utils/filters"
 import { createOrderBy } from "../../utils/orderby"
+import type { LeagueName } from "../../utils"
 import type { Combined } from "./types"
 
 builder.objectType("Combined", {
@@ -30,6 +31,32 @@ const [orderBy, orderByAgg] = createOrderBy("CombinedOrderBy", [
     "divineValue",
 ])
 
+export const fetchCombined = async (league: LeagueName = "tmpstandard") => {
+    const currencies = await fetchCurrencies(league)
+    const items = await fetchItems(league)
+
+    return [
+        // overwrite id with currencyTypeName
+        ...currencies.map(({ currencyTypeName, ...currency }) => ({
+            id: currencyTypeName,
+            name: currency.name,
+            icon: currency.icon,
+            chaosValue: currency.chaosValue,
+            divineValue: currency.divineValue,
+            endpoint: currency.endpoint,
+        })),
+        // overwrite id with detailsId
+        ...items.map(({ detailsId, ...item }) => ({
+            id: detailsId,
+            name: item.name,
+            icon: item.icon,
+            chaosValue: item.chaosValue,
+            divineValue: item.divineValue,
+            endpoint: item.endpoint,
+        })),
+    ] as Combined[]
+}
+
 builder.queryFields((t) => ({
     combined: t.field({
         type: ["Combined"],
@@ -39,21 +66,7 @@ builder.queryFields((t) => ({
             orderBy: t.arg({ type: orderBy, required: false }),
         },
         resolve: async (_, args) => {
-            const currencies = await fetchCurrencies(args.league || "tmpstandard")
-            const items = await fetchItems(args.league || "tmpstandard")
-
-            const all: Combined[] = [
-                // overwrite id with currencyTypeName
-                ...currencies.map(({ currencyTypeName, ...currency }) => ({
-                    ...currency,
-                    id: currencyTypeName,
-                })),
-                // overwrite id with detailsId
-                ...items.map(({ detailsId, ...item }) => ({
-                    ...item,
-                    id: detailsId,
-                })),
-            ]
+            const combined = await fetchCombined(args.league || "tmpstandard")
 
             const $match = whereAgg(args.where)
             const $sort = orderByAgg(args.orderBy)
@@ -61,7 +74,7 @@ builder.queryFields((t) => ({
             // console.log("$match", $match)
             const agg = new Aggregator([{ $match }, { $sort }])
 
-            return agg.run(all) as unknown as typeof all
+            return agg.run(combined) as unknown as Combined[]
         },
     }),
 }))

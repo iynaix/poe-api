@@ -8,7 +8,6 @@ type AllEndpoints = CurrencyEndpointEnum | ItemEndpointEnum
 
 const ninjaAPIUrl = (endpoint: AllEndpoints, league: LeagueName = "tmpstandard") => {
     const url = new URL(NINJA_API_URL)
-    const now = new Date()
 
     url.pathname = `/api/data/${
         // @ts-expect-error ignore includes error
