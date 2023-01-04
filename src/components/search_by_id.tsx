@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import PoeIcon from "./poe_icon"
+import PoeIcon, { ChaosPrice, DivinePrice } from "./poe_icon"
 import type { Price } from "../server/trpc/router/prices"
 import { trpc } from "../utils/trpc"
 
@@ -20,17 +20,23 @@ const SearchResults = ({ prices, onClick }: SearchResultsProps) => {
                             onClick(price)
                         }}
                     >
-                        {price.icon && (
-                            <PoeIcon
-                                icon={price.icon}
-                                alt={price.name}
-                                className="h-[30px] w-[30px]"
-                            />
-                        )}
-                        <span className="">{price.name}</span>
-                        <span className="">{price.id}</span>
-                        <span className="">{price.divineValue}</span>
-                        <span>{price.chaosValue}</span>
+                        <div className="col-span-3 flex flex-row items-center">
+                            <div className="mx-2">
+                                {price.icon && (
+                                    <PoeIcon icon={price.icon} alt={price.name} size={30} />
+                                )}
+                            </div>
+                            <div>
+                                <p className="text-lg">{price.name}</p>
+                                <p className="text-xs opacity-40">{price.id}</p>
+                            </div>
+                        </div>
+                        <div className="ml-auto flex">
+                            <DivinePrice amount={price.divineValue} size={30} />
+                        </div>
+                        <div className="ml-auto flex">
+                            <ChaosPrice amount={price.chaosValue} size={30} />
+                        </div>
                     </div>
                 )
             })}

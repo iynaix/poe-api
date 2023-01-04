@@ -1,9 +1,10 @@
 import SearchById from "./search_by_id"
 import TargetRow from "./target_row"
 import { truncateFloat } from "../utils"
-import { useAssetStore, useTargetStore } from "../utils/progress_stores"
+import { useAssetStore, useTargetStore, usePriceStore } from "../utils/progress_stores"
 
 const TargetList = () => {
+    const { add: addPrice } = usePriceStore()
     const { totalChaos } = useAssetStore()
     const { targets, totalChaos: targetChaos, add: addTarget } = useTargetStore()
 
@@ -24,7 +25,10 @@ const TargetList = () => {
             <SearchById
                 label="Add Target"
                 onClick={(price) => {
+                    // default count to 1
                     addTarget(price.id, 1)
+                    // add to price list
+                    addPrice(price.id, price)
                 }}
             />
         </>

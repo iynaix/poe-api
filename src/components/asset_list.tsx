@@ -1,7 +1,6 @@
 import AssetRow from "./asset_row"
 import SearchById from "./search_by_id"
-import { truncateFloat } from "../utils"
-import { ChaosIcon, DivineIcon } from "./poe_icon"
+import { ChaosPrice, DivinePrice } from "./poe_icon"
 import { usePriceStore, useAssetStore } from "../utils/progress_stores"
 
 export type AssetMap = Record<string, number>
@@ -13,14 +12,8 @@ const AssetList = () => {
     return (
         <>
             <div className="flex">
-                <div className="space- flex flex-1 items-center justify-center">
-                    <span className="mr-2 text-[42px]">{truncateFloat(totalDivines(), 3)}</span>
-                    <DivineIcon className="h-[42px] w-[42px]" />
-                </div>
-                <div className="space- flex flex-1 items-center justify-center">
-                    <span className="mr-2 text-[42px]">{truncateFloat(totalChaos(), 3)}</span>
-                    <ChaosIcon className="h-[42px] w-[42px]" />
-                </div>
+                <DivinePrice amount={totalDivines()} size={42} className="flex-1 justify-center" />
+                <ChaosPrice amount={totalChaos()} size={42} className="flex-1 justify-center" />
             </div>
 
             <div className="grid grid-cols-1 gap-6">

@@ -2,7 +2,7 @@ import { trpc } from "../utils/trpc"
 import TargetList from "../components/target_list"
 import AssetList from "../components/asset_list"
 import { CHAOS_ICON } from "../components/poe_icon"
-import { usePriceStore, useAssetStore } from "../utils/progress_stores"
+import { usePriceStore, useAssetStore, useProgressStore } from "../utils/progress_stores"
 
 export default function ProgressLoader() {
     const { prices, set: setPrices, divineValue } = usePriceStore()
@@ -13,6 +13,15 @@ export default function ProgressLoader() {
             ids: ["Divine Orb", ...Object.keys(prices)],
         },
         {
+            // refetch every 10 minutes
+            refetchInterval: 1000 * 60 * 10,
+            placeholderData: () => {
+                if (Object.keys(prices).length === 0) {
+                    return undefined
+                } else {
+                    return prices
+                }
+            },
             onSuccess: (data) => {
                 setPrices({
                     ...data,
