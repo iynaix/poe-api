@@ -32,10 +32,10 @@ const SearchResults = ({ prices, onClick }: SearchResultsProps) => {
                             </div>
                         </div>
                         <div className="ml-auto flex">
-                            <DivinePrice amount={price.divineValue} size={30} />
+                            <DivinePrice amount={price.divineValue} size={18} />
                         </div>
                         <div className="ml-auto flex">
-                            <ChaosPrice amount={price.chaosValue} size={30} />
+                            <ChaosPrice amount={price.chaosValue} size={18} />
                         </div>
                     </div>
                 )

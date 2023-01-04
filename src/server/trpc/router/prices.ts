@@ -1,4 +1,5 @@
 import { z } from "zod"
+import { orderBy } from "lodash"
 
 import { router, publicProcedure } from "../trpc"
 import { fetchCombined } from "../../../graphql/combined/schema"
@@ -20,7 +21,8 @@ export const priceRouter = router({
             const re = new RegExp(query.replace(" ", ".*"), "i")
             const prices = await fetchCombined("tmpstandard")
 
-            return prices.filter((price) => re.test(price.name))
+            const filteredPrices = prices.filter((price) => re.test(price.name))
+            return orderBy(filteredPrices, (price) => price.chaosValue, "desc")
         }),
     list: publicProcedure
         .input(z.object({ ids: z.array(z.string()) }))

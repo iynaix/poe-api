@@ -14,9 +14,7 @@ const TargetRow = ({ targetId, count }: TargetRowProps) => {
 
     return (
         <label htmlFor={price.name} className="block">
-            {price.icon && (
-                <PoeIcon icon={price.icon} alt={price.name} className="h-[36px] w-[36px]" />
-            )}
+            {price.icon && <PoeIcon icon={price.icon} alt={price.name} size={36} />}
             <span className="text-gray-50">{price.name}</span>
             <input
                 className="bg-gray-800 text-gray-50"
