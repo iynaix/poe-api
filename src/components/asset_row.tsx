@@ -1,49 +1,39 @@
 import PoeIcon from "./poe_icon"
-import type { Price } from "../server/trpc/router/prices"
+import { usePriceStore, useAssetStore } from "../utils/progress_stores"
 
-export type Asset = {
-    price: Price
+type AssetRowProps = {
+    assetId: string
     count: number
 }
 
-type AssetProps = {
-    asset: Asset
-    updateAsset: (id: string, asset: Asset) => void
-    removeAsset: (id: string) => void
-}
+const AssetRow = ({ assetId, count }: AssetRowProps) => {
+    const { getById, remove: removePrice } = usePriceStore()
+    const { add: addAsset, remove: removeAsset } = useAssetStore()
+    const showDelete = !(assetId === "Divine Orb" || assetId === "Chaos Orb")
 
-const AssetRow = ({ asset, updateAsset, removeAsset }: AssetProps) => {
-    const showDelete = !(asset.price.name === "Divine Orb" || asset.price.name === "Chaos Orb")
+    const price = getById(assetId)
 
     return (
-        <label htmlFor={asset.price.name} className="block">
-            {asset.price.icon && (
-                <PoeIcon
-                    icon={asset.price.icon}
-                    alt={asset.price.name}
-                    className="h-[36px] w-[36px]"
-                />
+        <label htmlFor={price.name} className="block">
+            {price.icon && (
+                <PoeIcon icon={price.icon} alt={price.name} className="h-[36px] w-[36px]" />
             )}
-            <span className="text-gray-50">{asset.price.name}</span>
+            <span className="text-gray-50">{price.name}</span>
             <input
                 className="bg-gray-800 text-gray-50"
                 type="number"
-                name={asset.price.name}
-                value={asset.count}
+                name={price.name}
+                value={count}
                 min={0}
-                onChange={(ev) =>
-                    updateAsset(asset.price.id, {
-                        ...asset,
-                        count: Number(ev.target.value),
-                    })
-                }
+                onChange={(ev) => addAsset(price.id, Number(ev.target.value))}
             />
 
             {showDelete && (
                 <span
                     className="ml-2"
                     onClick={() => {
-                        removeAsset(asset.price.id)
+                        removeAsset(assetId)
+                        removePrice(assetId)
                     }}
                 >
                     x
