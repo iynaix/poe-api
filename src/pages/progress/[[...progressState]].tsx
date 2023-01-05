@@ -7,6 +7,7 @@ import { usePriceStore, useAssetStore, useTargetStore } from "../../utils/progre
 import type { ProgressState } from "../../utils/progress_stores"
 import uniq from "lodash/uniq"
 import LZString from "lz-string"
+import PaneHeader from "../../components/progress/pane_header"
 
 export default function ProgressLoader() {
     const { prices, set: setPrices, divineValue } = usePriceStore()
@@ -134,9 +135,20 @@ const Progress = () => {
                     />
                 </label>
             </div> */}
-            <div className="grid grid-cols-2">
-                <div>
-                    <h1 className="text-6xl font-bold">I Have</h1>
+            <div className="grid grid-cols-2 gap-20">
+                <div className="p-4">
+                    <PaneHeader
+                        right={
+                            <button
+                                type="button"
+                                className="inline-flex items-center rounded-md border px-4 py-2 text-sm font-medium shadow-sm border-transparent text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            >
+                                Add
+                            </button>
+                        }
+                    >
+                        I Want
+                    </PaneHeader>
 
                     <AssetList />
                 </div>

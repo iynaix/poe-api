@@ -9,6 +9,7 @@
         "start": "next start"
     },
     "dependencies": {
+        "@heroicons/react": "^2.0.13",
         "@next/font": "^13.1.1",
         "@pothos/core": "^3.24.0",
         "@tanstack/react-query": "^4.16.0",
@@ -22,6 +23,7 @@
         "lz-string": "^1.4.4",
         "mingo": "^6.2.1",
         "next": "13.1.1",
+        "nightwind": "^1.1.12",
         "p-throttle": "^5.0.0",
         "react": "18.2.0",
         "react-dom": "18.2.0",
