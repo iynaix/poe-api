@@ -108,7 +108,7 @@ export default function SearchPalette({ open, setOpen, onSelect }: SearchModalPr
                                                         <div className="flex flex-1 items-center">
                                                             <PoeIconText
                                                                 text={price.name}
-                                                                secondaryText={price.id}
+                                                                secondary={price.id}
                                                                 iconProps={{
                                                                     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                                                                     icon: price.icon!,

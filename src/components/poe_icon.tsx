@@ -1,3 +1,4 @@
+import { useState } from "react"
 import Image from "next/image"
 import { truncateFloat } from "../utils"
 
@@ -40,24 +41,41 @@ export const DivineIcon = (props: Omit<PoeIconProps, "icon" | "alt">) => {
 
 type PriceTextProps = {
     className?: string
+    textClassName?: string
     amount: number
     size: number
     places?: number
 }
 
-export const DivinePrice = ({ className, size, amount, places = 3 }: PriceTextProps) => {
+export const DivinePrice = ({
+    className,
+    textClassName,
+    size,
+    amount,
+    places = 3,
+}: PriceTextProps) => {
     return (
         <div className={`flex items-center ${className}`}>
-            <span style={{ fontSize: size }}>{truncateFloat(amount, places)}&nbsp;</span>
+            <span className={textClassName} style={{ fontSize: size }}>
+                {truncateFloat(amount, places)}&nbsp;
+            </span>
             <DivineIcon size={Math.floor(size)} />
         </div>
     )
 }
 
-export const ChaosPrice = ({ className, size, amount, places = 3 }: PriceTextProps) => {
+export const ChaosPrice = ({
+    className,
+    textClassName,
+    size,
+    amount,
+    places = 3,
+}: PriceTextProps) => {
     return (
         <div className={`flex items-center ${className}`}>
-            <span style={{ fontSize: size }}>{truncateFloat(amount, places)}&nbsp;</span>
+            <span className={textClassName} style={{ fontSize: size }}>
+                {truncateFloat(amount, places)}&nbsp;
+            </span>
             <ChaosIcon size={Math.floor(size)} />
         </div>
     )
@@ -66,24 +84,53 @@ export const ChaosPrice = ({ className, size, amount, places = 3 }: PriceTextPro
 type PoeIconTextProps = {
     iconProps: PoeIconProps
     text: string
-    secondaryText?: string
+    secondary?: React.ReactNode
 }
 
-export const PoeIconText = ({ iconProps, text, secondaryText }: PoeIconTextProps) => {
+export const PoeIconText = ({ iconProps, text, secondary }: PoeIconTextProps) => {
     return (
         <div className="flex items-center">
             <div className="flex h-10 w-10 items-center justify-center">
                 <PoeIcon {...iconProps} />
             </div>
-            {secondaryText ? (
+            {secondary ? (
                 <div className="ml-4">
                     <div className="font-medium text-gray-900">{text}</div>
-                    <div className="text-xs text-gray-500">{secondaryText}</div>
+                    {typeof secondary === "string" ? (
+                        <div className="text-xs text-gray-500">{secondary}</div>
+                    ) : (
+                        secondary
+                    )}
                 </div>
             ) : (
                 <div className="ml-4">
                     <div className="text-lg font-medium text-gray-900">{text}</div>
                 </div>
+            )}
+        </div>
+    )
+}
+
+type TogglePriceProps = {
+    className?: string
+    divineValue: number
+    chaosValue: number
+    size: number
+}
+
+export const TogglePrice = ({ className, divineValue, chaosValue, size }: TogglePriceProps) => {
+    const [showDivine, setShowDivine] = useState(true)
+
+    return (
+        <div
+            onClick={() => {
+                setShowDivine(!showDivine)
+            }}
+        >
+            {showDivine ? (
+                <DivinePrice className={className} amount={divineValue} size={size} />
+            ) : (
+                <ChaosPrice className={className} amount={chaosValue} size={size} />
             )}
         </div>
     )

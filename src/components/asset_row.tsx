@@ -1,6 +1,6 @@
 import { usePriceStore, useAssetStore } from "../utils/progress_stores"
 import { TrashIcon } from "@heroicons/react/24/outline"
-import { PoeIconText } from "./poe_icon"
+import { TogglePrice, PoeIconText } from "./poe_icon"
 
 type AssetRowProps = {
     assetId: string
@@ -25,6 +25,14 @@ const AssetRow = ({ assetId, count }: AssetRowProps) => {
                         size: 36,
                     }}
                     text={price.name}
+                    secondary={
+                        <TogglePrice
+                            className="mt-1 opacity-60"
+                            divineValue={price.divineValue}
+                            chaosValue={price.chaosValue}
+                            size={15}
+                        />
+                    }
                 />
             </td>
             <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">

@@ -10,7 +10,7 @@ import AssetPanel from "../../components/asset_panel"
 import TargetPanel from "../../components/target_panel"
 
 export default function ProgressLoader() {
-    const { prices, set: setPrices, divineValue } = usePriceStore()
+    const { prices, set: setPrices } = usePriceStore()
     const { assets, add: addAsset } = useAssetStore()
     const { targets } = useTargetStore()
 
@@ -37,6 +37,9 @@ export default function ProgressLoader() {
                 }
             },
             onSuccess: (data) => {
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                const divineValue = data["Divine Orb"]!.chaosValue
+
                 setPrices({
                     ...data,
                     // create chaos orb data as it isn't provided by poe ninja
