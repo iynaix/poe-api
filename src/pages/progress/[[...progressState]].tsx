@@ -1,13 +1,13 @@
 import { useRouter } from "next/router"
 import { trpc } from "../../utils/trpc"
 import TargetList from "../../components/target_list"
-import AssetList from "../../components/asset_list"
 import { CHAOS_ICON } from "../../components/poe_icon"
 import { usePriceStore, useAssetStore, useTargetStore } from "../../utils/progress_stores"
 import type { ProgressState } from "../../utils/progress_stores"
 import uniq from "lodash/uniq"
 import LZString from "lz-string"
-import PaneHeader from "../../components/progress/pane_header"
+import AssetPanel from "../../components/asset_panel"
+import TargetPanel from "../../components/target_panel"
 
 export default function ProgressLoader() {
     const { prices, set: setPrices, divineValue } = usePriceStore()
@@ -105,60 +105,10 @@ const Progress = () => {
     // }
 
     return (
-        <>
-            {/* <div>
-                <label htmlFor="inc">
-                    <span>Inc Per Day</span>
-                    <input
-                        className="bg-gray-800 text-gray-50"
-                        name="Search"
-                        type="text"
-                        value={""}
-                        min={0}
-                        onChange={(ev) => {
-                            setQuery(ev.target.value)
-                        }}
-                    />
-                </label>
+        <div className="grid grid-cols-2 gap-20">
+            <AssetPanel />
 
-                <label htmlFor="earn">
-                    <span>Earn Rate</span>
-                    <input
-                        className="bg-gray-800 text-gray-50"
-                        name="Search"
-                        type="text"
-                        value={""}
-                        min={0}
-                        onChange={(ev) => {
-                            setQuery(ev.target.value)
-                        }}
-                    />
-                </label>
-            </div> */}
-            <div className="grid grid-cols-2 gap-20">
-                <div className="p-4">
-                    <PaneHeader
-                        right={
-                            <button
-                                type="button"
-                                className="inline-flex items-center rounded-md border px-4 py-2 text-sm font-medium shadow-sm border-transparent text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            >
-                                Add
-                            </button>
-                        }
-                    >
-                        I Want
-                    </PaneHeader>
-
-                    <AssetList />
-                </div>
-
-                <div>
-                    <h1 className="text-6xl font-bold">I Want</h1>
-
-                    <TargetList />
-                </div>
-            </div>
-        </>
+            <TargetPanel />
+        </div>
     )
 }

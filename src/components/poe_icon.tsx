@@ -65,11 +65,11 @@ export const ChaosPrice = ({ className, size, amount, places = 3 }: PriceTextPro
 
 type PoeIconTextProps = {
     iconProps: PoeIconProps
-    name: string
+    text: string
     secondaryText?: string
 }
 
-export const PoeIconText = ({ iconProps, name, secondaryText }: PoeIconTextProps) => {
+export const PoeIconText = ({ iconProps, text, secondaryText }: PoeIconTextProps) => {
     return (
         <div className="flex items-center">
             <div className="flex h-10 w-10 items-center justify-center">
@@ -77,12 +77,12 @@ export const PoeIconText = ({ iconProps, name, secondaryText }: PoeIconTextProps
             </div>
             {secondaryText ? (
                 <div className="ml-4">
-                    <div className="font-medium text-gray-900">{name}</div>
+                    <div className="font-medium text-gray-900">{text}</div>
                     <div className="text-xs text-gray-500">{secondaryText}</div>
                 </div>
             ) : (
                 <div className="ml-4">
-                    <div className="text-lg font-medium text-gray-900">{name}</div>
+                    <div className="text-lg font-medium text-gray-900">{text}</div>
                 </div>
             )}
         </div>

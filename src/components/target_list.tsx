@@ -1,37 +1,35 @@
-import SearchById from "./search_by_id"
 import TargetRow from "./target_row"
-import { truncateFloat } from "../utils"
-import { useAssetStore, useTargetStore, usePriceStore } from "../utils/progress_stores"
+import { useTargetStore } from "../utils/progress_stores"
+
+export type TargetMap = Record<string, number>
 
 const TargetList = () => {
-    const { add: addPrice } = usePriceStore()
-    const { totalChaos } = useAssetStore()
-    const { targets, totalChaos: targetChaos, add: addTarget } = useTargetStore()
-
-    const totalTargetChaos = targetChaos()
-    // no divide by zero
-    const progress = totalTargetChaos ? (totalChaos() / targetChaos()) * 100 : 0
+    const { targets } = useTargetStore()
 
     return (
-        <>
-            <div className="grid grid-cols-1 gap-6">
-                {Object.entries(targets).map(([targetId, count]) => {
-                    return <TargetRow key={targetId} targetId={targetId} count={count} />
-                })}
-
-                <span className="">Progess: {truncateFloat(progress, 5)}%</span>
+        <div>
+            <div className="px-4 sm:px-6 lg:px-8">
+                <div className="mt-8 flex flex-col">
+                    <div className="-my-2 -mx-4 overflow-x-hidden sm:-mx-6 lg:-mx-8">
+                        <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                            <div className="shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+                                <table className="min-w-full divide-y divide-gray-300">
+                                    <tbody className="divide-y divide-gray-200">
+                                        {Object.entries(targets).map(([targetId, count]) => (
+                                            <TargetRow
+                                                key={targetId}
+                                                targetId={targetId}
+                                                count={count}
+                                            />
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <SearchById
-                label="Add Target"
-                onClick={(price) => {
-                    // default count to 1
-                    addTarget(price.id, 1)
-                    // add to price list
-                    addPrice(price.id, price)
-                }}
-            />
-        </>
+        </div>
     )
 }
 
