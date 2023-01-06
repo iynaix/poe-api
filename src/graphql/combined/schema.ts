@@ -7,6 +7,7 @@ import { StringFilter, FloatFilter, createWhere } from "../../utils/filters"
 import { createOrderBy } from "../../utils/orderby"
 import type { LeagueName } from "../../utils"
 import type { Combined } from "./types"
+import { CHAOS_ICON } from "../../components/poe_icon"
 
 builder.objectType("Combined", {
     fields: (t) => ({
@@ -34,26 +35,47 @@ const [orderBy, orderByAgg] = createOrderBy("CombinedOrderBy", [
 export const fetchCombined = async (league: LeagueName = "tmpstandard") => {
     const currencies = await fetchCurrencies(league)
     const items = await fetchItems(league)
+    // placeholder value, updated below
+    let divineValue = 1
 
-    return [
-        // overwrite id with currencyTypeName
-        ...currencies.map(({ currencyTypeName, ...currency }) => ({
+    // overwrite id with currencyTypeName
+    const processedCurrencies = currencies.map(({ currencyTypeName, ...currency }) => {
+        if (currencyTypeName === "Divine Orb") {
+            divineValue = currency.chaosValue
+        }
+
+        return {
             id: currencyTypeName,
             name: currency.name,
             icon: currency.icon,
             chaosValue: currency.chaosValue,
             divineValue: currency.divineValue,
             endpoint: currency.endpoint,
-        })),
-        // overwrite id with detailsId
-        ...items.map(({ detailsId, ...item }) => ({
-            id: detailsId,
-            name: item.name,
-            icon: item.icon,
-            chaosValue: item.chaosValue,
-            divineValue: item.divineValue,
-            endpoint: item.endpoint,
-        })),
+        }
+    })
+
+    // overwrite id with detailsId
+    const processedItems = items.map(({ detailsId, ...item }) => ({
+        id: detailsId,
+        name: item.name,
+        icon: item.icon,
+        chaosValue: item.chaosValue,
+        divineValue: item.divineValue,
+        endpoint: item.endpoint,
+    }))
+
+    return [
+        ...processedCurrencies,
+        // add a chaos orb item
+        {
+            id: "Chaos Orb",
+            name: "Chaos Orb",
+            icon: CHAOS_ICON,
+            chaosValue: 1,
+            divineValue: 1 / divineValue,
+            endpoint: "currency",
+        },
+        ...processedItems,
     ] as Combined[]
 }
 
