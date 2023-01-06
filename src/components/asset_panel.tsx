@@ -19,27 +19,21 @@ const AssetPanel = () => {
             <PaneHeader>I Have</PaneHeader>
 
             <dl className="mt-5 grid grid-cols-1 gap-5">
-                {showDivineStat ? (
-                    <Stat
-                        name="Divine Orb"
-                        icon={<PoeIcon icon={DIVINE_ICON} alt="Divine Orb" size={48} />}
-                        onClick={() => {
-                            setShowDivineStat(!showDivineStat)
-                        }}
-                    >
-                        {truncateFloat(totalDivines(), 3)}
-                    </Stat>
-                ) : (
-                    <Stat
-                        name="Chaos Orb"
-                        icon={<PoeIcon icon={CHAOS_ICON} alt="Chaos Orb" size={48} />}
-                        onClick={() => {
-                            setShowDivineStat(!showDivineStat)
-                        }}
-                    >
-                        {truncateFloat(totalChaos(), 0)}
-                    </Stat>
-                )}
+                <Stat
+                    name={showDivineStat ? "Divine Orb" : "Chaos Orb"}
+                    icon={
+                        <PoeIcon
+                            icon={showDivineStat ? DIVINE_ICON : CHAOS_ICON}
+                            alt={showDivineStat ? "Divine Orb" : "Chaos Orb"}
+                            size={48}
+                        />
+                    }
+                    onClick={() => {
+                        setShowDivineStat(!showDivineStat)
+                    }}
+                >
+                    {truncateFloat(showDivineStat ? totalDivines() : totalChaos(), 3)}
+                </Stat>
             </dl>
 
             <AssetList />

@@ -1,23 +1,32 @@
 import { useId } from "react"
-import { Inflation } from "../utils/progress_stores"
+import type { Inflation } from "../utils/progress_stores"
 import Input from "./input"
 import ToggleSelect from "./toggle_select"
 import { DivineIcon, ChaosIcon } from "./poe_icon"
 
 type ChaosRateInputProps = {
     label: string
+    className?: string
+    style?: React.CSSProperties
     inflation: Inflation
     setInflation: (inflation: Inflation) => void
 }
 
-const ChaosRateInput = ({ label, inflation, setInflation }: ChaosRateInputProps) => {
+const ChaosRateInput = ({
+    className,
+    style,
+    label,
+    inflation,
+    setInflation,
+}: ChaosRateInputProps) => {
     const randomId = useId()
 
     return (
         <div
-            className="grid items-center gap-5"
+            className={`grid items-center gap-5 ${className}`}
             style={{
                 gridTemplateColumns: "min-content min-content min-content auto",
+                ...style,
             }}
         >
             <span>{label}</span>

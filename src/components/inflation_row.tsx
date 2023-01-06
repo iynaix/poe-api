@@ -1,11 +1,10 @@
 import { useState } from "react"
 import {
-    useAssetStore,
     useTargetStore,
     type Target,
-    estimatedTimeToTarget,
     usePriceStore,
     inflationInChaosPerHour,
+    useEarnRateStore,
 } from "../utils/progress_stores"
 import type { Price } from "../server/trpc/router/prices"
 import ChaosRateInput from "./chaos_rate_input"
@@ -20,14 +19,11 @@ type InflationRowProps = {
 const InflationRow = ({ targetId, target, price }: InflationRowProps) => {
     const { divineValue } = usePriceStore()
     const { add: addTarget } = useTargetStore()
-    const { totalChaos } = useAssetStore()
-    const [showDays, setShowDays] = useState(true)
-    const EARN_RATE = 1000
+    const { earnRateInChaosPerHour, estimatedTimeToTarget } = useEarnRateStore()
+    const [showHours, setShowHours] = useState(true)
 
     const eta = estimatedTimeToTarget(
-        totalChaos(),
         price.chaosValue * target.count,
-        EARN_RATE,
         inflationInChaosPerHour(target.inflation, divineValue)
     )
 
@@ -43,16 +39,16 @@ const InflationRow = ({ targetId, target, price }: InflationRowProps) => {
                     })
                 }}
             />
-            {EARN_RATE > 0 && (
+            {earnRateInChaosPerHour() > 0 && (
                 <span
                     className="ml-auto mr-2"
                     onClick={() => {
-                        setShowDays(!showDays)
+                        setShowHours(!showHours)
                     }}
                 >
-                    {showDays
-                        ? `${truncateFloat(eta, 3)} Days`
-                        : `${truncateFloat(eta * 24, 3)} Hours`}
+                    {showHours
+                        ? `${truncateFloat(eta, 3)} Hours`
+                        : `${truncateFloat(eta / 24, 3)} Days`}
                 </span>
             )}
         </div>

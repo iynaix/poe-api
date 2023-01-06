@@ -4,6 +4,10 @@ import { useTargetStore } from "../utils/progress_stores"
 const TargetList = () => {
     const { targets } = useTargetStore()
 
+    if (Object.keys(targets).length === 0) {
+        return null
+    }
+
     return (
         <div>
             <div className="px-4 sm:px-6 lg:px-8">
