@@ -85,8 +85,8 @@ const TargetRow = ({ targetId, target }: TargetRowProps) => {
             </tr>
             {showInflation && (
                 <tr>
-                    <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
-                        <InflationRow targetId={targetId} target={target} />
+                    <td colSpan={10} className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
+                        <InflationRow targetId={targetId} target={target} price={price} />
                     </td>
                 </tr>
             )}

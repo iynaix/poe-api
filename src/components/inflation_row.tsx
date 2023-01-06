@@ -1,47 +1,60 @@
-import React from "react"
-import { type Target } from "../utils/progress_stores"
-import Input from "./input"
-import ToggleSelect from "./toggle_select"
-import { DivineIcon, ChaosIcon } from "./poe_icon"
+import { useState } from "react"
+import {
+    useAssetStore,
+    useTargetStore,
+    type Target,
+    estimatedTimeToTarget,
+    usePriceStore,
+    inflationInChaosPerHour,
+} from "../utils/progress_stores"
+import type { Price } from "../server/trpc/router/prices"
+import ChaosRateInput from "./chaos_rate_input"
+import { truncateFloat } from "../utils"
 
 type InflationRowProps = {
     targetId: string
     target: Target
+    price: Price
 }
 
-const InflationRow = ({ targetId, target }: InflationRowProps) => {
-    const [period, setPeriod] = React.useState<0 | 1>(target.inflation.period === "day" ? 0 : 1)
-    const [currencyType, setCurrencyType] = React.useState<0 | 1>(
-        target.inflation.currencyType === "divine" ? 0 : 1
+const InflationRow = ({ targetId, target, price }: InflationRowProps) => {
+    const { divineValue } = usePriceStore()
+    const { add: addTarget } = useTargetStore()
+    const { totalChaos } = useAssetStore()
+    const [showDays, setShowDays] = useState(true)
+    const EARN_RATE = 1000
+
+    const eta = estimatedTimeToTarget(
+        totalChaos(),
+        price.chaosValue * target.count,
+        EARN_RATE,
+        inflationInChaosPerHour(target.inflation, divineValue)
     )
 
     return (
-        <div className="grid grid-flow-col items-center">
-            <p>Increase Per</p>
-            <ToggleSelect
-                left={<span className={period === 0 ? "text-white" : ""}>Day</span>}
-                leftAltText="Day"
-                right={<span className={period !== 0 ? "text-white" : ""}>Hour</span>}
-                rightAltText="Hour"
-                selection={period}
-                setSelection={setPeriod}
-            />
-            <Input
-                type="number"
-                name={`${targetId}-inflation`}
-                value={target.inflation.rate}
-                onChange={() => {
-                    return
+        <div className="flex items-center">
+            <ChaosRateInput
+                label="Increase Per"
+                inflation={target.inflation}
+                setInflation={(inflation) => {
+                    addTarget(targetId, {
+                        ...target,
+                        inflation,
+                    })
                 }}
             />
-            <ToggleSelect
-                left={<DivineIcon size={20} />}
-                leftAltText="Divine"
-                right={<ChaosIcon size={20} />}
-                rightAltText="Chaos"
-                selection={currencyType}
-                setSelection={setCurrencyType}
-            />
+            {EARN_RATE > 0 && (
+                <span
+                    className="ml-auto mr-2"
+                    onClick={() => {
+                        setShowDays(!showDays)
+                    }}
+                >
+                    {showDays
+                        ? `${truncateFloat(eta, 3)} Days`
+                        : `${truncateFloat(eta * 24, 3)} Hours`}
+                </span>
+            )}
         </div>
     )
 }

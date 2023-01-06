@@ -1,3 +1,4 @@
+import Button from "./button"
 import PaneHeader from "./pane_header"
 import SearchPalette from "./search_palette"
 import TargetList from "./target_list"
@@ -14,6 +15,7 @@ const TargetPanel = () => {
         add: addTarget,
         totalChaos: targetTotalChaos,
         totalDivines: targetTotalDivines,
+        totalEsimatedTimeToTarget,
     } = useTargetStore()
 
     const [showDivineStat, setShowDivineStat] = useState(true)
@@ -23,23 +25,11 @@ const TargetPanel = () => {
     // no divide by zero
     const progress = targetChaos ? (totalChaos() / targetChaos) * 100 : 0
 
+    console.log("ETA", totalEsimatedTimeToTarget())
+
     return (
         <div className="p-4">
-            <PaneHeader
-                right={
-                    <button
-                        type="button"
-                        className="inline-flex items-center rounded-md border px-4 py-2 text-sm font-medium shadow-sm border-transparent text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        onClick={() => {
-                            setTargetOpenSearchModal(!openTargetSearchModal)
-                        }}
-                    >
-                        Add
-                    </button>
-                }
-            >
-                I Want
-            </PaneHeader>
+            <PaneHeader>I Want</PaneHeader>
 
             <dl className="mt-5 grid grid-cols-2 gap-5">
                 <Stat name="Progress" icon={<ChartBarIcon className="my-2 h-10 w-10" />}>
@@ -69,6 +59,17 @@ const TargetPanel = () => {
             </dl>
 
             <TargetList />
+
+            <div className="mt-4 flex flex-col p-8">
+                <Button
+                    className="w-full justify-center"
+                    onClick={() => {
+                        setTargetOpenSearchModal(!openTargetSearchModal)
+                    }}
+                >
+                    Add Item
+                </Button>
+            </div>
 
             <SearchPalette
                 open={openTargetSearchModal}

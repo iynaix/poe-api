@@ -11,7 +11,7 @@ const Stat = ({ name, icon, onClick, children }: StatProps) => {
     return (
         <div
             className={classNames(
-                "relative overflow-hidden rounded-lg px-4 pt-5 pb-12 shadow bg-white",
+                "relative overflow-hidden rounded-lg px-4 py-5 shadow bg-white",
                 onClick ? "cursor-pointer" : ""
             )}
             onClick={onClick}

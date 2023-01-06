@@ -1,7 +1,7 @@
 import { type PropsWithChildren } from "react"
 
 type PaneHeaderProps = PropsWithChildren<{
-    right: React.ReactNode
+    right?: React.ReactNode
 }>
 
 export default function PaneHeader({ children, right }: PaneHeaderProps) {

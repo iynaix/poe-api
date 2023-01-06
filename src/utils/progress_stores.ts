@@ -94,6 +94,30 @@ export type TargetStore = MapStore<Target> & {
     targets: Record<string, Target>
     totalChaos: () => number
     totalDivines: () => number
+    totalInflationRate: () => number
+    totalEsimatedTimeToTarget: () => number
+}
+
+export const inflationInChaosPerHour = (
+    { rate, period, currencyType }: Inflation,
+    divineValue: number
+) => {
+    const chaosRate = currencyType === "chaos" ? rate : rate * divineValue
+    return period === "day" ? chaosRate / 24 : chaosRate
+}
+
+export const estimatedTimeToTarget = (
+    current: number,
+    target: number,
+    earnRate: number,
+    inflationRate: number
+) => {
+    if (inflationRate === 0) {
+        return (target - current) / earnRate
+    }
+
+    // uses the ant on a rubber rope model to give an ETA
+    return ((target - current) / inflationRate) * (Math.exp(inflationRate / earnRate) - 1)
 }
 
 export const useTargetStore = create<TargetStore>()(
@@ -122,6 +146,28 @@ export const useTargetStore = create<TargetStore>()(
             totalDivines: () => {
                 const { divineValue } = usePriceStore.getState()
                 return get().totalChaos() / divineValue
+            },
+            totalInflationRate: () => {
+                const { divineValue } = usePriceStore.getState()
+
+                let total = 0
+                Object.values(get().targets).forEach((target) => {
+                    total += inflationInChaosPerHour(target.inflation, divineValue)
+                })
+
+                return total
+            },
+            totalEsimatedTimeToTarget: () => {
+                const { totalChaos } = useAssetStore.getState()
+                const { totalChaos: targetChaos, totalInflationRate } = get()
+                const EARN_RATE = 1000
+
+                return estimatedTimeToTarget(
+                    totalChaos(),
+                    targetChaos(),
+                    EARN_RATE,
+                    totalInflationRate()
+                )
             },
         }),
         {

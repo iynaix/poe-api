@@ -5,6 +5,7 @@ import { useState } from "react"
 import { useAssetStore } from "../utils/progress_stores"
 import PoeIcon, { DIVINE_ICON, CHAOS_ICON } from "./poe_icon"
 import Stat from "./stat"
+import Button from "./button"
 import { truncateFloat } from "../utils"
 
 const AssetPanel = () => {
@@ -15,21 +16,7 @@ const AssetPanel = () => {
 
     return (
         <div className="p-4">
-            <PaneHeader
-                right={
-                    <button
-                        type="button"
-                        className="inline-flex items-center rounded-md border px-4 py-2 text-sm font-medium shadow-sm border-transparent text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        onClick={() => {
-                            setAssetOpenSearchModal(!openAssetSearchModal)
-                        }}
-                    >
-                        Add
-                    </button>
-                }
-            >
-                I Have
-            </PaneHeader>
+            <PaneHeader>I Have</PaneHeader>
 
             <dl className="mt-5 grid grid-cols-1 gap-5">
                 {showDivineStat ? (
@@ -56,6 +43,17 @@ const AssetPanel = () => {
             </dl>
 
             <AssetList />
+
+            <div className="mt-4 flex flex-col p-8">
+                <Button
+                    className="w-full justify-center"
+                    onClick={() => {
+                        setAssetOpenSearchModal(!openAssetSearchModal)
+                    }}
+                >
+                    Add Item
+                </Button>
+            </div>
 
             <SearchPalette
                 open={openAssetSearchModal}
