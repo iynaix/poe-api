@@ -10,6 +10,7 @@ import { truncateFloat } from "../utils"
 const AssetPanel = () => {
     const { add: addAsset, totalChaos, totalDivines } = useAssetStore()
 
+    const [showDivineStat, setShowDivineStat] = useState(true)
     const [openAssetSearchModal, setAssetOpenSearchModal] = useState(false)
 
     return (
@@ -30,19 +31,28 @@ const AssetPanel = () => {
                 I Have
             </PaneHeader>
 
-            <dl className="mt-5 grid grid-cols-2 gap-5">
-                <Stat
-                    name="Divine Orb"
-                    icon={<PoeIcon icon={DIVINE_ICON} alt="Divine Orb" size={48} />}
-                >
-                    {truncateFloat(totalDivines(), 3)}
-                </Stat>
-                <Stat
-                    name="Chaos Orb"
-                    icon={<PoeIcon icon={CHAOS_ICON} alt="Chaos Orb" size={48} />}
-                >
-                    {truncateFloat(totalChaos(), 0)}
-                </Stat>
+            <dl className="mt-5 grid grid-cols-1 gap-5">
+                {showDivineStat ? (
+                    <Stat
+                        name="Divine Orb"
+                        icon={<PoeIcon icon={DIVINE_ICON} alt="Divine Orb" size={48} />}
+                        onClick={() => {
+                            setShowDivineStat(!showDivineStat)
+                        }}
+                    >
+                        {truncateFloat(totalDivines(), 3)}
+                    </Stat>
+                ) : (
+                    <Stat
+                        name="Chaos Orb"
+                        icon={<PoeIcon icon={CHAOS_ICON} alt="Chaos Orb" size={48} />}
+                        onClick={() => {
+                            setShowDivineStat(!showDivineStat)
+                        }}
+                    >
+                        {truncateFloat(totalChaos(), 0)}
+                    </Stat>
+                )}
             </dl>
 
             <AssetList />

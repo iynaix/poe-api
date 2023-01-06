@@ -1,6 +1,7 @@
 import { usePriceStore, useAssetStore, type Asset } from "../utils/progress_stores"
 import { TrashIcon } from "@heroicons/react/24/outline"
 import { TogglePrice, PoeIconText } from "./poe_icon"
+import Input from "./input"
 
 type AssetRowProps = {
     assetId: string
@@ -40,12 +41,10 @@ const AssetRow = ({ assetId, asset }: AssetRowProps) => {
                     <label htmlFor={price.name} className="sr-only">
                         {price.name}
                     </label>
-                    <input
-                        className="text-gray-850 block w-20 rounded-md shadow-sm bg-gray-100 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    <Input
                         type="number"
                         name={price.name}
                         value={asset.count}
-                        min={0}
                         onChange={(ev) =>
                             addAsset(price.id, {
                                 count: Number(ev.target.value),
@@ -57,7 +56,7 @@ const AssetRow = ({ assetId, asset }: AssetRowProps) => {
             <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                 {showDelete && (
                     <TrashIcon
-                        className="h-5 w-5 text-red-500"
+                        className="h-5 w-5 cursor-pointer text-red-500"
                         aria-hidden="true"
                         onClick={() => {
                             removeAsset(assetId)

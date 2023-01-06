@@ -79,9 +79,15 @@ export const useAssetStore = create<AssetStore>()(
     )
 )
 
+export type Inflation = {
+    currencyType: "divine" | "chaos"
+    period: "day" | "hour"
+    rate: number
+}
+
 export type Target = {
     count: number
-    inflation: number
+    inflation: Inflation
 }
 
 export type TargetStore = MapStore<Target> & {

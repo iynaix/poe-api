@@ -16,6 +16,7 @@ const TargetPanel = () => {
         totalDivines: targetTotalDivines,
     } = useTargetStore()
 
+    const [showDivineStat, setShowDivineStat] = useState(true)
     const [openTargetSearchModal, setTargetOpenSearchModal] = useState(false)
 
     const targetChaos = targetTotalChaos()
@@ -40,22 +41,31 @@ const TargetPanel = () => {
                 I Want
             </PaneHeader>
 
-            <dl className="mt-5 grid grid-cols-3 gap-5">
+            <dl className="mt-5 grid grid-cols-2 gap-5">
                 <Stat name="Progress" icon={<ChartBarIcon className="my-2 h-10 w-10" />}>
                     {truncateFloat(progress, 3)}%
                 </Stat>
-                <Stat
-                    name="Divine Orb"
-                    icon={<PoeIcon icon={DIVINE_ICON} alt="Divine Orb" size={48} />}
-                >
-                    {truncateFloat(targetTotalDivines(), 3)}
-                </Stat>
-                <Stat
-                    name="Chaos Orb"
-                    icon={<PoeIcon icon={CHAOS_ICON} alt="Chaos Orb" size={48} />}
-                >
-                    {truncateFloat(targetChaos, 0)}
-                </Stat>
+                {showDivineStat ? (
+                    <Stat
+                        name="Divine Orb"
+                        icon={<PoeIcon icon={DIVINE_ICON} alt="Divine Orb" size={48} />}
+                        onClick={() => {
+                            setShowDivineStat(!showDivineStat)
+                        }}
+                    >
+                        {truncateFloat(targetTotalDivines(), 3)}
+                    </Stat>
+                ) : (
+                    <Stat
+                        name="Chaos Orb"
+                        icon={<PoeIcon icon={CHAOS_ICON} alt="Chaos Orb" size={48} />}
+                        onClick={() => {
+                            setShowDivineStat(!showDivineStat)
+                        }}
+                    >
+                        {truncateFloat(targetChaos, 0)}
+                    </Stat>
+                )}
             </dl>
 
             <TargetList />
@@ -65,7 +75,14 @@ const TargetPanel = () => {
                 setOpen={setTargetOpenSearchModal}
                 onSelect={(price) => {
                     // default count to 1
-                    addTarget(price.id, { count: 1, inflation: 0 })
+                    addTarget(price.id, {
+                        count: 1,
+                        inflation: {
+                            currencyType: "divine",
+                            period: "day",
+                            rate: 0,
+                        },
+                    })
                 }}
             />
         </div>
