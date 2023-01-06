@@ -1,5 +1,5 @@
 import { builder } from "../graphql/builder"
-import { InputFieldMap, InputShapeFromFields } from "@pothos/core"
+import type { InputFieldMap, InputShapeFromFields } from "@pothos/core"
 
 export const OrderBy = builder.enumType("OrderBy", {
     values: ["asc", "desc"] as const,

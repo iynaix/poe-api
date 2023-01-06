@@ -1,8 +1,6 @@
 import TargetRow from "./target_row"
 import { useTargetStore } from "../utils/progress_stores"
 
-export type TargetMap = Record<string, number>
-
 const TargetList = () => {
     const { targets } = useTargetStore()
 
@@ -15,11 +13,11 @@ const TargetList = () => {
                             <div className="shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
                                 <table className="min-w-full divide-y divide-gray-300">
                                     <tbody className="divide-y divide-gray-200">
-                                        {Object.entries(targets).map(([targetId, count]) => (
+                                        {Object.entries(targets).map(([targetId, target]) => (
                                             <TargetRow
                                                 key={targetId}
                                                 targetId={targetId}
-                                                count={count}
+                                                target={target}
                                             />
                                         ))}
                                     </tbody>

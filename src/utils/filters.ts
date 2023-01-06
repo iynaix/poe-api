@@ -202,6 +202,8 @@ const _createWhereAggreation = (whereDefintion: WhereInitializer) => {
 
 const _createWhereAggreationRecursive = (
     whereArg: WhereArgument,
+    // we don't know the type of the where aggregation so we have to use any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     whereAggregation: (whereArg: WhereArgument) => any
 ) => {
     const { _and, _or, _not } = whereArg

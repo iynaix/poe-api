@@ -18,8 +18,8 @@ const TargetPanel = () => {
 
     const [openTargetSearchModal, setTargetOpenSearchModal] = useState(false)
 
-    // no divide by zero
     const targetChaos = targetTotalChaos()
+    // no divide by zero
     const progress = targetChaos ? (totalChaos() / targetChaos) * 100 : 0
 
     return (
@@ -65,7 +65,7 @@ const TargetPanel = () => {
                 setOpen={setTargetOpenSearchModal}
                 onSelect={(price) => {
                     // default count to 1
-                    addTarget(price.id, 1)
+                    addTarget(price.id, { count: 1 })
                 }}
             />
         </div>

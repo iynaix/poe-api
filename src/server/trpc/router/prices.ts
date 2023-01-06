@@ -13,8 +13,6 @@ export type Price = {
     chaosValue: number
 }
 
-type y = ReadonlyArray<keyof typeof LEAGUES>
-
 export const priceRouter = router({
     byName: publicProcedure
         .input(

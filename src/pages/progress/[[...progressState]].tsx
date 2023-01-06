@@ -1,9 +1,8 @@
 import { useRouter } from "next/router"
 import { trpc } from "../../utils/trpc"
-import TargetList from "../../components/target_list"
 import { CHAOS_ICON } from "../../components/poe_icon"
 import { usePriceStore, useAssetStore, useTargetStore } from "../../utils/progress_stores"
-import type { ProgressState } from "../../utils/progress_stores"
+import type { SavedProgressState } from "../../utils/progress_stores"
 import uniq from "lodash/uniq"
 import LZString from "lz-string"
 import AssetPanel from "../../components/asset_panel"
@@ -78,12 +77,13 @@ const useUrlProgressState = () => {
         if (typeof stateFromUrl === "string") {
             const jsonString = LZString.decompressFromEncodedURIComponent(stateFromUrl)
             if (jsonString) {
-                return JSON.parse(jsonString) as ProgressState
+                return JSON.parse(jsonString) as SavedProgressState
             }
         } else if (stateFromUrl.length === 1) {
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             const jsonString = LZString.decompressFromEncodedURIComponent(stateFromUrl[0]!)
             if (jsonString) {
-                return JSON.parse(jsonString) as ProgressState
+                return JSON.parse(jsonString) as SavedProgressState
             }
         }
     }

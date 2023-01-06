@@ -1,13 +1,13 @@
-import { usePriceStore, useTargetStore } from "../utils/progress_stores"
+import { type Target, usePriceStore, useTargetStore } from "../utils/progress_stores"
 import { TrashIcon } from "@heroicons/react/24/outline"
 import { PoeIconText, TogglePrice } from "./poe_icon"
 
 type TargetRowProps = {
     targetId: string
-    count: number
+    target: Target
 }
 
-const TargetRow = ({ targetId, count }: TargetRowProps) => {
+const TargetRow = ({ targetId, target }: TargetRowProps) => {
     const { getById, remove: removePrice } = usePriceStore()
     const { add: addTarget, remove: removeTarget } = useTargetStore()
 
@@ -43,9 +43,9 @@ const TargetRow = ({ targetId, count }: TargetRowProps) => {
                         className="text-gray-850 block w-20 rounded-md shadow-sm bg-gray-100 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         type="number"
                         name={price.name}
-                        value={count}
+                        value={target.count}
                         min={0}
-                        onChange={(ev) => addTarget(price.id, Number(ev.target.value))}
+                        onChange={(ev) => addTarget(price.id, { count: Number(ev.target.value) })}
                     />
                 </div>
             </td>

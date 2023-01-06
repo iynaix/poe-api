@@ -1,8 +1,6 @@
 import AssetRow from "./asset_row"
 import { useAssetStore } from "../utils/progress_stores"
 
-export type AssetMap = Record<string, number>
-
 const AssetList = () => {
     const { assets } = useAssetStore()
 
@@ -14,7 +12,7 @@ const AssetList = () => {
                         <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                             <div className="shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
                                 <table className="min-w-full divide-y divide-gray-300">
-                                    <tbody className="divide-y divide-gray-200">
+                                    <tbody className="border-collapse divide-y divide-gray-200">
                                         {Object.entries(assets).map(([assetId, count]) => (
                                             <AssetRow
                                                 key={assetId}

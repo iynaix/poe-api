@@ -2,16 +2,19 @@ import create from "zustand"
 import type { Price } from "../server/trpc/router/prices"
 import { persist } from "zustand/middleware"
 
-type PricesState = {
+type MapStore<T> = {
+    set: (objs: Record<string, T>) => void
+    add: (id: string, objs: T) => void
+    remove: (id: string) => void
+}
+
+type PricesStore = MapStore<Price> & {
     prices: Record<string, Price>
     divineValue: number
-    set: (prices: Record<string, Price>) => void
-    add: (id: string, price: Price) => void
-    remove: (id: string) => void
     getById: (id: string) => Price
 }
 
-export const usePriceStore = create<PricesState>()((set, get) => ({
+export const usePriceStore = create<PricesStore>()((set, get) => ({
     prices: {},
     divineValue: 0,
     set: (prices) =>
@@ -32,16 +35,15 @@ export const usePriceStore = create<PricesState>()((set, get) => ({
     },
 }))
 
-type AssetState = {
-    assets: Record<string, number>
-    set: (assets: Record<string, number>) => void
-    add: (id: string, count: number) => void
-    remove: (id: string) => void
+export type Asset = number
+
+type AssetStore = MapStore<Asset> & {
+    assets: Record<string, Asset>
     totalChaos: () => number
     totalDivines: () => number
 }
 
-export const useAssetStore = create<AssetState>()(
+export const useAssetStore = create<AssetStore>()(
     persist(
         (set, get) => ({
             assets: {},
@@ -75,22 +77,21 @@ export const useAssetStore = create<AssetState>()(
     )
 )
 
-export type TargetState = {
-    targets: Record<string, number>
-    set: (targets: Record<string, number>) => void
-    add: (id: string, count: number) => void
-    remove: (id: string) => void
+export type Target = { count: number }
+
+export type TargetStore = MapStore<Target> & {
+    targets: Record<string, Target>
     totalChaos: () => number
     totalDivines: () => number
 }
 
-export const useTargetStore = create<TargetState>()(
+export const useTargetStore = create<TargetStore>()(
     persist(
         (set, get) => ({
             targets: {},
             set: (targets) => set(() => ({ targets })),
-            add: (id: string, count: number) =>
-                set((state) => ({ targets: { ...state.targets, [id]: count } })),
+            add: (id: string, target: Target) =>
+                set((state) => ({ targets: { ...state.targets, [id]: target } })),
             remove: (id: string) =>
                 set((state) => {
                     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -101,9 +102,9 @@ export const useTargetStore = create<TargetState>()(
                 const { getById } = usePriceStore.getState()
 
                 let total = 0
-                for (const [targetId, count] of Object.entries(get().targets)) {
+                for (const [targetId, target] of Object.entries(get().targets)) {
                     const price = getById(targetId)
-                    total += price.chaosValue * count
+                    total += price.chaosValue * target.count
                 }
                 return total
             },
@@ -118,13 +119,10 @@ export const useTargetStore = create<TargetState>()(
     )
 )
 
-type SavedProgressState = {
-    assets: Record<string, number>
-    targets: Record<string, number>
-}
+export const SAVED_PROGRESS_VERSION = 1
 
-export type ProgressState = {
-    toJSON: () => SavedProgressState
-    toURLParam: () => string
-    fromURLParam: (param: string) => SavedProgressState
+export type SavedProgressState = {
+    assets: Record<string, Asset>
+    targets: Record<string, Target>
+    version: number
 }
