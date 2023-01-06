@@ -35,7 +35,9 @@ export const usePriceStore = create<PricesStore>()((set, get) => ({
     },
 }))
 
-export type Asset = number
+export type Asset = {
+    count: number
+}
 
 type AssetStore = MapStore<Asset> & {
     assets: Record<string, Asset>
@@ -48,8 +50,8 @@ export const useAssetStore = create<AssetStore>()(
         (set, get) => ({
             assets: {},
             set: (assets) => set(() => ({ assets })),
-            add: (id: string, count: number) =>
-                set((state) => ({ assets: { ...state.assets, [id]: count } })),
+            add: (id: string, asset: Asset) =>
+                set((state) => ({ assets: { ...state.assets, [id]: asset } })),
             remove: (id: string) =>
                 set((state) => {
                     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -60,9 +62,9 @@ export const useAssetStore = create<AssetStore>()(
                 const { getById } = usePriceStore.getState()
 
                 let total = 0
-                for (const [assetId, count] of Object.entries(get().assets)) {
+                for (const [assetId, asset] of Object.entries(get().assets)) {
                     const price = getById(assetId)
-                    total += price.chaosValue * count
+                    total += price.chaosValue * asset.count
                 }
                 return total || 0
             },
@@ -77,7 +79,10 @@ export const useAssetStore = create<AssetStore>()(
     )
 )
 
-export type Target = { count: number }
+export type Target = {
+    count: number
+    inflation: number
+}
 
 export type TargetStore = MapStore<Target> & {
     targets: Record<string, Target>

@@ -65,7 +65,7 @@ const TargetPanel = () => {
                 setOpen={setTargetOpenSearchModal}
                 onSelect={(price) => {
                     // default count to 1
-                    addTarget(price.id, { count: 1 })
+                    addTarget(price.id, { count: 1, inflation: 0 })
                 }}
             />
         </div>

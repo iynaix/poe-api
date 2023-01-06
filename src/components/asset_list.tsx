@@ -13,11 +13,11 @@ const AssetList = () => {
                             <div className="shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
                                 <table className="min-w-full divide-y divide-gray-300">
                                     <tbody className="border-collapse divide-y divide-gray-200">
-                                        {Object.entries(assets).map(([assetId, count]) => (
+                                        {Object.entries(assets).map(([assetId, asset]) => (
                                             <AssetRow
                                                 key={assetId}
                                                 assetId={assetId}
-                                                count={count}
+                                                asset={asset}
                                             />
                                         ))}
                                     </tbody>

@@ -53,10 +53,10 @@ export default function ProgressLoader() {
 
                 // initialize assets
                 if (!("Divine Orb" in assets)) {
-                    addAsset("Divine Orb", 0)
+                    addAsset("Divine Orb", { count: 0 })
                 }
                 if (!("Chaos Orb" in assets)) {
-                    addAsset("Chaos Orb", 0)
+                    addAsset("Chaos Orb", { count: 0 })
                 }
             },
         }

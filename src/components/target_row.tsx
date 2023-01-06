@@ -45,7 +45,12 @@ const TargetRow = ({ targetId, target }: TargetRowProps) => {
                         name={price.name}
                         value={target.count}
                         min={0}
-                        onChange={(ev) => addTarget(price.id, { count: Number(ev.target.value) })}
+                        onChange={(ev) =>
+                            addTarget(price.id, {
+                                count: Number(ev.target.value),
+                                inflation: 0,
+                            })
+                        }
                     />
                 </div>
             </td>

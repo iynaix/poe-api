@@ -52,7 +52,7 @@ const AssetPanel = () => {
                 setOpen={setAssetOpenSearchModal}
                 onSelect={(price) => {
                     // default count to 1
-                    addAsset(price.id, 1)
+                    addAsset(price.id, { count: 1 })
                 }}
             />
         </div>
