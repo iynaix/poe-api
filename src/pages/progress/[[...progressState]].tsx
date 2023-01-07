@@ -108,8 +108,10 @@ const Progress = () => {
         <>
             {/* mobile tabs */}
             <div className="md:hidden">
-                <Tabs />
-                <AssetPanel />
+                <Tabs titles={["I Have", "I Want"]}>
+                    <AssetPanel />
+                    <TargetPanel />
+                </Tabs>
             </div>
             {/* desktop panes */}
             <div className="hidden grid-cols-2 gap-20 md:visible md:grid">
