@@ -2,8 +2,11 @@ import { z } from "zod"
 import { orderBy } from "lodash"
 
 import { router, publicProcedure } from "../trpc"
-import { fetchCombined } from "../../../graphql/combined/schema"
 import { LEAGUES } from "../../../utils/constants"
+import type { LeagueName } from "../../../utils"
+import { fetchCurrencies } from "../../../graphql/currencies/fetcher"
+import { fetchItems } from "../../../graphql/items/fetcher"
+import { CHAOS_ICON } from "../../../components/poe_icon"
 
 export type Price = {
     id: string
@@ -11,6 +14,55 @@ export type Price = {
     icon?: string
     divineValue: number
     chaosValue: number
+}
+
+const fetchPrices = async (league: LeagueName = "tmpstandard") => {
+    const currencies = await fetchCurrencies(league)
+    const items = await fetchItems(league)
+    // placeholder value, updated below
+    let divineValue = 1
+
+    // overwrite id with currencyTypeName
+    const processedCurrencies = currencies.map(({ currencyTypeName, ...currency }) => {
+        if (currencyTypeName === "Divine Orb") {
+            divineValue = currency.chaosValue
+        }
+
+        return {
+            id: currencyTypeName,
+            name: currency.name,
+            icon: currency.icon,
+            chaosValue: currency.chaosValue,
+            divineValue: currency.divineValue,
+            endpoint: currency.endpoint,
+        }
+    })
+
+    // overwrite id with detailsId
+    const processedItems = items.map(({ detailsId, ...item }) => {
+        return {
+            id: detailsId,
+            name: item.name,
+            icon: item.icon,
+            chaosValue: item.chaosValue,
+            divineValue: item.divineValue,
+            endpoint: item.endpoint,
+        }
+    })
+
+    return [
+        ...processedCurrencies,
+        // add a chaos orb item
+        {
+            id: "Chaos Orb",
+            name: "Chaos Orb",
+            icon: CHAOS_ICON,
+            chaosValue: 1,
+            divineValue: 1 / divineValue,
+            endpoint: "currency",
+        },
+        ...processedItems,
+    ] as Price[]
 }
 
 export const priceRouter = router({
@@ -30,7 +82,7 @@ export const priceRouter = router({
             if (!query || query.length < 3) return []
 
             const re = new RegExp(query.replace(" ", ".*"), "i")
-            const prices = await fetchCombined((league as keyof typeof LEAGUES) || "tmpstandard")
+            const prices = await fetchPrices((league as keyof typeof LEAGUES) || "tmpstandard")
 
             const filteredPrices = prices.filter((price) => re.test(price.name))
             return orderBy(filteredPrices, (price) => price.chaosValue, "desc")
@@ -51,7 +103,7 @@ export const priceRouter = router({
             // each id will only produce a single result
             const matchesByItemId: Record<string, Price> = {}
 
-            const prices = await fetchCombined((league as keyof typeof LEAGUES) || "tmpstandard")
+            const prices = await fetchPrices((league as keyof typeof LEAGUES) || "tmpstandard")
             for (const price of prices) {
                 // must be exact match
                 const matchedId = ids.find((id) => id === price.id)

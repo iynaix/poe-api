@@ -22,6 +22,9 @@ export interface Line {
     detailsId: string
     listingCount: number
     links?: number
+    corrupted?: boolean
+    gemLevel?: number
+    gemQuality?: number
     variant?: string
 }
 

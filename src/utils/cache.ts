@@ -34,12 +34,16 @@ export const cachedLeagueData = async <TData>(
     // update cache
     fs.writeFileSync(
         cacheFilename,
-        JSON.stringify({
-            [league]: {
-                fetchTime,
-                data: newData,
+        JSON.stringify(
+            {
+                [league]: {
+                    fetchTime,
+                    data: newData,
+                },
             },
-        })
+            null,
+            process.env.NODE_ENV === "production" ? 0 : 2
+        )
     )
 
     return newData

@@ -5,6 +5,7 @@ import { usePriceStore, useAssetStore, useTargetStore } from "../../utils/progre
 import type { SavedProgressState } from "../../utils/progress_stores"
 import uniq from "lodash/uniq"
 import LZString from "lz-string"
+import Tabs from "../../components/tabs"
 import AssetPanel from "../../components/asset_panel"
 import TargetPanel from "../../components/target_panel"
 
@@ -91,16 +92,12 @@ const useUrlProgressState = () => {
 
 const Progress = () => {
     // const initialState = useUrlProgressState()
-
     // const assets = useAssetStore((state) => state.assets)
     // const targets = useTargetStore((state) => state.targets)
-
     // const isStateChanged =
     //     assets["Divine Orb"] !== 0 || assets["Chaos Orb"] !== 0 || Object.keys(targets).length !== 0
-
     // if (isStateChanged) {
     //     const pageState = { assets, targets }
-
     //     const urlEncodedState = LZString.compressToEncodedURIComponent(JSON.stringify(pageState))
     //     window.history.pushState(pageState, "", `/progress/${urlEncodedState}`)
     // } else {
@@ -108,10 +105,17 @@ const Progress = () => {
     // }
 
     return (
-        <div className="grid grid-cols-2 gap-20">
-            <AssetPanel />
-
-            <TargetPanel />
-        </div>
+        <>
+            {/* mobile tabs */}
+            <div className="md:hidden">
+                <Tabs />
+                <AssetPanel />
+            </div>
+            {/* desktop panes */}
+            <div className="hidden grid-cols-2 gap-20 md:visible md:grid">
+                <AssetPanel />
+                <TargetPanel />
+            </div>
+        </>
     )
 }

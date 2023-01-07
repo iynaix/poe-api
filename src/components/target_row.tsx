@@ -61,17 +61,15 @@ const TargetRow = ({ targetId, target }: TargetRowProps) => {
                         />
                     </div>
                 </td>
-                {process.env.NODE_ENV === "development" && (
-                    <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                        <CurrencyDollarIcon
-                            className="h-5 w-5 cursor-pointer text-gray-500"
-                            aria-hidden="true"
-                            onClick={() => {
-                                setShowInflation(!showInflation)
-                            }}
-                        />
-                    </td>
-                )}
+                <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                    <CurrencyDollarIcon
+                        className="h-5 w-5 cursor-pointer text-gray-500"
+                        aria-hidden="true"
+                        onClick={() => {
+                            setShowInflation(!showInflation)
+                        }}
+                    />
+                </td>
                 <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                     <TrashIcon
                         className="h-5 w-5 cursor-pointer text-red-500"

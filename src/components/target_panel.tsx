@@ -38,7 +38,7 @@ const TargetPanel = () => {
 
     return (
         <div className="p-4">
-            <PaneHeader>I Want</PaneHeader>
+            <PaneHeader className="hidden md:visible">I Want</PaneHeader>
 
             <ChaosRateInput
                 className="w-full px-8 pt-8"

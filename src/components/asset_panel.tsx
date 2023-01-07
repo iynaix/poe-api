@@ -16,7 +16,7 @@ const AssetPanel = () => {
 
     return (
         <div className="p-4">
-            <PaneHeader>I Have</PaneHeader>
+            <PaneHeader className="hidden md:visible">I Have</PaneHeader>
 
             <dl className="mt-5 grid grid-cols-1 gap-5">
                 <Stat
