@@ -77,7 +77,7 @@ const TargetPanel = () => {
                     </Stat>
                 )}
                 <Stat
-                    name={showDivineStat ? "Divine Orb" : "Chaos Orb"}
+                    name="Target"
                     icon={
                         <PoeIcon
                             icon={showDivineStat ? DIVINE_ICON : CHAOS_ICON}

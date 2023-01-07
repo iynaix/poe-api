@@ -20,7 +20,7 @@ const AssetPanel = () => {
 
             <dl className="mt-5 grid grid-cols-1 gap-5">
                 <Stat
-                    name={showDivineStat ? "Divine Orb" : "Chaos Orb"}
+                    name="Net Worth"
                     icon={
                         <PoeIcon
                             icon={showDivineStat ? DIVINE_ICON : CHAOS_ICON}
