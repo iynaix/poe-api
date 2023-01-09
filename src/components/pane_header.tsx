@@ -10,11 +10,11 @@ export default function PaneHeader({ className, children, right }: PaneHeaderPro
     return (
         <div
             className={classNames(
-                "border-b p-5 bg-white border-gray-200 sm:flex sm:items-center sm:justify-between",
+                "border-b border-gray-200 bg-base p-5 sm:flex sm:items-center sm:justify-between",
                 className
             )}
         >
-            <h3 className="text-3xl font-medium leading-6 text-gray-900">{children}</h3>
+            <h3 className="text-3xl font-medium leading-6 text-subtext1">{children}</h3>
             {right && <div className="mt-3 sm:mt-0 sm:ml-4">{right}</div>}
         </div>
     )

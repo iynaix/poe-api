@@ -33,7 +33,7 @@ export default function DropDown({ label }: DropDownProps) {
                         </Listbox.Label>
                     )}
                     <div className="relative mt-1">
-                        <Listbox.Button className="relative w-full cursor-default rounded-md border py-2 pl-3 pr-10 text-left shadow-sm bg-white border-gray-300 focus:outline-none focus:ring-1 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                        <Listbox.Button className="relative w-full cursor-default rounded-md border border-surface1 bg-base py-2 pl-3 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm">
                             <span className="block truncate">{selected.name}</span>
                             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                                 <ChevronUpDownIcon
@@ -50,15 +50,15 @@ export default function DropDown({ label }: DropDownProps) {
                             leaveFrom="opacity-100"
                             leaveTo="opacity-0"
                         >
-                            <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 bg-white focus:outline-none sm:text-sm">
+                            <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-base py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                                 {people.map((person) => (
                                     <Listbox.Option
                                         key={person.id}
                                         className={({ active }) =>
                                             classNames(
                                                 active
-                                                    ? "text-white bg-indigo-600"
-                                                    : "text-gray-900",
+                                                    ? "bg-indigo-600 text-white"
+                                                    : "text-subtext1",
                                                 "relative cursor-default select-none py-2 pl-3 pr-9"
                                             )
                                         }

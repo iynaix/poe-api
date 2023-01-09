@@ -97,7 +97,7 @@ export const PoeIconText = ({ iconProps, text, secondary }: PoeIconTextProps) =>
             </div>
             {secondary ? (
                 <div className="ml-4">
-                    <div className="font-medium text-gray-900">{text}</div>
+                    <div className="font-medium text-subtext1">{text}</div>
                     {typeof secondary === "string" ? (
                         <div className="text-xs text-gray-500">{secondary}</div>
                     ) : (
@@ -106,7 +106,7 @@ export const PoeIconText = ({ iconProps, text, secondary }: PoeIconTextProps) =>
                 </div>
             ) : (
                 <div className="ml-4">
-                    <div className="text-lg font-medium text-gray-900">{text}</div>
+                    <div className="text-lg font-medium text-subtext1">{text}</div>
                 </div>
             )}
         </div>

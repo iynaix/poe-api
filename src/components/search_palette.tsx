@@ -37,7 +37,7 @@ export default function SearchPalette({ open, setOpen, onSelect }: SearchModalPr
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <div className="fixed inset-0 bg-opacity-25 transition-opacity bg-slate-400" />
+                    <div className="fixed inset-0 bg-slate-400 bg-opacity-25 transition-opacity" />
                 </Transition.Child>
 
                 <div className="fixed inset-0 z-10 overflow-y-auto p-4 sm:p-6 md:p-20">
@@ -50,7 +50,7 @@ export default function SearchPalette({ open, setOpen, onSelect }: SearchModalPr
                         leaveFrom="opacity-100 scale-100"
                         leaveTo="opacity-0 scale-95"
                     >
-                        <Dialog.Panel className="mx-auto max-w-xl transform divide-y divide-gray-100 overflow-hidden rounded-xl shadow-2xl ring-1 ring-black ring-opacity-5 transition-all bg-white">
+                        <Dialog.Panel className="mx-auto max-w-xl transform divide-y divide-gray-100 overflow-hidden rounded-xl bg-base shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
                             <Combobox
                                 onChange={(price: Price) => {
                                     onSelect(price)
@@ -64,7 +64,7 @@ export default function SearchPalette({ open, setOpen, onSelect }: SearchModalPr
                                         aria-hidden="true"
                                     />
                                     <Combobox.Input
-                                        className="h-12 w-full border-0 pl-11 pr-4 placeholder-gray-400 bg-transparent text-gray-800 focus:ring-0 sm:text-sm"
+                                        className="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
                                         placeholder="Search..."
                                         onChange={(event) => setQuery(event.target.value)}
                                     />
@@ -77,7 +77,7 @@ export default function SearchPalette({ open, setOpen, onSelect }: SearchModalPr
                                             name="exclamation-circle"
                                             className="mx-auto h-6 w-6 text-gray-400"
                                         />
-                                        <p className="mt-4 font-semibold text-gray-900">
+                                        <p className="mt-4 font-semibold text-subtext1">
                                             No results found
                                         </p>
                                     </div>
