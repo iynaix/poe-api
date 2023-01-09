@@ -20,7 +20,7 @@ const Input = ({ name, className, type = "text", value, onChange }: InputProps) 
     return (
         <input
             className={classNames(
-                "block w-20 rounded-md border-surface1 bg-surface1 text-text shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm",
+                "block w-20 rounded-md border-surface1 bg-surface1 text-text shadow-sm focus:border-sapphire focus:ring-sapphire sm:text-sm",
                 className
             )}
             type={type}

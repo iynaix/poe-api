@@ -10,7 +10,7 @@ export default function PaneHeader({ className, children, right }: PaneHeaderPro
     return (
         <div
             className={classNames(
-                "border-b border-gray-200 bg-base p-5 sm:flex sm:items-center sm:justify-between",
+                "border-b-2 border-surface2 bg-base p-5 sm:flex sm:items-center sm:justify-between",
                 className
             )}
         >

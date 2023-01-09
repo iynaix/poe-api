@@ -18,11 +18,11 @@ const ChaosRateInput = ({ className, inflation, setInflation }: ChaosRateInputPr
             <div>
                 <ToggleSelect
                     left={
-                        <span className={inflation.period === "day" ? "text-white" : ""}>Day</span>
+                        <span className={inflation.period === "day" ? "text-crust" : ""}>Day</span>
                     }
                     leftAltText="Day"
                     right={
-                        <span className={inflation.period !== "day" ? "text-white" : ""}>Hour</span>
+                        <span className={inflation.period !== "day" ? "text-crust" : ""}>Hour</span>
                     }
                     rightAltText="Hour"
                     selection={inflation.period === "day"}

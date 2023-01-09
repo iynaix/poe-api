@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ["latin"] })
 
 const MyApp: AppType = ({ Component, pageProps }) => {
     return (
-        <main className={`${inter.className} mocha bg-base`} style={{ height: "100vh" }}>
+        <main className={inter.className} style={{ height: "100vh" }}>
             <Component {...pageProps} />
         </main>
     )
