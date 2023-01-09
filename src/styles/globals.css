@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* apply catpucinno theme for entire app */
+body {
+    @apply mocha bg-base
+}
+
 /* force dark mode */
 @media (prefers-color-scheme: dark) {
     html {

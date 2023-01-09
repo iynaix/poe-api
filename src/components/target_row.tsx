@@ -63,7 +63,7 @@ const TargetRow = ({ targetId, target }: TargetRowProps) => {
                 </td>
                 <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                     <CurrencyDollarIcon
-                        className="h-5 w-5 cursor-pointer text-gray-500"
+                        className="h-5 w-5 cursor-pointer text-blue"
                         aria-hidden="true"
                         onClick={() => {
                             setShowInflation(!showInflation)
@@ -72,7 +72,7 @@ const TargetRow = ({ targetId, target }: TargetRowProps) => {
                 </td>
                 <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                     <TrashIcon
-                        className="h-5 w-5 cursor-pointer text-red-500"
+                        className="h-5 w-5 cursor-pointer text-maroon"
                         aria-hidden="true"
                         onClick={() => {
                             removeTarget(targetId)

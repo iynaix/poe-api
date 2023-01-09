@@ -11,17 +11,17 @@ const Stat = ({ name, icon, onClick, children }: StatProps) => {
     return (
         <div
             className={classNames(
-                "relative overflow-hidden rounded-lg px-4 py-5 shadow bg-white",
+                "relative overflow-hidden rounded-lg bg-base px-4 py-5 shadow",
                 onClick ? "cursor-pointer" : ""
             )}
             onClick={onClick}
         >
             <dt>
                 {icon && <div className="absolute px-3">{icon}</div>}
-                <p className="ml-16 truncate text-sm font-medium text-gray-500">{name}</p>
+                <p className="ml-16 truncate text-sm font-medium text-subtext0">{name}</p>
             </dt>
             <dd className="ml-16 flex items-baseline">
-                <p className="text-2xl font-semibold text-gray-900">{children}</p>
+                <p className="text-2xl font-semibold text-subtext1">{children}</p>
             </dd>
         </div>
     )

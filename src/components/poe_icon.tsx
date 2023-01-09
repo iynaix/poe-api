@@ -58,7 +58,7 @@ export const DivinePrice = ({
 }: PriceTextProps) => {
     return (
         <div className={`flex items-center ${className}`}>
-            <span className={textClassName} style={{ fontSize: size }}>
+            <span className={`text-text ${textClassName}`} style={{ fontSize: size }}>
                 {truncateFloat(amount, places)}&nbsp;
             </span>
             <DivineIcon size={Math.floor(size)} />
@@ -97,16 +97,16 @@ export const PoeIconText = ({ iconProps, text, secondary }: PoeIconTextProps) =>
             </div>
             {secondary ? (
                 <div className="ml-4">
-                    <div className="font-medium text-gray-900">{text}</div>
+                    <div className="font-medium text-subtext0">{text}</div>
                     {typeof secondary === "string" ? (
-                        <div className="text-xs text-gray-500">{secondary}</div>
+                        <div className="text-xs text-subtext1">{secondary}</div>
                     ) : (
                         secondary
                     )}
                 </div>
             ) : (
                 <div className="ml-4">
-                    <div className="text-lg font-medium text-gray-900">{text}</div>
+                    <div className="text-lg font-medium text-subtext1">{text}</div>
                 </div>
             )}
         </div>

@@ -56,7 +56,7 @@ const AssetRow = ({ assetId, asset }: AssetRowProps) => {
             <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                 {showDelete && (
                     <TrashIcon
-                        className="h-5 w-5 cursor-pointer text-red-500"
+                        className="h-5 w-5 cursor-pointer text-maroon"
                         aria-hidden="true"
                         onClick={() => {
                             removeAsset(assetId)

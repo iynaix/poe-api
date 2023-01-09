@@ -22,8 +22,8 @@ export default function Tabs({ titles, initialIndex = 0, children }: TabsProps) 
                                     key={`tab-${tabIdx}`}
                                     className={classNames(
                                         isCurrent
-                                            ? "text-indigo-600 border-indigo-500"
-                                            : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300",
+                                            ? "border-sapphire text-sapphire"
+                                            : "border-transparent text-text hover:border-surface1 hover:text-subtext1",
                                         "whitespace-nowrap border-b-2 py-4 px-1 text-center text-lg font-medium",
                                         "flex-1"
                                     )}

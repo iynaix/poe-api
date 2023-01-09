@@ -7,9 +7,42 @@ import { trpc } from "../utils/trpc"
 import { DivinePrice, PoeIconText } from "./poe_icon"
 import { type Price } from "../server/trpc/router/prices"
 import { usePriceStore } from "../utils/progress_stores"
+import classNames from "classnames"
 
-function classNames(...classes: (string | boolean)[]) {
-    return classes.filter(Boolean).join(" ")
+type SearchResultProps = {
+    price: Price
+}
+
+const SearchResult = ({ price }: SearchResultProps) => {
+    return (
+        <Combobox.Option
+            value={price}
+            className={({ active }) =>
+                classNames(
+                    "flex cursor-default select-none rounded-xl p-3",
+                    active && "bg-surface0"
+                )
+            }
+        >
+            {() => (
+                <div className="flex flex-1 items-center">
+                    <PoeIconText
+                        text={price.name}
+                        secondary={price.id}
+                        iconProps={{
+                            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                            icon: price.icon!,
+                            alt: price.name,
+                            size: 30,
+                        }}
+                    />
+                    <div className="ml-auto">
+                        <DivinePrice amount={price.divineValue} size={20} />
+                    </div>
+                </div>
+            )}
+        </Combobox.Option>
+    )
 }
 
 type SearchModalProps = {
@@ -37,7 +70,7 @@ export default function SearchPalette({ open, setOpen, onSelect }: SearchModalPr
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <div className="fixed inset-0 bg-opacity-25 transition-opacity bg-slate-400" />
+                    <div className="fixed inset-0 bg-black bg-opacity-80 transition-opacity" />
                 </Transition.Child>
 
                 <div className="fixed inset-0 z-10 overflow-y-auto p-4 sm:p-6 md:p-20">
@@ -50,7 +83,7 @@ export default function SearchPalette({ open, setOpen, onSelect }: SearchModalPr
                         leaveFrom="opacity-100 scale-100"
                         leaveTo="opacity-0 scale-95"
                     >
-                        <Dialog.Panel className="mx-auto max-w-xl transform divide-y divide-gray-100 overflow-hidden rounded-xl shadow-2xl ring-1 ring-black ring-opacity-5 transition-all bg-white">
+                        <Dialog.Panel className="mx-auto max-w-xl transform divide-y divide-surface1 overflow-hidden rounded-xl bg-base shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
                             <Combobox
                                 onChange={(price: Price) => {
                                     onSelect(price)
@@ -60,11 +93,11 @@ export default function SearchPalette({ open, setOpen, onSelect }: SearchModalPr
                             >
                                 <div className="relative">
                                     <MagnifyingGlassIcon
-                                        className="pointer-events-none absolute top-3.5 left-4 h-5 w-5 text-gray-400"
+                                        className="pointer-events-none absolute top-3.5 left-4 h-5 w-5 text-text"
                                         aria-hidden="true"
                                     />
                                     <Combobox.Input
-                                        className="h-12 w-full border-0 pl-11 pr-4 placeholder-gray-400 bg-transparent text-gray-800 focus:ring-0 sm:text-sm"
+                                        className="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-text placeholder-subtext0 focus:ring-0 sm:text-sm"
                                         placeholder="Search..."
                                         onChange={(event) => setQuery(event.target.value)}
                                     />
@@ -77,7 +110,7 @@ export default function SearchPalette({ open, setOpen, onSelect }: SearchModalPr
                                             name="exclamation-circle"
                                             className="mx-auto h-6 w-6 text-gray-400"
                                         />
-                                        <p className="mt-4 font-semibold text-gray-900">
+                                        <p className="mt-4 font-semibold text-subtext1">
                                             No results found
                                         </p>
                                     </div>
@@ -94,37 +127,7 @@ export default function SearchPalette({ open, setOpen, onSelect }: SearchModalPr
                                             className="max-h-96 scroll-py-3 overflow-y-auto p-3"
                                         >
                                             {prices.map((price) => (
-                                                <Combobox.Option
-                                                    key={price.id}
-                                                    value={price}
-                                                    className={({ active }) =>
-                                                        classNames(
-                                                            "flex cursor-default select-none rounded-xl p-3",
-                                                            active && "bg-gray-100"
-                                                        )
-                                                    }
-                                                >
-                                                    {() => (
-                                                        <div className="flex flex-1 items-center">
-                                                            <PoeIconText
-                                                                text={price.name}
-                                                                secondary={price.id}
-                                                                iconProps={{
-                                                                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                                                                    icon: price.icon!,
-                                                                    alt: price.name,
-                                                                    size: 30,
-                                                                }}
-                                                            />
-                                                            <div className="ml-auto">
-                                                                <DivinePrice
-                                                                    amount={price.divineValue}
-                                                                    size={20}
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    )}
-                                                </Combobox.Option>
+                                                <SearchResult key={price.id} price={price} />
                                             ))}
                                         </Combobox.Options>
                                     )
