@@ -40,18 +40,18 @@ const TargetPanel = () => {
         <div className="p-4">
             <PaneHeader className="hidden md:visible">I Want</PaneHeader>
 
-            <ChaosRateInput
-                className="w-full px-8 pt-8"
-                style={{
-                    gridTemplateColumns: "2fr 1fr 1fr 1fr",
-                }}
-                label="Earn Rate"
-                inflation={earnRate}
-                setInflation={setEarnRate}
-            />
+            <div className="mx-auto mt-8 flex items-center justify-around">
+                <span>Earn Rate</span>
+
+                <ChaosRateInput
+                    className="px-0 md:px-8"
+                    inflation={earnRate}
+                    setInflation={setEarnRate}
+                />
+            </div>
 
             <dl
-                className="mt-5 grid gap-5"
+                className="mt-8 grid gap-5"
                 style={{
                     gridTemplateColumns: `repeat(${showETA ? 3 : 2}, minmax(0, 1fr))`,
                 }}

@@ -5,31 +5,16 @@ import ToggleSelect from "./toggle_select"
 import { DivineIcon, ChaosIcon } from "./poe_icon"
 
 type ChaosRateInputProps = {
-    label: string
     className?: string
-    style?: React.CSSProperties
     inflation: Inflation
     setInflation: (inflation: Inflation) => void
 }
 
-const ChaosRateInput = ({
-    className,
-    style,
-    label,
-    inflation,
-    setInflation,
-}: ChaosRateInputProps) => {
+const ChaosRateInput = ({ className, inflation, setInflation }: ChaosRateInputProps) => {
     const randomId = useId()
 
     return (
-        <div
-            className={`grid items-center gap-5 ${className}`}
-            style={{
-                gridTemplateColumns: "min-content min-content min-content auto",
-                ...style,
-            }}
-        >
-            <span>{label}</span>
+        <div className={`grid grid-cols-3 justify-items-center gap-5 ${className}`}>
             <div>
                 <ToggleSelect
                     left={

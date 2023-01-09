@@ -21,7 +21,7 @@ export const fetchItemEndpoint = async (endpoint: ItemEndpointEnum, league: Leag
 
         if (endpoint === "SkillGem") {
             const corrupted = Boolean(item.corrupted) ? " (Corrupted)" : ""
-            name = `${item.name} (${item.gemLevel}/${item.gemQuality}${corrupted})`
+            name = `${item.name} (${item.gemLevel}/${item.gemQuality || 0}${corrupted})`
         }
 
         return {

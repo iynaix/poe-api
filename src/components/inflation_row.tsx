@@ -29,16 +29,19 @@ const InflationRow = ({ targetId, target, price }: InflationRowProps) => {
 
     return (
         <div className="flex items-center">
-            <ChaosRateInput
-                label="Increase Per"
-                inflation={target.inflation}
-                setInflation={(inflation) => {
-                    addTarget(targetId, {
-                        ...target,
-                        inflation,
-                    })
-                }}
-            />
+            <div className="flex items-center">
+                <span className="pr-4">Increase Per</span>
+                <ChaosRateInput
+                    inflation={target.inflation}
+                    setInflation={(inflation) => {
+                        addTarget(targetId, {
+                            ...target,
+                            inflation,
+                        })
+                    }}
+                />
+            </div>
+
             {earnRateInChaosPerHour() > 0 && (
                 <span
                     className="ml-auto mr-2"

@@ -2,6 +2,8 @@ import { useState } from "react"
 import Image from "next/image"
 import { truncateFloat } from "../utils"
 
+const POE_ICON_SIZE = 96
+
 export const CHAOS_ICON = "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollRare.png"
 
 export const DIVINE_ICON = "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyModValues.png"
@@ -13,18 +15,18 @@ export type PoeIconProps = {
     size: number
 }
 
-// const whClassName = (size: number) => `h-[${size}px] w-[${size}px]`
-
 const PoeIcon = ({ icon, alt, className, size }: PoeIconProps) => {
-    const whClassName = `h-[${size}px] w-[${size}px]`
-
     return (
         <Image
             src={icon.replace(/\?.*$/, "")}
             alt={alt}
-            className={`inline-block ${whClassName} ${className}`}
-            width={size}
-            height={size}
+            className={`inline-block ${className}`}
+            style={{
+                height: size,
+                width: size,
+            }}
+            width={POE_ICON_SIZE}
+            height={POE_ICON_SIZE}
         />
     )
 }
