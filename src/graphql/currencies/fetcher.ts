@@ -24,12 +24,14 @@ export const fetchCurrencyEndpoint = async (endpoint: CurrencyEndpointEnum, leag
     return currencyDetails
         .filter(({ name }) => name in linesByType)
         .map((item) => {
-            const line = linesByType[item.name]
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            const line = linesByType[item.name]!
             return {
                 ...item,
                 // fill with zero first, actual value is added below
                 divineValue: 0,
                 ...line,
+                id: item.tradeId ?? line.detailsId,
             }
         })
 }

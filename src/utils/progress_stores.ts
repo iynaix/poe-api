@@ -20,7 +20,7 @@ export const usePriceStore = create<PricesStore>()((set, get) => ({
     set: (prices) =>
         set(() => ({
             prices,
-            divineValue: prices["Divine Orb"]?.chaosValue || 0,
+            divineValue: prices["divine"]?.chaosValue || 0,
         })),
     add: (id, price) => set((state) => ({ prices: { ...state.prices, [id]: price } })),
     remove: (id) =>

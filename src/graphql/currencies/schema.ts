@@ -7,7 +7,7 @@ import { createOrderBy } from "../../utils/orderby"
 
 builder.objectType("Currency", {
     fields: (t) => ({
-        id: t.exposeID("currencyTypeName"),
+        id: t.exposeID("id"),
         name: t.exposeString("name"),
         icon: t.exposeString("icon", { nullable: true }),
         chaosValue: t.exposeFloat("chaosValue"),
@@ -45,6 +45,7 @@ builder.queryFields((t) => ({
             const agg = new Aggregator([{ $match }, { $sort }])
 
             const currencies = await fetchCurrencies(args.league || "tmpstandard")
+            console.log(currencies)
             return agg.run(currencies) as unknown as typeof currencies
         },
     }),

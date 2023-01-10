@@ -16,7 +16,7 @@ export default function ProgressLoader() {
 
     // extra ids might exist in assets or targets as rehydrated from localstorage
     const idsToFetch = uniq([
-        "Divine Orb",
+        "divine",
         ...Object.keys(prices),
         ...Object.keys(assets),
         ...Object.keys(targets),
@@ -37,27 +37,29 @@ export default function ProgressLoader() {
                 }
             },
             onSuccess: (data) => {
+                console.log(data)
                 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                const divineValue = data["Divine Orb"]!.chaosValue
+                const divineValue = data["divine"]!.chaosValue
 
                 setPrices({
                     ...data,
                     // create chaos orb data as it isn't provided by poe ninja
-                    "Chaos Orb": {
-                        id: "Chaos Orb",
+                    chaos: {
+                        id: "chaos",
                         name: "Chaos Orb",
                         icon: CHAOS_ICON,
                         chaosValue: 1,
                         divineValue: 1 / divineValue,
+                        endpoint: "Currency",
                     },
                 })
 
                 // initialize assets
-                if (!("Divine Orb" in assets)) {
-                    addAsset("Divine Orb", { count: 0 })
+                if (!("divine" in assets)) {
+                    addAsset("divine", { count: 0 })
                 }
-                if (!("Chaos Orb" in assets)) {
-                    addAsset("Chaos Orb", { count: 0 })
+                if (!("chaos" in assets)) {
+                    addAsset("chaos", { count: 0 })
                 }
             },
         }
@@ -95,7 +97,7 @@ const Progress = () => {
     // const assets = useAssetStore((state) => state.assets)
     // const targets = useTargetStore((state) => state.targets)
     // const isStateChanged =
-    //     assets["Divine Orb"] !== 0 || assets["Chaos Orb"] !== 0 || Object.keys(targets).length !== 0
+    //     assets["divine"] !== 0 || assets["chaos"] !== 0 || Object.keys(targets).length !== 0
     // if (isStateChanged) {
     //     const pageState = { assets, targets }
     //     const urlEncodedState = LZString.compressToEncodedURIComponent(JSON.stringify(pageState))

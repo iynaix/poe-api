@@ -2,7 +2,7 @@ import { z } from "zod"
 import { orderBy } from "lodash"
 
 import { router, publicProcedure } from "../trpc"
-import { LEAGUES } from "../../../utils/constants"
+import { type CurrencyEndpointEnum, type ItemEndpointEnum, LEAGUES } from "../../../utils/constants"
 import type { LeagueName } from "../../../utils"
 import { fetchCurrencies } from "../../../graphql/currencies/fetcher"
 import { fetchItems } from "../../../graphql/items/fetcher"
@@ -14,6 +14,7 @@ export type Price = {
     icon?: string
     divineValue: number
     chaosValue: number
+    endpoint: CurrencyEndpointEnum | ItemEndpointEnum
 }
 
 const fetchPrices = async (league: LeagueName = "tmpstandard") => {
@@ -29,7 +30,7 @@ const fetchPrices = async (league: LeagueName = "tmpstandard") => {
         }
 
         return {
-            id: currencyTypeName,
+            id: currency.id,
             name: currency.name,
             icon: currency.icon,
             chaosValue: currency.chaosValue,
@@ -54,7 +55,7 @@ const fetchPrices = async (league: LeagueName = "tmpstandard") => {
         ...processedCurrencies,
         // add a chaos orb item
         {
-            id: "Chaos Orb",
+            id: "chaos",
             name: "Chaos Orb",
             icon: CHAOS_ICON,
             chaosValue: 1,

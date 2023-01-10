@@ -11,7 +11,7 @@ type AssetRowProps = {
 const AssetRow = ({ assetId, asset }: AssetRowProps) => {
     const { getById, remove: removePrice } = usePriceStore()
     const { add: addAsset, remove: removeAsset } = useAssetStore()
-    const showDelete = !(assetId === "Divine Orb" || assetId === "Chaos Orb")
+    const showDelete = !(assetId === "divine" || assetId === "chaos")
 
     const price = getById(assetId)
 
