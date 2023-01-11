@@ -4,6 +4,7 @@ import { fetchItems } from "./fetcher"
 import { builder, ItemEndpoint, League } from "../builder"
 import {
     StringFilter,
+    BooleanFilter,
     IntFilter,
     FloatFilter,
     ModifierFilter,
@@ -35,7 +36,8 @@ builder.objectType("Item", {
             type: ItemEndpoint,
             resolve: (parent) => parent.endpoint,
         }),
-        // links: t.exposeInt("links", { nullable: true }),
+        corrupted: t.exposeBoolean("corrupted", { nullable: true }),
+        links: t.exposeInt("links", { nullable: true }),
         variant: t.exposeString("variant", { nullable: true }),
         // modfiers
         implicitModifiers: t.field({
@@ -58,6 +60,9 @@ const [whereInput, whereAgg] = createWhere("ItemWhereInput", {
     itemType: StringFilter,
     links: IntFilter,
     variant: StringFilter,
+    gemLevel: IntFilter,
+    gemQuality: IntFilter,
+    corrupted: BooleanFilter,
     endpoint: EnumFilter("ItemEndpoint", ItemEndpoint),
     implicitModifiers: ModifierFilter,
     explicitModifiers: ModifierFilter,
@@ -87,7 +92,6 @@ builder.queryFields((t) => ({
             const $match = whereAgg(args.where)
             const $sort = orderByAgg(args.orderBy)
 
-            console.log("$match", $match)
             const agg = new Aggregator([{ $match }, { $sort }])
 
             const items = await fetchItems(args.league || "tmpstandard")

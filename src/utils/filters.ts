@@ -64,6 +64,17 @@ const filterString = (name: string, val: Record<string, string | string[]>) => {
     }
 }
 
+export const BooleanFilter = builder.inputType("BooleanFilter", {
+    fields: (t) => ({
+        _eq: t.boolean({ required: false }),
+        _ne: t.boolean({ required: false }),
+    }),
+})
+
+const filterBoolean = (fieldName: string, fieldValue: Record<string, boolean>) => {
+    return { [fieldName]: mapKeys(fieldValue, (_, k) => k.replace("_", "$")) }
+}
+
 export const IntFilter = builder.inputType("IntFilter", {
     fields: (t) => ({
         _eq: t.int({ required: false }),
@@ -130,7 +141,11 @@ const filterModifier = (name: string, val: Record<string, string | string[]>) =>
 
 type WhereInitializer = Record<
     string,
-    typeof StringFilter | typeof IntFilter | typeof FloatFilter | ReturnType<typeof EnumFilter>
+    | typeof StringFilter
+    | typeof IntFilter
+    | typeof FloatFilter
+    | typeof BooleanFilter
+    | ReturnType<typeof EnumFilter>
 >
 
 type WhereArgumentBasic = InputShapeFromFields<InputFieldMap<"InputObject">> | null | undefined
@@ -168,6 +183,10 @@ const _createWhereAggreation = (whereDefintion: WhereInitializer) => {
 
                 if (filterType === "IntFilter" || filterType === "FloatFilter") {
                     return filterNumber(filterName, filterValue as Record<string, number>)
+                }
+
+                if (filterType === "BooleanFilter") {
+                    return filterBoolean(filterName, filterValue as Record<string, boolean>)
                 }
 
                 if (filterType === "ModifierFilter") {
@@ -210,7 +229,7 @@ const _createWhereAggreationRecursive = (
 
     const $and = _and ? { $and: _and?.map((andArg) => whereAggregation(andArg)) } : undefined
     const $or = _or ? { $or: _or?.map((orArg) => whereAggregation(orArg)) } : undefined
-    const $not = _not ? { $not: _not?.map((notArg) => whereAggregation(notArg)) } : undefined
+    const $not = _not ? { $nor: _not?.map((notArg) => whereAggregation(notArg)) } : undefined
 
     return {
         ...$and,
