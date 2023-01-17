@@ -8,11 +8,20 @@ import LZString from "lz-string"
 import Tabs from "../../components/tabs"
 import AssetPanel from "../../components/asset_panel"
 import TargetPanel from "../../components/target_panel"
+import { useEffect, useState } from "react"
+import ProgressPageHeader from "../../components/progress_page_header"
 
 export default function ProgressLoader() {
+    const [showChild, setShowChild] = useState(false)
     const { prices, set: setPrices } = usePriceStore()
     const { assets, add: addAsset } = useAssetStore()
     const { targets } = useTargetStore()
+
+    // client loads cached prices from localstorage and will be hydrated differently
+    // than the server, so we need to skip SSR to avoid hydration mismatch
+    useEffect(() => {
+        setShowChild(true)
+    }, [])
 
     // extra ids might exist in assets or targets as rehydrated from localstorage
     const idsToFetch = uniq([
@@ -22,7 +31,7 @@ export default function ProgressLoader() {
         ...Object.keys(targets),
     ])
 
-    const { data, isLoading } = trpc.prices.list.useQuery(
+    const { data, isLoading, isFetching } = trpc.prices.list.useQuery(
         {
             ids: idsToFetch,
         },
@@ -37,7 +46,6 @@ export default function ProgressLoader() {
                 }
             },
             onSuccess: (data) => {
-                console.log(data)
                 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 const divineValue = data["divine"]!.chaosValue
 
@@ -65,13 +73,18 @@ export default function ProgressLoader() {
         }
     )
 
+    if (!showChild) {
+        return null
+    }
+
     if (isLoading || !data) {
         return <div>Loading...</div>
     }
 
-    return <Progress />
+    return <Progress isFetching={isLoading || isFetching} />
 }
 
+/*
 const useUrlProgressState = () => {
     const router = useRouter()
     const stateFromUrl = router.query.progressState
@@ -91,8 +104,13 @@ const useUrlProgressState = () => {
         }
     }
 }
+*/
 
-const Progress = () => {
+type ProgressProps = {
+    isFetching: boolean
+}
+
+const Progress = ({ isFetching }: ProgressProps) => {
     // const initialState = useUrlProgressState()
     // const assets = useAssetStore((state) => state.assets)
     // const targets = useTargetStore((state) => state.targets)
@@ -116,10 +134,13 @@ const Progress = () => {
                 </Tabs>
             </div>
             {/* desktop panes */}
-            <div className="hidden grid-cols-2 gap-20 md:visible md:grid">
-                <AssetPanel />
-                <TargetPanel />
-            </div>
+            <>
+                <ProgressPageHeader isFetching={isFetching} />
+                <div className="hidden grid-cols-2 gap-20 md:visible md:grid">
+                    <AssetPanel />
+                    <TargetPanel />
+                </div>
+            </>
         </>
     )
 }

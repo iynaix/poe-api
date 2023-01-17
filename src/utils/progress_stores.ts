@@ -14,26 +14,33 @@ type PricesStore = MapStore<Price> & {
     getById: (id: string) => Price
 }
 
-export const usePriceStore = create<PricesStore>()((set, get) => ({
-    prices: {},
-    divineValue: 0,
-    set: (prices) =>
-        set(() => ({
-            prices,
-            divineValue: prices["divine"]?.chaosValue || 0,
-        })),
-    add: (id, price) => set((state) => ({ prices: { ...state.prices, [id]: price } })),
-    remove: (id) =>
-        set((state) => {
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const { [id]: _, ...rest } = state.prices
-            return { prices: rest }
+export const usePriceStore = create<PricesStore>()(
+    persist(
+        (set, get) => ({
+            prices: {},
+            divineValue: 0,
+            set: (prices) =>
+                set(() => ({
+                    prices,
+                    divineValue: prices["divine"]?.chaosValue || 0,
+                })),
+            add: (id, price) => set((state) => ({ prices: { ...state.prices, [id]: price } })),
+            remove: (id) =>
+                set((state) => {
+                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                    const { [id]: _, ...rest } = state.prices
+                    return { prices: rest }
+                }),
+            getById: (id) => {
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                return get().prices[id]!
+            },
         }),
-    getById: (id) => {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        return get().prices[id]!
-    },
-}))
+        {
+            name: "prices",
+        }
+    )
+)
 
 export type Asset = {
     count: number
