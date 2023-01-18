@@ -52,11 +52,11 @@ type SearchModalProps = {
 }
 
 export default function SearchPalette({ open, setOpen, onSelect }: SearchModalProps) {
-    const { add: addPrice } = usePriceStore()
+    const { add: addPrice, league } = usePriceStore()
 
     const [query, setQuery] = useState("")
 
-    const { data: prices, isLoading } = trpc.prices.byName.useQuery({ query })
+    const { data: prices, isLoading } = trpc.prices.byName.useQuery({ query, league })
 
     return (
         <Transition.Root show={open} as={Fragment} afterLeave={() => setQuery("")} appear>

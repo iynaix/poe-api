@@ -13,7 +13,7 @@ import ProgressPageHeader from "../../components/progress_page_header"
 
 export default function ProgressLoader() {
     const [showChild, setShowChild] = useState(false)
-    const { prices, set: setPrices } = usePriceStore()
+    const { prices, set: setPrices, league } = usePriceStore()
     const { assets, add: addAsset } = useAssetStore()
     const { targets } = useTargetStore()
 
@@ -32,9 +32,7 @@ export default function ProgressLoader() {
     ])
 
     const { data, isLoading, isFetching } = trpc.prices.list.useQuery(
-        {
-            ids: idsToFetch,
-        },
+        { ids: idsToFetch, league },
         {
             // refetch every 10 minutes
             refetchInterval: 1000 * 60 * 10,

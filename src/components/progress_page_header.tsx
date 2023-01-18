@@ -3,12 +3,17 @@ import { ShareIcon, ChevronDownIcon } from "@heroicons/react/20/solid"
 import classNames from "classnames"
 import { Menu, Transition } from "@headlessui/react"
 import Spinner from "./spinner"
+import { LEAGUES } from "../utils/constants"
+import { usePriceStore } from "../utils/progress_stores"
+import type { LeagueName } from "../utils"
 
 type ProgressPageHeaderProps = {
     isFetching: boolean
 }
 
 export default function ProgressPageHeader({ isFetching }: ProgressPageHeaderProps) {
+    const { league, setLeague } = usePriceStore()
+
     return (
         <div className="bg-crust p-4 lg:flex lg:items-center lg:justify-between">
             <div className="min-w-0 flex-1">
@@ -30,12 +35,12 @@ export default function ProgressPageHeader({ isFetching }: ProgressPageHeaderPro
                     </button>
                 </span>
 
-                {/* Dropdown */}
-                <Menu as="div" className="relative ml-3 sm:hidden">
-                    <Menu.Button className="inline-flex items-center rounded-md border border-transparent bg-gray-700 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-800">
-                        More
+                {/* league dropdown */}
+                <Menu as="div" className="relative ml-3">
+                    <Menu.Button className="inline-flex items-center rounded-md border border-transparent bg-peach px-4 py-2 text-sm font-medium text-mantle shadow-sm hover:bg-rosewater focus:outline-none focus:ring-2 focus:ring-peach focus:ring-offset-2 focus:ring-offset-gray-800">
+                        {LEAGUES[league] || LEAGUES["tmpstandard"]}
                         <ChevronDownIcon
-                            className="-mr-1 ml-2 h-5 w-5 text-gray-400"
+                            className="-mr-1 ml-2 h-5 w-5 text-mantle"
                             aria-hidden="true"
                         />
                     </Menu.Button>
@@ -48,33 +53,25 @@ export default function ProgressPageHeader({ isFetching }: ProgressPageHeaderPro
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95"
                     >
-                        <Menu.Items className="absolute left-0 z-10 mt-2 -ml-1 w-48 origin-top-left rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                            <Menu.Item>
-                                {({ active }) => (
-                                    <a
-                                        href="#"
-                                        className={classNames(
-                                            active ? "bg-gray-100" : "",
-                                            "block px-4 py-2 text-sm text-gray-700"
-                                        )}
-                                    >
-                                        Edit
-                                    </a>
-                                )}
-                            </Menu.Item>
-                            <Menu.Item>
-                                {({ active }) => (
-                                    <a
-                                        href="#"
-                                        className={classNames(
-                                            active ? "bg-gray-100" : "",
-                                            "block px-4 py-2 text-sm text-gray-700"
-                                        )}
-                                    >
-                                        View
-                                    </a>
-                                )}
-                            </Menu.Item>
+                        <Menu.Items className="absolute right-0 z-10 mt-2 -ml-1 w-48 origin-top-left rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                            {Object.entries(LEAGUES).map(([value, name]) => (
+                                <Menu.Item key={value}>
+                                    {({ active }) => (
+                                        <a
+                                            href="#"
+                                            className={classNames(
+                                                active ? "bg-subtext1" : "",
+                                                "block px-4 py-2 text-sm text-gray-700"
+                                            )}
+                                            onClick={() => {
+                                                setLeague(value as LeagueName)
+                                            }}
+                                        >
+                                            {name}
+                                        </a>
+                                    )}
+                                </Menu.Item>
+                            ))}
                         </Menu.Items>
                     </Transition>
                 </Menu>

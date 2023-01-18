@@ -17,7 +17,7 @@ export const LEAGUES = {
 
 export const CURRENCY_ENDPOINTS = ["Currency", "Fragment"] as const
 
-export type CurrencyEndpointEnum = typeof CURRENCY_ENDPOINTS[number]
+export type CurrencyEndpointEnum = (typeof CURRENCY_ENDPOINTS)[number]
 
 export const ITEM_ENDPOINTS = [
     // General
@@ -51,4 +51,4 @@ export const ITEM_ENDPOINTS = [
     "Vial",
 ] as const
 
-export type ItemEndpointEnum = typeof ITEM_ENDPOINTS[number]
+export type ItemEndpointEnum = (typeof ITEM_ENDPOINTS)[number]

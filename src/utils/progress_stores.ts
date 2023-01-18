@@ -1,6 +1,7 @@
 import create from "zustand"
 import type { Price } from "../server/trpc/router/prices"
 import { persist } from "zustand/middleware"
+import type { LeagueName } from "."
 
 type MapStore<T> = {
     set: (objs: Record<string, T>) => void
@@ -11,6 +12,8 @@ type MapStore<T> = {
 type PricesStore = MapStore<Price> & {
     prices: Record<string, Price>
     divineValue: number
+    league: LeagueName
+    setLeague: (league: LeagueName) => void
     getById: (id: string) => Price
 }
 
@@ -19,6 +22,8 @@ export const usePriceStore = create<PricesStore>()(
         (set, get) => ({
             prices: {},
             divineValue: 0,
+            league: "tmpstandard",
+            setLeague: (league) => set(() => ({ league })),
             set: (prices) =>
                 set(() => ({
                     prices,
