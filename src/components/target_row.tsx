@@ -1,4 +1,4 @@
-import { type Target, usePriceStore, useTargetStore } from "../utils/progress_stores"
+import { type Target, usePricesActions, useTargetsActions } from "../utils/progress_stores"
 import { TrashIcon, CurrencyDollarIcon } from "@heroicons/react/24/outline"
 import { PoeIconText, TogglePrice } from "./poe_icon"
 import { useState } from "react"
@@ -11,11 +11,11 @@ type TargetRowProps = {
 }
 
 const TargetRow = ({ targetId, target }: TargetRowProps) => {
-    const { getById, remove: removePrice } = usePriceStore()
-    const { add: addTarget, remove: removeTarget } = useTargetStore()
+    const { priceById, remove: removePrice } = usePricesActions()
+    const { add: addTarget, remove: removeTarget } = useTargetsActions()
     const [showInflation, setShowInflation] = useState(false)
 
-    const price = getById(targetId)
+    const price = priceById(targetId)
 
     return (
         <>

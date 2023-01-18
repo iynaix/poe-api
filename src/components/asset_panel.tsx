@@ -2,14 +2,16 @@ import PaneHeader from "./pane_header"
 import SearchPalette from "./search_palette"
 import AssetList from "./asset_list"
 import { useState } from "react"
-import { useAssetStore } from "../utils/progress_stores"
+import { useAssetsActions, usePricesActions } from "../utils/progress_stores"
 import PoeIcon, { DIVINE_ICON, CHAOS_ICON } from "./poe_icon"
 import Stat from "./stat"
 import Button from "./button"
 import { truncateFloat } from "../utils"
 
 const AssetPanel = () => {
-    const { add: addAsset, totalChaos, totalDivines } = useAssetStore()
+    const { inDivines } = usePricesActions()
+    const assetActions = useAssetsActions()
+    const totalAssets = assetActions.total()
 
     const [showDivineStat, setShowDivineStat] = useState(true)
     const [openAssetSearchModal, setAssetOpenSearchModal] = useState(false)
@@ -32,7 +34,7 @@ const AssetPanel = () => {
                         setShowDivineStat(!showDivineStat)
                     }}
                 >
-                    {truncateFloat(showDivineStat ? totalDivines() : totalChaos(), 3)}
+                    {truncateFloat(showDivineStat ? inDivines(totalAssets) : totalAssets, 3)}
                 </Stat>
             </dl>
 
@@ -54,7 +56,7 @@ const AssetPanel = () => {
                 setOpen={setAssetOpenSearchModal}
                 onSelect={(price) => {
                     // default count to 1
-                    addAsset(price.id, { count: 1 })
+                    assetActions.add(price.id, { count: 1 })
                 }}
             />
         </div>

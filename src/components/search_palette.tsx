@@ -6,7 +6,7 @@ import Spinner from "./spinner"
 import { trpc } from "../utils/trpc"
 import { DivinePrice, PoeIconText } from "./poe_icon"
 import { type Price } from "../server/trpc/router/prices"
-import { usePriceStore } from "../utils/progress_stores"
+import { useLeague, usePricesActions } from "../utils/progress_stores"
 import classNames from "classnames"
 
 type SearchResultProps = {
@@ -52,7 +52,8 @@ type SearchModalProps = {
 }
 
 export default function SearchPalette({ open, setOpen, onSelect }: SearchModalProps) {
-    const { add: addPrice, league } = usePriceStore()
+    const [league] = useLeague()
+    const { add: addPrice } = usePricesActions()
 
     const [query, setQuery] = useState("")
 

@@ -3,7 +3,13 @@ import PaneHeader from "./pane_header"
 import SearchPalette from "./search_palette"
 import TargetList from "./target_list"
 import { useState } from "react"
-import { useTargetStore, useAssetStore, useEarnRateStore } from "../utils/progress_stores"
+import {
+    useTargetsActions,
+    useEarnRate,
+    useEarnRateActions,
+    usePricesActions,
+    useAssetsActions,
+} from "../utils/progress_stores"
 import { ChartBarIcon, CalendarDaysIcon, ClockIcon } from "@heroicons/react/24/outline"
 import Stat from "./stat"
 import { truncateFloat } from "../utils"
@@ -11,27 +17,20 @@ import PoeIcon, { DIVINE_ICON, CHAOS_ICON } from "./poe_icon"
 import ChaosRateInput from "./chaos_rate_input"
 
 const TargetPanel = () => {
-    const { totalChaos } = useAssetStore()
-    const {
-        add: addTarget,
-        totalChaos: targetTotalChaos,
-        totalDivines: targetTotalDivines,
-        totalInflationRate,
-    } = useTargetStore()
+    const { total: totalAssets } = useAssetsActions()
+    const { inDivines } = usePricesActions()
+    const { add: addTarget, total: targetTotalChaos, totalInflationRate } = useTargetsActions()
 
-    const {
-        earnRate,
-        set: setEarnRate,
-        earnRateInChaosPerHour,
-        estimatedTimeToTarget,
-    } = useEarnRateStore()
+    const [earnRate, setEarnRate] = useEarnRate()
+
+    const { earnRateInChaosPerHour, estimatedTimeToTarget } = useEarnRateActions()
     const [showDivineStat, setShowDivineStat] = useState(true)
     const [showHourStat, setShowHourStat] = useState(true)
     const [openTargetSearchModal, setTargetOpenSearchModal] = useState(false)
 
     const targetChaos = targetTotalChaos()
     // no divide by zero
-    const progress = targetChaos ? (totalChaos() / targetChaos) * 100 : 0
+    const progress = targetChaos ? (totalAssets() / targetChaos) * 100 : 0
 
     const showETA = earnRateInChaosPerHour() > 0
     const etaInHours = estimatedTimeToTarget(targetChaos, totalInflationRate())
@@ -89,7 +88,7 @@ const TargetPanel = () => {
                         setShowDivineStat(!showDivineStat)
                     }}
                 >
-                    {truncateFloat(showDivineStat ? targetTotalDivines() : targetChaos, 3)}
+                    {truncateFloat(showDivineStat ? inDivines(targetChaos) : targetChaos, 3)}
                 </Stat>
             </dl>
 

@@ -1,4 +1,4 @@
-import { usePriceStore, useAssetStore, type Asset } from "../utils/progress_stores"
+import { usePricesActions, useAssetsActions, type Asset } from "../utils/progress_stores"
 import { TrashIcon } from "@heroicons/react/24/outline"
 import { TogglePrice, PoeIconText } from "./poe_icon"
 import Input from "./input"
@@ -9,11 +9,11 @@ type AssetRowProps = {
 }
 
 const AssetRow = ({ assetId, asset }: AssetRowProps) => {
-    const { getById, remove: removePrice } = usePriceStore()
-    const { add: addAsset, remove: removeAsset } = useAssetStore()
+    const { priceById, remove: removePrice } = usePricesActions()
+    const { add: addAsset, remove: removeAsset } = useAssetsActions()
     const showDelete = !(assetId === "divine" || assetId === "chaos")
 
-    const price = getById(assetId)
+    const price = priceById(assetId)
 
     return (
         <tr>

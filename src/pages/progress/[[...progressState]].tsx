@@ -1,7 +1,4 @@
-import { trpc } from "../../utils/trpc"
-import { CHAOS_ICON } from "../../components/poe_icon"
-import { usePriceStore, useAssetStore, useTargetStore } from "../../utils/progress_stores"
-import uniq from "lodash/uniq"
+import { usePricesQuery } from "../../utils/progress_stores"
 import Tabs from "../../components/tabs"
 import AssetPanel from "../../components/asset_panel"
 import TargetPanel from "../../components/target_panel"
@@ -10,9 +7,6 @@ import ProgressPageHeader from "../../components/progress_page_header"
 
 export default function ProgressLoader() {
     const [showChild, setShowChild] = useState(false)
-    const { prices, set: setPrices, league } = usePriceStore()
-    const { assets, add: addAsset } = useAssetStore()
-    const { targets } = useTargetStore()
 
     // client loads cached prices from localstorage and will be hydrated differently
     // than the server, so we need to skip SSR to avoid hydration mismatch
@@ -20,53 +14,7 @@ export default function ProgressLoader() {
         setShowChild(true)
     }, [])
 
-    // extra ids might exist in assets or targets as rehydrated from localstorage
-    const idsToFetch = uniq([
-        "divine",
-        ...Object.keys(prices),
-        ...Object.keys(assets),
-        ...Object.keys(targets),
-    ])
-
-    const { data, isLoading, isFetching } = trpc.prices.list.useQuery(
-        { ids: idsToFetch, league },
-        {
-            // refetch every 10 minutes
-            refetchInterval: 1000 * 60 * 10,
-            placeholderData: () => {
-                if (Object.keys(prices).length === 0) {
-                    return undefined
-                } else {
-                    return prices
-                }
-            },
-            onSuccess: (data) => {
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                const divineValue = data["divine"]!.chaosValue
-
-                setPrices({
-                    ...data,
-                    // create chaos orb data as it isn't provided by poe ninja
-                    chaos: {
-                        id: "chaos",
-                        name: "Chaos Orb",
-                        icon: CHAOS_ICON,
-                        chaosValue: 1,
-                        divineValue: 1 / divineValue,
-                        endpoint: "Currency",
-                    },
-                })
-
-                // initialize assets
-                if (!("divine" in assets)) {
-                    addAsset("divine", { count: 0 })
-                }
-                if (!("chaos" in assets)) {
-                    addAsset("chaos", { count: 0 })
-                }
-            },
-        }
-    )
+    const { data, isLoading, isFetching } = usePricesQuery()
 
     if (!showChild) {
         return null

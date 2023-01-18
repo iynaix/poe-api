@@ -5,7 +5,7 @@ import { Menu, Transition } from "@headlessui/react"
 import Spinner from "./spinner"
 import { LEAGUES } from "../utils/constants"
 import type { LeagueName } from "../utils"
-import { usePriceStore } from "../utils/progress_stores"
+import { useLeague } from "../utils/progress_stores"
 import ShareButton from "./share_button"
 
 type ProgressPageHeaderProps = {
@@ -13,7 +13,7 @@ type ProgressPageHeaderProps = {
 }
 
 export default function ProgressPageHeader({ isFetching }: ProgressPageHeaderProps) {
-    const { league, setLeague } = usePriceStore()
+    const [league, setLeague] = useLeague()
 
     return (
         <div className="bg-crust p-4 lg:flex lg:items-center lg:justify-between">

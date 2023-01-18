@@ -3,18 +3,13 @@ import { useShareUrl } from "../utils/progress_stores"
 import Button from "./button"
 import { useState } from "react"
 
-// type ShareButtonProps = {}
-
-const ShareButton = ({}) => {
+const ShareButton = () => {
     const [isClicked, setIsClicked] = useState(false)
-    const { getShareUrl } = useShareUrl()
-
+    const shareUrl = useShareUrl()
     return (
         <Button
             className="bg-peach text-sm text-mantle hover:bg-rosewater focus:ring-peach"
             onClick={() => {
-                const shareUrl = getShareUrl()
-
                 setIsClicked(!isClicked)
 
                 navigator.clipboard.writeText(shareUrl).then(

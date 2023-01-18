@@ -1,30 +1,45 @@
 import LZString from "lz-string"
-import create from "zustand"
+import { CHAOS_ICON } from "../components/poe_icon"
+import { create } from "zustand"
 import type { Price } from "../server/trpc/router/prices"
 import { persist } from "zustand/middleware"
 import type { LeagueName } from "."
+import { trpc } from "./trpc"
+import uniq from "lodash/uniq"
 
-type MapStore<T> = {
-    set: (objs: Record<string, T>) => void
-    add: (id: string, objs: T) => void
-    remove: (id: string) => void
-}
-
-type PricesStore = MapStore<Price> & {
+type PricesStore = {
     prices: Record<string, Price>
     divineValue: number
     league: LeagueName
-    setLeague: (league: LeagueName) => void
-    getById: (id: string) => Price
+    actions: {
+        setLeague: (league: LeagueName) => void
+        priceById: (id: string) => Price
+        inDivines: (chaos: number) => number
+        inflationInChaosPerHour: (inflation: Inflation) => number
+        set: (objs: Record<string, Price>) => void
+        add: (id: string, objs: Price) => void
+        remove: (id: string) => void
+    }
 }
 
-export const usePriceStore = create<PricesStore>()(
-    persist(
-        (set, get) => ({
-            prices: {},
-            divineValue: 0,
-            league: "tmpstandard",
+const usePriceStore = create<PricesStore>()((set, get) => {
+    return {
+        prices: {},
+        divineValue: 0,
+        league: "tmpstandard",
+        actions: {
             setLeague: (league) => set(() => ({ league })),
+            priceById: (id) => {
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                return get().prices[id]!
+            },
+            inDivines: (chaos) => {
+                return chaos / get().divineValue
+            },
+            inflationInChaosPerHour: ({ rate, period, currencyType }) => {
+                const chaosRate = currencyType === "chaos" ? rate : rate * get().divineValue
+                return period === "day" ? chaosRate / 24 : chaosRate
+            },
             set: (prices) =>
                 set(() => ({
                     prices,
@@ -37,32 +52,36 @@ export const usePriceStore = create<PricesStore>()(
                     const { [id]: _, ...rest } = state.prices
                     return { prices: rest }
                 }),
-            getById: (id) => {
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                return get().prices[id]!
-            },
-        }),
-        {
-            name: "prices",
-        }
-    )
-)
+        },
+    }
+})
+
+export const usePrices = () => usePriceStore((state) => state.prices)
+export const useLeague = () => {
+    const league = usePriceStore((state) => state.league)
+    const setLeague = usePriceStore((state) => state.actions.setLeague)
+    return [league, setLeague] as const
+}
+export const usePricesActions = () => usePriceStore((state) => state.actions)
 
 export type Asset = {
     count: number
 }
 
-type AssetStore = MapStore<Asset> & {
+type AssetStore = {
     assets: Record<string, Asset>
-    totalChaos: () => number
-    totalDivines: () => number
+    actions: {
+        add: (id: string, asset: Asset) => void
+        remove: (id: string) => void
+        total: () => number
+    }
 }
 
-export const useAssetStore = create<AssetStore>()(
-    persist(
-        (set, get) => ({
-            assets: {},
-            set: (assets) => set(() => ({ assets })),
+const useAssetStore = create<AssetStore>()((set, get) => {
+    return {
+        assets: {},
+        actions: {
+            // set: (assets) => set(() => ({ assets })),
             add: (id: string, asset: Asset) =>
                 set((state) => ({ assets: { ...state.assets, [id]: asset } })),
             remove: (id: string) =>
@@ -71,26 +90,22 @@ export const useAssetStore = create<AssetStore>()(
                     const { [id]: _, ...rest } = state.assets
                     return { assets: rest }
                 }),
-            totalChaos: () => {
-                const { getById } = usePriceStore.getState()
+            total: () => {
+                const { priceById } = usePriceStore.getState().actions
 
                 let total = 0
                 for (const [assetId, asset] of Object.entries(get().assets)) {
-                    const price = getById(assetId)
+                    const price = priceById(assetId)
                     total += price.chaosValue * asset.count
                 }
                 return total || 0
             },
-            totalDivines: () => {
-                const { divineValue } = usePriceStore.getState()
-                return get().totalChaos() / divineValue
-            },
-        }),
-        {
-            name: "assets",
-        }
-    )
-)
+        },
+    }
+})
+
+export const useAssets = () => useAssetStore((state) => state.assets)
+export const useAssetsActions = () => useAssetStore((state) => state.actions)
 
 export type Inflation = {
     currencyType: "divine" | "chaos"
@@ -103,26 +118,21 @@ export type Target = {
     inflation: Inflation
 }
 
-export type TargetStore = MapStore<Target> & {
+type TargetStore = {
     targets: Record<string, Target>
-    totalChaos: () => number
-    totalDivines: () => number
-    totalInflationRate: () => number
+    actions: {
+        total: () => number
+        totalInflationRate: () => number
+        add: (id: string, target: Target) => void
+        remove: (id: string) => void
+    }
 }
 
-export const inflationInChaosPerHour = (
-    { rate, period, currencyType }: Inflation,
-    divineValue: number
-) => {
-    const chaosRate = currencyType === "chaos" ? rate : rate * divineValue
-    return period === "day" ? chaosRate / 24 : chaosRate
-}
-
-export const useTargetStore = create<TargetStore>()(
-    persist(
-        (set, get) => ({
-            targets: {},
-            set: (targets) => set(() => ({ targets })),
+const useTargetStore = create<TargetStore>()((set, get) => {
+    return {
+        targets: {},
+        actions: {
+            // set: (targets) => set(() => ({ targets })),
             add: (id: string, target: Target) =>
                 set((state) => ({ targets: { ...state.targets, [id]: target } })),
             remove: (id: string) =>
@@ -131,63 +141,61 @@ export const useTargetStore = create<TargetStore>()(
                     const { [id]: _, ...rest } = state.targets
                     return { targets: rest }
                 }),
-            totalChaos: () => {
-                const { getById } = usePriceStore.getState()
+            total: () => {
+                const { priceById } = usePriceStore.getState().actions
 
                 let total = 0
                 for (const [targetId, target] of Object.entries(get().targets)) {
-                    const price = getById(targetId)
+                    const price = priceById(targetId)
                     total += price.chaosValue * target.count
                 }
                 return total
             },
-            totalDivines: () => {
-                const { divineValue } = usePriceStore.getState()
-                return get().totalChaos() / divineValue
-            },
             totalInflationRate: () => {
-                const { divineValue } = usePriceStore.getState()
+                const { inflationInChaosPerHour } = usePriceStore.getState().actions
 
                 let total = 0
                 Object.values(get().targets).forEach((target) => {
-                    total += inflationInChaosPerHour(target.inflation, divineValue)
+                    total += inflationInChaosPerHour(target.inflation)
                 })
 
                 return total
             },
-        }),
-        {
-            name: "targets",
-        }
-    )
-)
+        },
+    }
+})
+
+export const useTargets = () => useTargetStore((state) => state.targets)
+export const useTargetsActions = () => useTargetStore((state) => state.actions)
 
 type EarnRateStore = {
     earnRate: Inflation
-    earnRateInChaosPerHour: () => number
-    set: (earnRate: Inflation) => void
-    estimatedTimeToTarget: (target: number, inflation: number) => number
-    estimatedTimeToAllTargets: () => number
+    actions: {
+        set: (earnRate: Inflation) => void
+        earnRateInChaosPerHour: () => number
+        estimatedTimeToTarget: (target: number, inflation: number) => number
+        estimatedTimeToAllTargets: () => number
+    }
 }
 
-export const useEarnRateStore = create<EarnRateStore>()(
-    persist(
-        (set, get) => ({
-            earnRate: {
-                currencyType: "divine",
-                period: "day",
-                rate: 0,
-            },
+const useEarnRateStore = create<EarnRateStore>()((set, get) => {
+    return {
+        earnRate: {
+            currencyType: "divine",
+            period: "day",
+            rate: 0,
+        },
+        actions: {
             set: (earnRate) => set(() => ({ earnRate })),
             earnRateInChaosPerHour: () => {
-                const { divineValue } = usePriceStore.getState()
-                return inflationInChaosPerHour(get().earnRate, divineValue)
+                const { inflationInChaosPerHour } = usePriceStore.getState().actions
+                return inflationInChaosPerHour(get().earnRate)
             },
             estimatedTimeToTarget: (target: number, inflationRate: number) => {
-                const { totalChaos } = useAssetStore.getState()
-                const current = totalChaos()
+                const { total } = useAssetStore.getState().actions
+                const current = total()
 
-                const earnRate = get().earnRateInChaosPerHour()
+                const earnRate = get().actions.earnRateInChaosPerHour()
 
                 if (inflationRate === 0) {
                     return (target - current) / earnRate
@@ -199,37 +207,108 @@ export const useEarnRateStore = create<EarnRateStore>()(
                 )
             },
             estimatedTimeToAllTargets: () => {
-                const { totalChaos, totalInflationRate } = useTargetStore.getState()
+                const { total, totalInflationRate } = useTargetStore.getState().actions
 
-                return get().estimatedTimeToTarget(totalChaos(), totalInflationRate())
+                return get().actions.estimatedTimeToTarget(total(), totalInflationRate())
             },
-        }),
-        {
-            name: "earnRate",
-        }
-    )
-)
+        },
+    }
+})
 
-export const SAVED_PROGRESS_VERSION = 1
+export const useEarnRate = () => {
+    const earnRate = useEarnRateStore((state) => state.earnRate)
+    const setEarnRate = useEarnRateStore((state) => state.actions.set)
+    return [earnRate, setEarnRate] as const
+}
+export const useEarnRateActions = () => useEarnRateStore((state) => state.actions)
 
-export type SavedProgressState = {
+type SavedProgressState = {
     earnRate: Inflation
     league: LeagueName
     assets: Record<string, Asset>
     targets: Record<string, Target>
 }
 
-export const useShareUrl = () => {
-    const earnRate = useEarnRateStore((state) => state.earnRate)
-    const league = usePriceStore((state) => state.league)
-    const assets = useAssetStore((state) => state.assets)
-    const targets = useTargetStore((state) => state.targets)
+// create store to persist progress to localstorage
+export const usePersistProgressStore = create<SavedProgressState>()(
+    persist(
+        () => {
+            const { league } = usePriceStore.getState()
+            const { assets } = useAssetStore.getState()
+            const { targets } = useTargetStore.getState()
+            const { earnRate } = useEarnRateStore.getState()
 
-    return {
-        getShareUrl() {
-            const pageState: SavedProgressState = { league, earnRate, assets, targets }
-            const encodedState = LZString.compressToEncodedURIComponent(JSON.stringify(pageState))
-            return `${window.location.origin}/progress/${encodedState}`
+            return {
+                league,
+                assets,
+                targets,
+                earnRate,
+            }
         },
-    }
+        {
+            name: "progress",
+        }
+    )
+)
+
+export const useShareUrl = () => {
+    const pageState = usePersistProgressStore()
+    const encodedState = LZString.compressToEncodedURIComponent(JSON.stringify(pageState))
+    return `${window.location.origin}/progress/${encodedState}`
+}
+
+export const usePricesQuery = () => {
+    const {
+        league,
+        prices,
+        actions: { set: setPrices },
+    } = usePriceStore.getState()
+    const {
+        assets,
+        actions: { add: addAsset },
+    } = useAssetStore.getState()
+    const { targets } = useTargetStore.getState()
+
+    // construct ids from assets and targets
+    const priceIds = uniq(["divine", ...Object.keys(assets), ...Object.keys(targets)])
+
+    return trpc.prices.list.useQuery(
+        { ids: priceIds, league },
+        {
+            // refetch every 10 minutes
+            refetchInterval: 1000 * 60 * 10,
+            placeholderData: () => {
+                if (Object.keys(prices).length === 0) {
+                    return undefined
+                } else {
+                    return prices
+                }
+            },
+            onSuccess: (data: Record<string, Price>) => {
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                const divineValue = data["divine"]!.chaosValue
+
+                setPrices({
+                    ...data,
+                    // create chaos orb data as it isn't provided by poe ninja
+                    chaos: {
+                        id: "chaos",
+                        name: "Chaos Orb",
+                        icon: CHAOS_ICON,
+                        chaosValue: 1,
+                        divineValue: 1 / divineValue,
+                        endpoint: "Currency",
+                    },
+                })
+
+                // initialize assets
+                if (!("divine" in assets)) {
+                    addAsset("divine", { count: 0 })
+                }
+                if (!("chaos" in assets)) {
+                    addAsset("chaos", { count: 0 })
+                }
+            },
+        }
+    )
 }

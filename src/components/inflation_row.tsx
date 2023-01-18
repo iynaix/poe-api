@@ -1,10 +1,9 @@
 import { useState } from "react"
 import {
-    useTargetStore,
     type Target,
-    usePriceStore,
-    inflationInChaosPerHour,
-    useEarnRateStore,
+    usePricesActions,
+    useTargetsActions,
+    useEarnRateActions,
 } from "../utils/progress_stores"
 import type { Price } from "../server/trpc/router/prices"
 import ChaosRateInput from "./chaos_rate_input"
@@ -17,14 +16,14 @@ type InflationRowProps = {
 }
 
 const InflationRow = ({ targetId, target, price }: InflationRowProps) => {
-    const { divineValue } = usePriceStore()
-    const { add: addTarget } = useTargetStore()
-    const { earnRateInChaosPerHour, estimatedTimeToTarget } = useEarnRateStore()
+    const { inflationInChaosPerHour } = usePricesActions()
+    const { add: addTarget } = useTargetsActions()
+    const { earnRateInChaosPerHour, estimatedTimeToTarget } = useEarnRateActions()
     const [showHours, setShowHours] = useState(true)
 
     const eta = estimatedTimeToTarget(
         price.chaosValue * target.count,
-        inflationInChaosPerHour(target.inflation, divineValue)
+        inflationInChaosPerHour(target.inflation)
     )
 
     return (

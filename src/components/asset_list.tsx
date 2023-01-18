@@ -1,8 +1,8 @@
 import AssetRow from "./asset_row"
-import { useAssetStore } from "../utils/progress_stores"
+import { useAssets } from "../utils/progress_stores"
 
 const AssetList = () => {
-    const { assets } = useAssetStore()
+    const assets = useAssets()
 
     return (
         <div>
