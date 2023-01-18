@@ -1,10 +1,7 @@
-import { useRouter } from "next/router"
 import { trpc } from "../../utils/trpc"
 import { CHAOS_ICON } from "../../components/poe_icon"
 import { usePriceStore, useAssetStore, useTargetStore } from "../../utils/progress_stores"
-import type { SavedProgressState } from "../../utils/progress_stores"
 import uniq from "lodash/uniq"
-import LZString from "lz-string"
 import Tabs from "../../components/tabs"
 import AssetPanel from "../../components/asset_panel"
 import TargetPanel from "../../components/target_panel"
@@ -109,19 +106,6 @@ type ProgressProps = {
 }
 
 const Progress = ({ isFetching }: ProgressProps) => {
-    // const initialState = useUrlProgressState()
-    // const assets = useAssetStore((state) => state.assets)
-    // const targets = useTargetStore((state) => state.targets)
-    // const isStateChanged =
-    //     assets["divine"] !== 0 || assets["chaos"] !== 0 || Object.keys(targets).length !== 0
-    // if (isStateChanged) {
-    //     const pageState = { assets, targets }
-    //     const urlEncodedState = LZString.compressToEncodedURIComponent(JSON.stringify(pageState))
-    //     window.history.pushState(pageState, "", `/progress/${urlEncodedState}`)
-    // } else {
-    //     window.history.pushState({}, "", `/progress/`)
-    // }
-
     return (
         <>
             {/* mobile tabs */}

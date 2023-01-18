@@ -1,3 +1,4 @@
+import LZString from "lz-string"
 import create from "zustand"
 import type { Price } from "../server/trpc/router/prices"
 import { persist } from "zustand/middleware"
@@ -213,7 +214,22 @@ export const SAVED_PROGRESS_VERSION = 1
 
 export type SavedProgressState = {
     earnRate: Inflation
+    league: LeagueName
     assets: Record<string, Asset>
     targets: Record<string, Target>
-    version: number
+}
+
+export const useShareUrl = () => {
+    const earnRate = useEarnRateStore((state) => state.earnRate)
+    const league = usePriceStore((state) => state.league)
+    const assets = useAssetStore((state) => state.assets)
+    const targets = useTargetStore((state) => state.targets)
+
+    return {
+        getShareUrl() {
+            const pageState: SavedProgressState = { league, earnRate, assets, targets }
+            const encodedState = LZString.compressToEncodedURIComponent(JSON.stringify(pageState))
+            return `${window.location.origin}/progress/${encodedState}`
+        },
+    }
 }

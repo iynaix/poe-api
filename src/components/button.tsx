@@ -11,7 +11,7 @@ export default function Button({ onClick, className, children }: ButtonProps) {
         <button
             type="button"
             className={classNames(
-                "inline-flex items-center rounded-md border border-transparent bg-blue px-4 py-2 text-center font-medium text-base shadow-sm hover:bg-sapphire focus:outline-none focus:ring-2 focus:ring-sapphire focus:ring-offset-2",
+                "inline-flex items-center rounded-md border border-transparent bg-blue px-4 py-2 text-center font-medium text-mantle shadow-sm hover:bg-sapphire focus:outline-none focus:ring-2 focus:ring-sapphire focus:ring-offset-2",
                 className
             )}
             onClick={onClick}

@@ -1,11 +1,12 @@
 import { Fragment } from "react"
-import { ShareIcon, ChevronDownIcon } from "@heroicons/react/20/solid"
+import { ChevronDownIcon } from "@heroicons/react/20/solid"
 import classNames from "classnames"
 import { Menu, Transition } from "@headlessui/react"
 import Spinner from "./spinner"
 import { LEAGUES } from "../utils/constants"
-import { usePriceStore } from "../utils/progress_stores"
 import type { LeagueName } from "../utils"
+import { usePriceStore } from "../utils/progress_stores"
+import ShareButton from "./share_button"
 
 type ProgressPageHeaderProps = {
     isFetching: boolean
@@ -26,13 +27,7 @@ export default function ProgressPageHeader({ isFetching }: ProgressPageHeaderPro
             </div>
             <div className="mt-5 flex lg:mt-0 lg:ml-4">
                 <span className="sm:ml-3">
-                    <button
-                        type="button"
-                        className="inline-flex items-center rounded-md border border-transparent bg-peach px-4 py-2 text-sm font-medium text-mantle shadow-sm focus:outline-none focus:ring-2 focus:ring-peach focus:ring-offset-2 focus:ring-offset-gray-800"
-                    >
-                        <ShareIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
-                        Share
-                    </button>
+                    <ShareButton />
                 </span>
 
                 {/* league dropdown */}
