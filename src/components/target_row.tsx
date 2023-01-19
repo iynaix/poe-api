@@ -1,4 +1,4 @@
-import { type Target, usePricesActions, useTargetsActions } from "../utils/progress_stores"
+import { type Target, priceStore, targetStore } from "../utils/progress_stores"
 import { TrashIcon, CurrencyDollarIcon } from "@heroicons/react/24/outline"
 import { PoeIconText, TogglePrice } from "./poe_icon"
 import { useState } from "react"
@@ -11,11 +11,9 @@ type TargetRowProps = {
 }
 
 const TargetRow = ({ targetId, target }: TargetRowProps) => {
-    const { priceById, remove: removePrice } = usePricesActions()
-    const { add: addTarget, remove: removeTarget } = useTargetsActions()
     const [showInflation, setShowInflation] = useState(false)
 
-    const price = priceById(targetId)
+    const price = priceStore.get.priceById(targetId)
 
     return (
         <>
@@ -49,7 +47,7 @@ const TargetRow = ({ targetId, target }: TargetRowProps) => {
                             name={price.name}
                             value={target.count}
                             onChange={(ev) =>
-                                addTarget(price.id, {
+                                targetStore.set.add(price.id, {
                                     count: Number(ev.target.value),
                                     inflation: {
                                         currencyType: "divine",
@@ -75,8 +73,8 @@ const TargetRow = ({ targetId, target }: TargetRowProps) => {
                         className="h-5 w-5 cursor-pointer text-maroon"
                         aria-hidden="true"
                         onClick={() => {
-                            removeTarget(targetId)
-                            removePrice(targetId)
+                            targetStore.set.remove(targetId)
+                            priceStore.set.remove(targetId)
                         }}
                     />
                 </td>

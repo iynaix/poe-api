@@ -1,4 +1,4 @@
-import { usePricesActions, useAssetsActions, type Asset } from "../utils/progress_stores"
+import { priceStore, assetStore, type Asset } from "../utils/progress_stores"
 import { TrashIcon } from "@heroicons/react/24/outline"
 import { TogglePrice, PoeIconText } from "./poe_icon"
 import Input from "./input"
@@ -9,11 +9,9 @@ type AssetRowProps = {
 }
 
 const AssetRow = ({ assetId, asset }: AssetRowProps) => {
-    const { priceById, remove: removePrice } = usePricesActions()
-    const { add: addAsset, remove: removeAsset } = useAssetsActions()
     const showDelete = !(assetId === "divine" || assetId === "chaos")
 
-    const price = priceById(assetId)
+    const price = priceStore.get.priceById(assetId)
 
     return (
         <tr>
@@ -46,7 +44,7 @@ const AssetRow = ({ assetId, asset }: AssetRowProps) => {
                         name={price.name}
                         value={asset.count}
                         onChange={(ev) =>
-                            addAsset(price.id, {
+                            assetStore.set.add(price.id, {
                                 count: Number(ev.target.value),
                             })
                         }
@@ -59,8 +57,8 @@ const AssetRow = ({ assetId, asset }: AssetRowProps) => {
                         className="h-5 w-5 cursor-pointer text-maroon"
                         aria-hidden="true"
                         onClick={() => {
-                            removeAsset(assetId)
-                            removePrice(assetId)
+                            assetStore.set.remove(assetId)
+                            priceStore.set.remove(assetId)
                         }}
                     />
                 )}

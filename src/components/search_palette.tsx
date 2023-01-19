@@ -6,7 +6,7 @@ import Spinner from "./spinner"
 import { trpc } from "../utils/trpc"
 import { DivinePrice, PoeIconText } from "./poe_icon"
 import { type Price } from "../server/trpc/router/prices"
-import { useLeague, usePricesActions } from "../utils/progress_stores"
+import { priceStore } from "../utils/progress_stores"
 import classNames from "classnames"
 
 type SearchResultProps = {
@@ -52,8 +52,7 @@ type SearchModalProps = {
 }
 
 export default function SearchPalette({ open, setOpen, onSelect }: SearchModalProps) {
-    const [league] = useLeague()
-    const { add: addPrice } = usePricesActions()
+    const league = priceStore.use.league()
 
     const [query, setQuery] = useState("")
 
@@ -88,7 +87,7 @@ export default function SearchPalette({ open, setOpen, onSelect }: SearchModalPr
                             <Combobox
                                 onChange={(price: Price) => {
                                     onSelect(price)
-                                    addPrice(price.id, price)
+                                    priceStore.set.add(price.id, price)
                                     setOpen(false)
                                 }}
                             >

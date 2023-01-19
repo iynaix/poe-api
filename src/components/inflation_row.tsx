@@ -1,10 +1,5 @@
 import { useState } from "react"
-import {
-    type Target,
-    usePricesActions,
-    useTargetsActions,
-    useEarnRateActions,
-} from "../utils/progress_stores"
+import { type Target, priceStore, targetStore, earnRateStore } from "../utils/progress_stores"
 import type { Price } from "../server/trpc/router/prices"
 import ChaosRateInput from "./chaos_rate_input"
 import { truncateFloat } from "../utils"
@@ -16,14 +11,11 @@ type InflationRowProps = {
 }
 
 const InflationRow = ({ targetId, target, price }: InflationRowProps) => {
-    const { inflationInChaosPerHour } = usePricesActions()
-    const { add: addTarget } = useTargetsActions()
-    const { earnRateInChaosPerHour, estimatedTimeToTarget } = useEarnRateActions()
     const [showHours, setShowHours] = useState(true)
 
-    const eta = estimatedTimeToTarget(
+    const eta = earnRateStore.get.estimatedTimeToTarget(
         price.chaosValue * target.count,
-        inflationInChaosPerHour(target.inflation)
+        priceStore.get.inflationInChaosPerHour(target.inflation)
     )
 
     return (
@@ -33,7 +25,7 @@ const InflationRow = ({ targetId, target, price }: InflationRowProps) => {
                 <ChaosRateInput
                     inflation={target.inflation}
                     setInflation={(inflation) => {
-                        addTarget(targetId, {
+                        targetStore.set.add(targetId, {
                             ...target,
                             inflation,
                         })
@@ -41,7 +33,7 @@ const InflationRow = ({ targetId, target, price }: InflationRowProps) => {
                 />
             </div>
 
-            {earnRateInChaosPerHour() > 0 && (
+            {earnRateStore.get.earnRateInChaosPerHour() > 0 && (
                 <span
                     className="ml-auto mr-2"
                     onClick={() => {

@@ -3,13 +3,7 @@ import PaneHeader from "./pane_header"
 import SearchPalette from "./search_palette"
 import TargetList from "./target_list"
 import { useState } from "react"
-import {
-    useTargetsActions,
-    useEarnRate,
-    useEarnRateActions,
-    usePricesActions,
-    useAssetsActions,
-} from "../utils/progress_stores"
+import { assetStore, targetStore, earnRateStore, priceStore } from "../utils/progress_stores"
 import { ChartBarIcon, CalendarDaysIcon, ClockIcon } from "@heroicons/react/24/outline"
 import Stat from "./stat"
 import { truncateFloat } from "../utils"
@@ -17,23 +11,21 @@ import PoeIcon, { DIVINE_ICON, CHAOS_ICON } from "./poe_icon"
 import ChaosRateInput from "./chaos_rate_input"
 
 const TargetPanel = () => {
-    const { total: totalAssets } = useAssetsActions()
-    const { inDivines } = usePricesActions()
-    const { add: addTarget, total: targetTotalChaos, totalInflationRate } = useTargetsActions()
-
-    const [earnRate, setEarnRate] = useEarnRate()
-
-    const { earnRateInChaosPerHour, estimatedTimeToTarget } = useEarnRateActions()
+    const earnRate = earnRateStore.use.earnRate()
     const [showDivineStat, setShowDivineStat] = useState(true)
     const [showHourStat, setShowHourStat] = useState(true)
     const [openTargetSearchModal, setTargetOpenSearchModal] = useState(false)
 
-    const targetChaos = targetTotalChaos()
+    const assetChaos = assetStore.use.total()
+    const targetChaos = targetStore.use.total()
     // no divide by zero
-    const progress = targetChaos ? (totalAssets() / targetChaos) * 100 : 0
+    const progress = targetChaos ? (assetChaos / targetChaos) * 100 : 0
 
-    const showETA = earnRateInChaosPerHour() > 0
-    const etaInHours = estimatedTimeToTarget(targetChaos, totalInflationRate())
+    const showETA = earnRateStore.get.earnRateInChaosPerHour() > 0
+    const etaInHours = earnRateStore.get.estimatedTimeToTarget(
+        targetChaos,
+        targetStore.get.totalInflationRate()
+    )
 
     return (
         <div className="p-4">
@@ -45,7 +37,7 @@ const TargetPanel = () => {
                 <ChaosRateInput
                     className="px-0 md:px-8"
                     inflation={earnRate}
-                    setInflation={setEarnRate}
+                    setInflation={earnRateStore.set.earnRate}
                 />
             </div>
 
@@ -88,7 +80,10 @@ const TargetPanel = () => {
                         setShowDivineStat(!showDivineStat)
                     }}
                 >
-                    {truncateFloat(showDivineStat ? inDivines(targetChaos) : targetChaos, 3)}
+                    {truncateFloat(
+                        showDivineStat ? priceStore.get.inDivines(targetChaos) : targetChaos,
+                        3
+                    )}
                 </Stat>
             </dl>
 
@@ -110,7 +105,7 @@ const TargetPanel = () => {
                 setOpen={setTargetOpenSearchModal}
                 onSelect={(price) => {
                     // default count to 1
-                    addTarget(price.id, {
+                    targetStore.set.add(price.id, {
                         count: 1,
                         inflation: {
                             currencyType: "divine",

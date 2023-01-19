@@ -1,8 +1,8 @@
 import TargetRow from "./target_row"
-import { useTargets } from "../utils/progress_stores"
+import { targetStore } from "../utils/progress_stores"
 
 const TargetList = () => {
-    const targets = useTargets()
+    const targets = targetStore.use.targets()
 
     if (Object.keys(targets).length === 0) {
         return null

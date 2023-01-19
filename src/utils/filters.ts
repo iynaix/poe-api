@@ -160,7 +160,6 @@ const _createWhereAggreation = (whereDefintion: WhereInitializer) => {
     const whereAggregation = (whereArgument: WhereArgument | undefined | null) => {
         if (!whereArgument) return {}
 
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { _and, _or, _not, ...basicWhereArg } = whereArgument
 
         const basicFilter = Object.assign(
