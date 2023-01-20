@@ -1,4 +1,3 @@
-import LZString from "lz-string"
 import { CHAOS_ICON } from "../components/poe_icon"
 import type { Price } from "../server/trpc/router/prices"
 import type { LeagueName } from "."
@@ -13,11 +12,19 @@ type PricesStore = {
     league: LeagueName
 }
 
-export const priceStore = createStore("prices")<PricesStore>({
-    prices: {},
-    divineValue: 0,
-    league: "tmpstandard",
-})
+export const priceStore = createStore("prices")<PricesStore>(
+    {
+        prices: {},
+        divineValue: 0,
+        league: "tmpstandard",
+    },
+    {
+        persist: {
+            name: "prices",
+            enabled: true,
+        },
+    }
+)
     .extendSelectors((_, get) => ({
         priceById(id) {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -49,9 +56,17 @@ type AssetStore = {
     assets: Record<string, Asset>
 }
 
-export const assetStore = createStore("assets")<AssetStore>({
-    assets: {},
-})
+export const assetStore = createStore("assets")<AssetStore>(
+    {
+        assets: {},
+    },
+    {
+        persist: {
+            name: "assets",
+            enabled: true,
+        },
+    }
+)
     .extendSelectors((_, get) => ({
         total() {
             let total = 0
@@ -87,9 +102,17 @@ type TargetStore = {
     targets: Record<string, Target>
 }
 
-export const targetStore = createStore("targets")<TargetStore>({
-    targets: {},
-})
+export const targetStore = createStore("targets")<TargetStore>(
+    {
+        targets: {},
+    },
+    {
+        persist: {
+            name: "targets",
+            enabled: true,
+        },
+    }
+)
     .extendSelectors((_, get) => ({
         total() {
             let total = 0
@@ -122,13 +145,21 @@ type EarnRateStore = {
     earnRate: Inflation
 }
 
-export const earnRateStore = createStore("earnRate")<EarnRateStore>({
-    earnRate: {
-        currencyType: "divine",
-        period: "day",
-        rate: 0,
+export const earnRateStore = createStore("earnRate")<EarnRateStore>(
+    {
+        earnRate: {
+            currencyType: "divine",
+            period: "day",
+            rate: 0,
+        },
     },
-})
+    {
+        persist: {
+            name: "earnRate",
+            enabled: true,
+        },
+    }
+)
     .extendSelectors((_, get) => ({
         earnRateInChaosPerHour() {
             return priceStore.get.inflationInChaosPerHour(get.earnRate())
@@ -154,20 +185,6 @@ export const earnRateStore = createStore("earnRate")<EarnRateStore>({
             return get.estimatedTimeToTarget(total(), totalInflationRate())
         },
     }))
-
-// type SavedProgressState = {
-//     earnRate: Inflation
-//     league: LeagueName
-//     assets: Record<string, Asset>
-//     targets: Record<string, Target>
-// }
-
-export const useShareUrl = () => {
-    // const pageState = usePersistProgressStore()
-    // const encodedState = LZString.compressToEncodedURIComponent(JSON.stringify(pageState))
-    // return `${window.location.origin}/progress/${encodedState}`
-    return ""
-}
 
 export const usePricesQuery = () => {
     const prices = priceStore.use.prices()

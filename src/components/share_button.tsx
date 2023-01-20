@@ -1,18 +1,19 @@
 import { ShareIcon } from "@heroicons/react/20/solid"
-import { useShareUrl } from "../utils/progress_stores"
+import { useExport } from "../utils/progress_export"
 import Button from "./button"
 import { useState } from "react"
 
 const ShareButton = () => {
     const [isClicked, setIsClicked] = useState(false)
-    const shareUrl = useShareUrl()
+    const { toUrl } = useExport()
+
     return (
         <Button
             className="bg-peach text-sm text-mantle hover:bg-rosewater focus:ring-peach"
             onClick={() => {
                 setIsClicked(!isClicked)
 
-                navigator.clipboard.writeText(shareUrl).then(
+                navigator.clipboard.writeText(toUrl()).then(
                     () => {
                         alert("Copied to clipboard!")
                     },

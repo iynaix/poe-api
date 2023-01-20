@@ -4,14 +4,24 @@ import AssetPanel from "../../components/asset_panel"
 import TargetPanel from "../../components/target_panel"
 import { useEffect, useState } from "react"
 import ProgressPageHeader from "../../components/progress_page_header"
+import { useExport } from "../../utils/progress_export"
 
 export default function ProgressLoader() {
+    const { fromUrl } = useExport()
     const [showChild, setShowChild] = useState(false)
 
     // client loads cached prices from localstorage and will be hydrated differently
     // than the server, so we need to skip SSR to avoid hydration mismatch
     useEffect(() => {
         setShowChild(true)
+
+        const stateFromUrl = fromUrl(window.location.href)
+        if (stateFromUrl) {
+            // initialize state from url, but do not save to local storage?
+            // earnRateStoreInstance.persist.setOptions({
+            //     enabled: false,
+            // })
+        }
     }, [])
 
     const { data, isLoading, isFetching } = usePricesQuery()
