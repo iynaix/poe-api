@@ -5,8 +5,10 @@ import { Menu, Transition } from "@headlessui/react"
 import Spinner from "./spinner"
 import { LEAGUES } from "../utils/constants"
 import type { LeagueName } from "../utils"
-import { priceStore } from "../utils/progress_stores"
+import { priceStore, assetStore, targetStore } from "../utils/progress_stores"
 import ShareButton from "./share_button"
+import { ArrowPathIcon } from "@heroicons/react/20/solid"
+import Button from "./button"
 
 type ProgressPageHeaderProps = {
     isFetching: boolean
@@ -26,6 +28,19 @@ export default function ProgressPageHeader({ isFetching }: ProgressPageHeaderPro
                 </h2>
             </div>
             <div className="mt-5 flex lg:mt-0 lg:ml-4">
+                <span className="sm:ml-3">
+                    <Button
+                        className="bg-peach text-sm text-mantle hover:bg-rosewater focus:ring-peach"
+                        onClick={() => {
+                            assetStore.set.assets({})
+                            targetStore.set.targets({})
+                        }}
+                    >
+                        <ArrowPathIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
+                        <span>Reset</span>
+                    </Button>
+                </span>
+
                 <span className="sm:ml-3">
                     <ShareButton />
                 </span>
