@@ -58,7 +58,6 @@ const AssetRow = ({ assetId, asset }: AssetRowProps) => {
                         aria-hidden="true"
                         onClick={() => {
                             assetStore.set.remove(assetId)
-                            priceStore.set.remove(assetId)
                         }}
                     />
                 )}

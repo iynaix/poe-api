@@ -22,7 +22,7 @@ export default function ProgressLoader() {
             //     enabled: false,
             // })
         }
-    }, [])
+    }, [fromUrl])
 
     const { data, isLoading, isFetching } = usePricesQuery()
 

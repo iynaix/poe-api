@@ -42,10 +42,6 @@ export const priceStore = createStore("prices")<PricesStore>(
         add(id: string, price: Price) {
             set.prices({ ...get.prices(), [id]: price })
         },
-        remove(id: string) {
-            const { [id]: _, ...rest } = get.prices()
-            set.prices(rest)
-        },
     }))
 
 export type Asset = {

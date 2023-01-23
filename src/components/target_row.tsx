@@ -74,7 +74,6 @@ const TargetRow = ({ targetId, target }: TargetRowProps) => {
                         aria-hidden="true"
                         onClick={() => {
                             targetStore.set.remove(targetId)
-                            priceStore.set.remove(targetId)
                         }}
                     />
                 </td>
