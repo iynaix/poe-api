@@ -2,7 +2,8 @@ export const NINJA_API_URL = "https://poe.ninja"
 
 export const CACHE_THRESHOLD = process.env.NODE_ENV === "production" ? 10 * 60 : 60 * 60
 
-const TMPSTANDARD = "Sanctum"
+const TMPSTANDARD =
+    new Date().getTime() >= new Date(2023, 4 - 1, 8, 3).getTime() ? "Crucible" : "Sanctum"
 
 export const LEAGUES = {
     tmpstandard: TMPSTANDARD,
