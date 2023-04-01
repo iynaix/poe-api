@@ -6,6 +6,13 @@ import uniq from "lodash/uniq"
 
 import { createStore } from "@udecode/zustood"
 
+const skipHydration = () => {
+    if (typeof window === "undefined") {
+        return true
+    }
+    return Boolean(window.location.href.split("progress/")[1])
+}
+
 type PricesStore = {
     prices: Record<string, Price>
     divineValue: number
@@ -22,6 +29,7 @@ export const priceStore = createStore("prices")<PricesStore>(
         persist: {
             name: "prices",
             enabled: true,
+            skipHydration: skipHydration(),
         },
     }
 )
@@ -60,6 +68,7 @@ export const assetStore = createStore("assets")<AssetStore>(
         persist: {
             name: "assets",
             enabled: true,
+            skipHydration: skipHydration(),
         },
     }
 )
@@ -106,6 +115,7 @@ export const targetStore = createStore("targets")<TargetStore>(
         persist: {
             name: "targets",
             enabled: true,
+            skipHydration: skipHydration(),
         },
     }
 )
@@ -153,6 +163,7 @@ export const earnRateStore = createStore("earnRate")<EarnRateStore>(
         persist: {
             name: "earnRate",
             enabled: true,
+            skipHydration: skipHydration(),
         },
     }
 )
