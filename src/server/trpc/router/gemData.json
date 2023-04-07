@@ -1,0 +1,1664 @@
+{
+    "Heavy Strike": {
+        "name": "Heavy Strike",
+        "qualities": { "Superior": 50, "Anomalous": 50, "Divergent": 10 }
+    },
+    "Glacial Hammer": {
+        "name": "Glacial Hammer",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Cleave": {
+        "name": "Cleave",
+        "qualities": { "Superior": 50, "Anomalous": 20, "Divergent": 50, "Phantasmal": 50 }
+    },
+    "Ground Slam": {
+        "name": "Ground Slam",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 50 }
+    },
+    "Perforate": {
+        "name": "Perforate",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 10 }
+    },
+    "Ancestral Protector": {
+        "name": "Ancestral Protector",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20, "Phantasmal": 100 }
+    },
+    "Shield Crush": {
+        "name": "Shield Crush",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Molten Strike": {
+        "name": "Molten Strike",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20, "Phantasmal": 100 }
+    },
+    "Smite": {
+        "name": "Smite",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 20 }
+    },
+    "Blood and Sand": {
+        "name": "Blood and Sand",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Decoy Totem": {
+        "name": "Decoy Totem",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 10 }
+    },
+    "Steelskin": {
+        "name": "Steelskin",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Devouring Totem": {
+        "name": "Devouring Totem",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Molten Shell": {
+        "name": "Molten Shell",
+        "qualities": { "Superior": 50, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Holy Flame Totem": {
+        "name": "Holy Flame Totem",
+        "qualities": { "Superior": 50, "Anomalous": 20, "Divergent": 100, "Phantasmal": 100 }
+    },
+    "Vigilant Strike": {
+        "name": "Vigilant Strike",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 50, "Phantasmal": 100 }
+    },
+    "War Banner": {
+        "name": "War Banner",
+        "qualities": { "Superior": 50, "Anomalous": 10, "Divergent": 100 }
+    },
+    "Rejuvenation Totem": {
+        "name": "Rejuvenation Totem",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Enduring Cry": {
+        "name": "Enduring Cry",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Reckoning": {
+        "name": "Reckoning",
+        "qualities": { "Superior": 50, "Anomalous": 20, "Divergent": 50, "Phantasmal": 100 }
+    },
+    "Intimidating Cry": {
+        "name": "Intimidating Cry",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 100 }
+    },
+    "Vitality": {
+        "name": "Vitality",
+        "qualities": { "Superior": 50, "Anomalous": 10, "Divergent": 100 }
+    },
+    "Volcanic Fissure": {
+        "name": "Volcanic Fissure",
+        "qualities": { "Superior": 50, "Anomalous": 100 }
+    },
+    "Leap Slam": {
+        "name": "Leap Slam",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 20 }
+    },
+    "Shield Charge": {
+        "name": "Shield Charge",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Searing Bond": {
+        "name": "Searing Bond",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 50 }
+    },
+    "Chain Hook": {
+        "name": "Chain Hook",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 50 }
+    },
+    "Exsanguinate": {
+        "name": "Exsanguinate",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Absolution": {
+        "name": "Absolution",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Infernal Blow": {
+        "name": "Infernal Blow",
+        "qualities": { "Superior": 50, "Anomalous": 20, "Divergent": 100, "Phantasmal": 100 }
+    },
+    "Ancestral Cry": {
+        "name": "Ancestral Cry",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Sunder": {
+        "name": "Sunder",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 50 }
+    },
+    "Earthshatter": {
+        "name": "Earthshatter",
+        "qualities": { "Superior": 50, "Anomalous": 20, "Divergent": 100, "Phantasmal": 100 }
+    },
+    "Sweep": {
+        "name": "Sweep",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 20 }
+    },
+    "Static Strike": {
+        "name": "Static Strike",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 5, "Phantasmal": 50 }
+    },
+    "Flesh and Stone": {
+        "name": "Flesh and Stone",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Corrupting Fever": {
+        "name": "Corrupting Fever",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Herald of Purity": {
+        "name": "Herald of Purity",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 50 }
+    },
+    "Herald of Ash": {
+        "name": "Herald of Ash",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Defiance Banner": {
+        "name": "Defiance Banner",
+        "qualities": { "Superior": 50, "Anomalous": 10, "Divergent": 100 }
+    },
+    "Seismic Cry": {
+        "name": "Seismic Cry",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20, "Phantasmal": 100 }
+    },
+    "Battlemage's Cry": {
+        "name": "Battlemage's Cry",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Warlord's Mark": {
+        "name": "Warlord's Mark",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Anger": { "name": "Anger", "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 5 } },
+    "Determination": {
+        "name": "Determination",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 10 }
+    },
+    "Petrified Blood": {
+        "name": "Petrified Blood",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "General's Cry": {
+        "name": "General's Cry",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 50 }
+    },
+    "Dread Banner": {
+        "name": "Dread Banner",
+        "qualities": { "Superior": 50, "Anomalous": 10, "Divergent": 100 }
+    },
+    "Purity of Fire": {
+        "name": "Purity of Fire",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 10 }
+    },
+    "Infernal Cry": {
+        "name": "Infernal Cry",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 50, "Phantasmal": 10 }
+    },
+    "Punishment": {
+        "name": "Punishment",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Vulnerability": {
+        "name": "Vulnerability",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Vengeance": {
+        "name": "Vengeance",
+        "qualities": { "Superior": 50, "Anomalous": 50, "Divergent": 100, "Phantasmal": 20 }
+    },
+    "Rallying Cry": {
+        "name": "Rallying Cry",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 10, "Phantasmal": 50 }
+    },
+    "Pride": {
+        "name": "Pride",
+        "qualities": { "Superior": 50, "Anomalous": 50, "Divergent": 100 }
+    },
+    "Reap": { "name": "Reap", "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 } },
+    "Animate Guardian": {
+        "name": "Animate Guardian",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Boneshatter": {
+        "name": "Boneshatter",
+        "qualities": { "Superior": 50, "Anomalous": 50, "Divergent": 10 }
+    },
+    "Bladestorm": {
+        "name": "Bladestorm",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 20 }
+    },
+    "Dominating Blow": {
+        "name": "Dominating Blow",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 50, "Phantasmal": 10 }
+    },
+    "Rage Vortex": {
+        "name": "Rage Vortex",
+        "qualities": { "Superior": 50, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Shockwave Totem": {
+        "name": "Shockwave Totem",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20, "Phantasmal": 100 }
+    },
+    "Ice Crash": {
+        "name": "Ice Crash",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 50 }
+    },
+    "Consecrated Path": {
+        "name": "Consecrated Path",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 50, "Phantasmal": 50 }
+    },
+    "Earthquake": {
+        "name": "Earthquake",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 5 }
+    },
+    "Protective Link": {
+        "name": "Protective Link",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Berserk": {
+        "name": "Berserk",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Frozen Legion": {
+        "name": "Frozen Legion",
+        "qualities": { "Anomalous": 50, "Divergent": 50, "Superior": 50 }
+    },
+    "Ancestral Warchief": {
+        "name": "Ancestral Warchief",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20, "Phantasmal": 100 }
+    },
+    "Tectonic Slam": {
+        "name": "Tectonic Slam",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20, "Phantasmal": 100 }
+    },
+    "Immortal Call": {
+        "name": "Immortal Call",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 10 }
+    },
+    "Summon Flame Golem": {
+        "name": "Summon Flame Golem",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Burning Arrow": {
+        "name": "Burning Arrow",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Flame Link": {
+        "name": "Flame Link",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Summon Stone Golem": {
+        "name": "Summon Stone Golem",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Cobra Lash": {
+        "name": "Cobra Lash",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Spectral Throw": {
+        "name": "Spectral Throw",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Dual Strike": {
+        "name": "Dual Strike",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 20 }
+    },
+    "Ethereal Knives": {
+        "name": "Ethereal Knives",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Double Strike": {
+        "name": "Double Strike",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Galvanic Arrow": {
+        "name": "Galvanic Arrow",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Ice Shot": {
+        "name": "Ice Shot",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Caustic Arrow": {
+        "name": "Caustic Arrow",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Splitting Steel": {
+        "name": "Splitting Steel",
+        "qualities": { "Superior": 50, "Anomalous": 20, "Divergent": 100, "Phantasmal": 50 }
+    },
+    "Frost Blades": {
+        "name": "Frost Blades",
+        "qualities": { "Superior": 50, "Anomalous": 20, "Divergent": 100 }
+    },
+    "Bear Trap": {
+        "name": "Bear Trap",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 20 }
+    },
+    "Explosive Trap": {
+        "name": "Explosive Trap",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Animate Weapon": {
+        "name": "Animate Weapon",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 50, "Phantasmal": 20 }
+    },
+    "Viper Strike": {
+        "name": "Viper Strike",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 10 }
+    },
+    "Split Arrow": {
+        "name": "Split Arrow",
+        "qualities": { "Superior": 50, "Anomalous": 20, "Divergent": 100 }
+    },
+    "Dash": { "name": "Dash", "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 } },
+    "Sniper's Mark": {
+        "name": "Sniper's Mark",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Riposte": {
+        "name": "Riposte",
+        "qualities": { "Superior": 50, "Anomalous": 50, "Divergent": 20 }
+    },
+    "Detonate Dead": {
+        "name": "Detonate Dead",
+        "qualities": { "Superior": 50, "Anomalous": 10, "Divergent": 20 }
+    },
+    "Puncture": {
+        "name": "Puncture",
+        "qualities": { "Superior": 50, "Anomalous": 20, "Divergent": 20, "Phantasmal": 50 }
+    },
+    "Unearth": {
+        "name": "Unearth",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 20 }
+    },
+    "Shrapnel Ballista": {
+        "name": "Shrapnel Ballista",
+        "qualities": { "Superior": 50, "Anomalous": 5, "Divergent": 20, "Phantasmal": 100 }
+    },
+    "Flicker Strike": {
+        "name": "Flicker Strike",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Blink Arrow": {
+        "name": "Blink Arrow",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 20 }
+    },
+    "Precision": {
+        "name": "Precision",
+        "qualities": { "Superior": 50, "Anomalous": 10, "Divergent": 100 }
+    },
+    "Barrage": {
+        "name": "Barrage",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 20 }
+    },
+    "Whirling Blades": {
+        "name": "Whirling Blades",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Withering Step": {
+        "name": "Withering Step",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Mirror Arrow": {
+        "name": "Mirror Arrow",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 20 }
+    },
+    "Smoke Mine": {
+        "name": "Smoke Mine",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Blade Trap": {
+        "name": "Blade Trap",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Siege Ballista": {
+        "name": "Siege Ballista",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 100 }
+    },
+    "Fire Trap": {
+        "name": "Fire Trap",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Lacerate": {
+        "name": "Lacerate",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Elemental Hit": {
+        "name": "Elemental Hit",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Toxic Rain": {
+        "name": "Toxic Rain",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 20 }
+    },
+    "Rain of Arrows": {
+        "name": "Rain of Arrows",
+        "qualities": { "Superior": 50, "Anomalous": 50, "Divergent": 20, "Phantasmal": 100 }
+    },
+    "Poisonous Concoction": {
+        "name": "Poisonous Concoction",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Lightning Strike": {
+        "name": "Lightning Strike",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 100 }
+    },
+    "Lightning Arrow": {
+        "name": "Lightning Arrow",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 10 }
+    },
+    "Blade Vortex": {
+        "name": "Blade Vortex",
+        "qualities": { "Superior": 50, "Anomalous": 10, "Divergent": 100, "Phantasmal": 100 }
+    },
+    "Spectral Helix": {
+        "name": "Spectral Helix",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Venom Gyre": {
+        "name": "Venom Gyre",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 10 }
+    },
+    "Shattering Steel": {
+        "name": "Shattering Steel",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 10, "Phantasmal": 100 }
+    },
+    "Reave": {
+        "name": "Reave",
+        "qualities": { "Superior": 50, "Anomalous": 20, "Divergent": 100, "Phantasmal": 10 }
+    },
+    "Desecrate": {
+        "name": "Desecrate",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 10 }
+    },
+    "Blood Rage": {
+        "name": "Blood Rage",
+        "qualities": { "Superior": 50, "Anomalous": 5, "Divergent": 50 }
+    },
+    "Blade Blast": {
+        "name": "Blade Blast",
+        "qualities": { "Superior": 50, "Anomalous": 20, "Divergent": 10, "Phantasmal": 100 }
+    },
+    "Volatile Dead": {
+        "name": "Volatile Dead",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Ensnaring Arrow": {
+        "name": "Ensnaring Arrow",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Herald of Ice": {
+        "name": "Herald of Ice",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Arctic Armour": {
+        "name": "Arctic Armour",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 10 }
+    },
+    "Poacher's Mark": {
+        "name": "Poacher's Mark",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Frenzy": {
+        "name": "Frenzy",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20, "Phantasmal": 50 }
+    },
+    "Herald of Agony": {
+        "name": "Herald of Agony",
+        "qualities": { "Superior": 50, "Anomalous": 50, "Divergent": 100 }
+    },
+    "Grace": {
+        "name": "Grace",
+        "qualities": { "Superior": 50, "Anomalous": 20, "Divergent": 100 }
+    },
+    "Alchemist's Mark": {
+        "name": "Alchemist's Mark",
+        "qualities": { "Superior": 50, "Anomalous": 50, "Divergent": 20 }
+    },
+    "Purity of Ice": {
+        "name": "Purity of Ice",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 10 }
+    },
+    "Haste": {
+        "name": "Haste",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 10 }
+    },
+    "Hatred": {
+        "name": "Hatred",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Plague Bearer": {
+        "name": "Plague Bearer",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 10 }
+    },
+    "Blade Flurry": {
+        "name": "Blade Flurry",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 50 }
+    },
+    "Blast Rain": {
+        "name": "Blast Rain",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 100 }
+    },
+    "Charged Dash": {
+        "name": "Charged Dash",
+        "qualities": { "Superior": 50, "Anomalous": 20, "Divergent": 100 }
+    },
+    "Temporal Chains": {
+        "name": "Temporal Chains",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Explosive Arrow": {
+        "name": "Explosive Arrow",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Wild Strike": {
+        "name": "Wild Strike",
+        "qualities": { "Superior": 50, "Anomalous": 50, "Divergent": 50, "Phantasmal": 50 }
+    },
+    "Explosive Concoction": {
+        "name": "Explosive Concoction",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Cremation": {
+        "name": "Cremation",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 50, "Phantasmal": 10 }
+    },
+    "Cyclone": {
+        "name": "Cyclone",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 100 }
+    },
+    "Pestilent Strike": {
+        "name": "Pestilent Strike",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 100 }
+    },
+    "Ice Trap": {
+        "name": "Ice Trap",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Artillery Ballista": {
+        "name": "Artillery Ballista",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 10 }
+    },
+    "Lancing Steel": {
+        "name": "Lancing Steel",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 100 }
+    },
+    "Flamethrower Trap": {
+        "name": "Flamethrower Trap",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Seismic Trap": {
+        "name": "Seismic Trap",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 100 }
+    },
+    "Tornado Shot": {
+        "name": "Tornado Shot",
+        "qualities": { "Superior": 50, "Anomalous": 20, "Divergent": 100 }
+    },
+    "Spectral Shield Throw": {
+        "name": "Spectral Shield Throw",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 20 }
+    },
+    "Storm Rain": {
+        "name": "Storm Rain",
+        "qualities": { "Superior": 50, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Bladefall": {
+        "name": "Bladefall",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Vampiric Link": {
+        "name": "Vampiric Link",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Temporal Rift": {
+        "name": "Temporal Rift",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Ambush": {
+        "name": "Ambush",
+        "qualities": { "Superior": 50, "Anomalous": 50, "Divergent": 20 }
+    },
+    "Scourge Arrow": {
+        "name": "Scourge Arrow",
+        "qualities": { "Superior": 50, "Anomalous": 20, "Divergent": 100, "Phantasmal": 100 }
+    },
+    "Summon Ice Golem": {
+        "name": "Summon Ice Golem",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Intuitive Link": {
+        "name": "Intuitive Link",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Tornado": {
+        "name": "Tornado",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Phase Run": {
+        "name": "Phase Run",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 50 }
+    },
+    "Rolling Magma": {
+        "name": "Rolling Magma",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 50, "Phantasmal": 20 }
+    },
+    "Blight": {
+        "name": "Blight",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Fireball": {
+        "name": "Fireball",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 40, "Phantasmal": 10 }
+    },
+    "Stormblast Mine": {
+        "name": "Stormblast Mine",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 100 }
+    },
+    "Freezing Pulse": {
+        "name": "Freezing Pulse",
+        "qualities": { "Superior": 50, "Anomalous": 50, "Divergent": 20 }
+    },
+    "Frostbolt": {
+        "name": "Frostbolt",
+        "qualities": { "Superior": 50, "Anomalous": 10, "Divergent": 100, "Phantasmal": 20 }
+    },
+    "Lightning Tendrils": {
+        "name": "Lightning Tendrils",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 50 }
+    },
+    "Contagion": {
+        "name": "Contagion",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Spark": {
+        "name": "Spark",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 100 }
+    },
+    "Kinetic Bolt": {
+        "name": "Kinetic Bolt",
+        "qualities": { "Superior": 50, "Anomalous": 5, "Divergent": 50 }
+    },
+    "Raise Zombie": {
+        "name": "Raise Zombie",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 10 }
+    },
+    "Purifying Flame": {
+        "name": "Purifying Flame",
+        "qualities": { "Superior": 50, "Anomalous": 20, "Divergent": 100, "Phantasmal": 20 }
+    },
+    "Frost Bomb": {
+        "name": "Frost Bomb",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 50 }
+    },
+    "Conversion Trap": {
+        "name": "Conversion Trap",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Flame Wall": {
+        "name": "Flame Wall",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 10 }
+    },
+    "Frost Wall": {
+        "name": "Frost Wall",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Frostblink": {
+        "name": "Frostblink",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Bodyswap": {
+        "name": "Bodyswap",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 20 }
+    },
+    "Summon Raging Spirit": {
+        "name": "Summon Raging Spirit",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 50, "Phantasmal": 20 }
+    },
+    "Summon Holy Relic": {
+        "name": "Summon Holy Relic",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 50 }
+    },
+    "Orb of Storms": {
+        "name": "Orb of Storms",
+        "qualities": { "Superior": 50, "Anomalous": 50, "Divergent": 100 }
+    },
+    "Clarity": {
+        "name": "Clarity",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Wither": {
+        "name": "Wither",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Lightning Warp": {
+        "name": "Lightning Warp",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 100 }
+    },
+    "Summon Skeletons": {
+        "name": "Summon Skeletons",
+        "qualities": { "Superior": 50, "Anomalous": 50, "Divergent": 50, "Phantasmal": 50 }
+    },
+    "Siphoning Trap": {
+        "name": "Siphoning Trap",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 10 }
+    },
+    "Flame Dash": {
+        "name": "Flame Dash",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 50 }
+    },
+    "Bone Offering": {
+        "name": "Bone Offering",
+        "qualities": { "Superior": 50, "Anomalous": 20, "Divergent": 5 }
+    },
+    "Storm Brand": {
+        "name": "Storm Brand",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 100 }
+    },
+    "Arc": {
+        "name": "Arc",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 50, "Phantasmal": 20 }
+    },
+    "Icicle Mine": {
+        "name": "Icicle Mine",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Creeping Frost": {
+        "name": "Creeping Frost",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 10, "Phantasmal": 50 }
+    },
+    "Scorching Ray": {
+        "name": "Scorching Ray",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 50 }
+    },
+    "Blazing Salvo": {
+        "name": "Blazing Salvo",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Flesh Offering": {
+        "name": "Flesh Offering",
+        "qualities": { "Superior": 50, "Anomalous": 20, "Divergent": 100 }
+    },
+    "Incinerate": {
+        "name": "Incinerate",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Flame Surge": {
+        "name": "Flame Surge",
+        "qualities": { "Superior": 50, "Anomalous": 10, "Divergent": 100 }
+    },
+    "Lightning Trap": {
+        "name": "Lightning Trap",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 10 }
+    },
+    "Manabond": {
+        "name": "Manabond",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Ice Nova": {
+        "name": "Ice Nova",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 100 }
+    },
+    "Power Siphon": {
+        "name": "Power Siphon",
+        "qualities": { "Superior": 50, "Anomalous": 20, "Divergent": 20 }
+    },
+    "Ice Spear": {
+        "name": "Ice Spear",
+        "qualities": { "Superior": 50, "Anomalous": 20, "Divergent": 100, "Phantasmal": 50 }
+    },
+    "Storm Burst": {
+        "name": "Storm Burst",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Spirit Offering": {
+        "name": "Spirit Offering",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Storm Call": {
+        "name": "Storm Call",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 20 }
+    },
+    "Voltaxic Burst": {
+        "name": "Voltaxic Burst",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Essence Drain": {
+        "name": "Essence Drain",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Wintertide Brand": {
+        "name": "Wintertide Brand",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Arcane Cloak": {
+        "name": "Arcane Cloak",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Cold Snap": {
+        "name": "Cold Snap",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Assassin's Mark": {
+        "name": "Assassin's Mark",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Galvanic Field": {
+        "name": "Galvanic Field",
+        "qualities": { "Superior": 50, "Anomalous": 50, "Divergent": 10, "Phantasmal": 20 }
+    },
+    "Brand Recall": { "name": "Brand Recall", "qualities": { "Superior": 50, "Anomalous": 20 } },
+    "Summon Skitterbots": {
+        "name": "Summon Skitterbots",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 10 }
+    },
+    "Righteous Fire": {
+        "name": "Righteous Fire",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Wave of Conviction": {
+        "name": "Wave of Conviction",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 20 }
+    },
+    "Herald of Thunder": {
+        "name": "Herald of Thunder",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Convocation": {
+        "name": "Convocation",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 5 }
+    },
+    "Forbidden Rite": {
+        "name": "Forbidden Rite",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Conductivity": {
+        "name": "Conductivity",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Bane": { "name": "Bane", "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 5 } },
+    "Tempest Shield": {
+        "name": "Tempest Shield",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 10 }
+    },
+    "Enfeeble": {
+        "name": "Enfeeble",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Elemental Weakness": {
+        "name": "Elemental Weakness",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Discipline": {
+        "name": "Discipline",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Despair": {
+        "name": "Despair",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Malevolence": {
+        "name": "Malevolence",
+        "qualities": { "Superior": 50, "Anomalous": 5, "Divergent": 100 }
+    },
+    "Purity of Elements": {
+        "name": "Purity of Elements",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 5 }
+    },
+    "Purity of Lightning": {
+        "name": "Purity of Lightning",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 10 }
+    },
+    "Frostbite": {
+        "name": "Frostbite",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Flammability": {
+        "name": "Flammability",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Zealotry": {
+        "name": "Zealotry",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 5 }
+    },
+    "Spellslinger": {
+        "name": "Spellslinger",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Energy Blade": {
+        "name": "Energy Blade",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Wrath": { "name": "Wrath", "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 1 } },
+    "Armageddon Brand": {
+        "name": "Armageddon Brand",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Ball Lightning": {
+        "name": "Ball Lightning",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Crackling Lance": {
+        "name": "Crackling Lance",
+        "qualities": { "Superior": 50, "Anomalous": 20, "Divergent": 100, "Phantasmal": 100 }
+    },
+    "Discharge": {
+        "name": "Discharge",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 5, "Phantasmal": 20 }
+    },
+    "Flameblast": {
+        "name": "Flameblast",
+        "qualities": { "Superior": 50, "Anomalous": 10, "Divergent": 20, "Phantasmal": 50 }
+    },
+    "Kinetic Blast": {
+        "name": "Kinetic Blast",
+        "qualities": { "Superior": 50, "Anomalous": 10, "Divergent": 100 }
+    },
+    "Divine Ire": {
+        "name": "Divine Ire",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Firestorm": {
+        "name": "Firestorm",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 20 }
+    },
+    "Pyroclast Mine": {
+        "name": "Pyroclast Mine",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 100 }
+    },
+    "Eye of Winter": {
+        "name": "Eye of Winter",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Lightning Conduit": {
+        "name": "Lightning Conduit",
+        "qualities": { "Superior": 50, "Anomalous": 50, "Divergent": 10 }
+    },
+    "Hexblast": {
+        "name": "Hexblast",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 10 }
+    },
+    "Lightning Spire Trap": {
+        "name": "Lightning Spire Trap",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Winter Orb": {
+        "name": "Winter Orb",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 100 }
+    },
+    "Raise Spectre": {
+        "name": "Raise Spectre",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 20 }
+    },
+    "Vortex": {
+        "name": "Vortex",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 50, "Phantasmal": 100 }
+    },
+    "Penance Brand": {
+        "name": "Penance Brand",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Stormbind": {
+        "name": "Stormbind",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 100 }
+    },
+    "Summon Reaper": {
+        "name": "Summon Reaper",
+        "qualities": { "Superior": 50, "Anomalous": 50, "Divergent": 100 }
+    },
+    "Soulrend": {
+        "name": "Soulrend",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100, "Phantasmal": 20 }
+    },
+    "Dark Pact": {
+        "name": "Dark Pact",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 50 }
+    },
+    "Shock Nova": {
+        "name": "Shock Nova",
+        "qualities": { "Superior": 50, "Anomalous": 50, "Divergent": 100 }
+    },
+    "Summon Chaos Golem": {
+        "name": "Summon Chaos Golem",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Destructive Link": {
+        "name": "Destructive Link",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Sigil of Power": {
+        "name": "Sigil of Power",
+        "qualities": { "Superior": 50, "Anomalous": 20, "Divergent": 100, "Phantasmal": 50 }
+    },
+    "Glacial Cascade": {
+        "name": "Glacial Cascade",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Void Sphere": {
+        "name": "Void Sphere",
+        "qualities": { "Superior": 50, "Anomalous": 50, "Divergent": 20, "Phantasmal": 100 }
+    },
+    "Soul Link": {
+        "name": "Soul Link",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Summon Lightning Golem": {
+        "name": "Summon Lightning Golem",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Hydrosphere": {
+        "name": "Hydrosphere",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Frost Shield": {
+        "name": "Frost Shield",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 50, "Phantasmal": 20 }
+    },
+    "Summon Carrion Golem": {
+        "name": "Summon Carrion Golem",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Empower Support": {
+        "name": "Empower Support",
+        "qualities": { "Superior": 50, "Anomalous": 5 }
+    },
+    "Arcanist Brand": {
+        "name": "Arcanist Brand",
+        "qualities": { "Anomalous": 100, "Divergent": 100, "Phantasmal": 100, "Superior": 50 }
+    },
+    "Detonate Mines": {
+        "name": "Detonate Mines",
+        "qualities": { "Superior": 1000, "Anomalous": 1 }
+    },
+    "Chance to Bleed Support": {
+        "name": "Chance to Bleed Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Ruthless Support": {
+        "name": "Ruthless Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Earthbreaker Support": {
+        "name": "Earthbreaker Support",
+        "qualities": { "Superior": 100, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Added Fire Damage Support": {
+        "name": "Added Fire Damage Support",
+        "qualities": { "Superior": 50, "Anomalous": 50, "Divergent": 100 }
+    },
+    "Ancestral Call Support": {
+        "name": "Ancestral Call Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Maim Support": {
+        "name": "Maim Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Knockback Support": {
+        "name": "Knockback Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Ballista Totem Support": {
+        "name": "Ballista Totem Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 50, "Phantasmal": 10 }
+    },
+    "Lifetap Support": {
+        "name": "Lifetap Support",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Melee Splash Support": {
+        "name": "Melee Splash Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 50 }
+    },
+    "Stun Support": {
+        "name": "Stun Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 10 }
+    },
+    "Life Gain on Hit Support": {
+        "name": "Life Gain on Hit Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 10 }
+    },
+    "Endurance Charge on Melee Stun Support": {
+        "name": "Endurance Charge on Melee Stun Support",
+        "qualities": { "Superior": 50, "Anomalous": 20, "Divergent": 100 }
+    },
+    "Bloodlust Support": {
+        "name": "Bloodlust Support",
+        "qualities": { "Superior": 50, "Anomalous": 20, "Divergent": 5 }
+    },
+    "Cold to Fire Support": {
+        "name": "Cold to Fire Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 10 }
+    },
+    "Damage on Full Life Support": {
+        "name": "Damage on Full Life Support",
+        "qualities": { "Superior": 50, "Anomalous": 20, "Divergent": 100 }
+    },
+    "Spell Totem Support": {
+        "name": "Spell Totem Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Iron Grip Support": {
+        "name": "Iron Grip Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Iron Will Support": {
+        "name": "Iron Will Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Rage Support": {
+        "name": "Rage Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 5 }
+    },
+    "Melee Physical Damage Support": {
+        "name": "Melee Physical Damage Support",
+        "qualities": { "Superior": 50, "Anomalous": 10, "Divergent": 50 }
+    },
+    "Cruelty Support": {
+        "name": "Cruelty Support",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Divine Blessing Support": {
+        "name": "Divine Blessing Support",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Arrogance Support": {
+        "name": "Arrogance Support",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Shockwave Support": {
+        "name": "Shockwave Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Bloodthirst Support": {
+        "name": "Bloodthirst Support",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Elemental Damage with Attacks Support": {
+        "name": "Elemental Damage with Attacks Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 10 }
+    },
+    "Fortify Support": {
+        "name": "Fortify Support",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Generosity Support": {
+        "name": "Generosity Support",
+        "qualities": { "Superior": 50, "Anomalous": 10, "Divergent": 50 }
+    },
+    "Burning Damage Support": {
+        "name": "Burning Damage Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Fire Penetration Support": {
+        "name": "Fire Penetration Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 10 }
+    },
+    "Increased Duration Support": {
+        "name": "Increased Duration Support",
+        "qualities": { "Superior": 50, "Anomalous": 20, "Divergent": 50 }
+    },
+    "Inspiration Support": {
+        "name": "Inspiration Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Urgent Orders Support": {
+        "name": "Urgent Orders Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 5 }
+    },
+    "Less Duration Support": {
+        "name": "Less Duration Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Pulverise Support": {
+        "name": "Pulverise Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Life Leech Support": {
+        "name": "Life Leech Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 50 }
+    },
+    "Multiple Totems Support": {
+        "name": "Multiple Totems Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Eternal Blessing Support": {
+        "name": "Eternal Blessing Support",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Cast on Melee Kill Support": {
+        "name": "Cast on Melee Kill Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Brutality Support": {
+        "name": "Brutality Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Cast when Damage Taken Support": {
+        "name": "Cast when Damage Taken Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Multistrike Support": {
+        "name": "Multistrike Support",
+        "qualities": { "Superior": 50, "Anomalous": 50, "Divergent": 100 }
+    },
+    "Fist of War Support": {
+        "name": "Fist of War Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 50 }
+    },
+    "Pierce Support": {
+        "name": "Pierce Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Chance to Poison Support": {
+        "name": "Chance to Poison Support",
+        "qualities": { "Superior": 50, "Anomalous": 20, "Divergent": 100 }
+    },
+    "Behead Support": {
+        "name": "Behead Support",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Swift Assembly Support": {
+        "name": "Swift Assembly Support",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 20 }
+    },
+    "Enhance Support": {
+        "name": "Enhance Support",
+        "qualities": { "Superior": 50, "Anomalous": 5 }
+    },
+    "Multiple Traps Support": {
+        "name": "Multiple Traps Support",
+        "qualities": { "Superior": 50, "Anomalous": 20, "Divergent": 50 }
+    },
+    "Volley Support": {
+        "name": "Volley Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Mirage Archer Support": {
+        "name": "Mirage Archer Support",
+        "qualities": { "Superior": 50, "Anomalous": 10, "Divergent": 50 }
+    },
+    "Faster Attacks Support": {
+        "name": "Faster Attacks Support",
+        "qualities": { "Superior": 50, "Anomalous": 5, "Divergent": 50 }
+    },
+    "Chance to Flee Support": {
+        "name": "Chance to Flee Support",
+        "qualities": { "Superior": 10000, "Anomalous": 1 }
+    },
+    "Arrow Nova Support": {
+        "name": "Arrow Nova Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Blind Support": {
+        "name": "Blind Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 50 }
+    },
+    "Added Cold Damage Support": {
+        "name": "Added Cold Damage Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Additional Accuracy Support": {
+        "name": "Additional Accuracy Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Lesser Multiple Projectiles Support": {
+        "name": "Lesser Multiple Projectiles Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 50 }
+    },
+    "Trap Support": {
+        "name": "Trap Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Void Manipulation Support": {
+        "name": "Void Manipulation Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 10 }
+    },
+    "Nightblade Support": {
+        "name": "Nightblade Support",
+        "qualities": { "Superior": 50, "Anomalous": 20, "Divergent": 100 }
+    },
+    "Close Combat Support": {
+        "name": "Close Combat Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Point Blank Support": {
+        "name": "Point Blank Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 5 }
+    },
+    "Deadly Ailments Support": {
+        "name": "Deadly Ailments Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Culling Strike Support": {
+        "name": "Culling Strike Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 50 }
+    },
+    "Block Chance Reduction Support": {
+        "name": "Block Chance Reduction Support",
+        "qualities": { "Superior": 50, "Anomalous": 20 }
+    },
+    "Cold Penetration Support": {
+        "name": "Cold Penetration Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Trap and Mine Damage Support": {
+        "name": "Trap and Mine Damage Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 10 }
+    },
+    "Vicious Projectiles Support": {
+        "name": "Vicious Projectiles Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Mana Leech Support": {
+        "name": "Mana Leech Support",
+        "qualities": { "Superior": 50, "Anomalous": 5, "Divergent": 20 }
+    },
+    "Hypothermia Support": {
+        "name": "Hypothermia Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Fork Support": {
+        "name": "Fork Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 10 }
+    },
+    "Focused Ballista Support": {
+        "name": "Focused Ballista Support",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Ice Bite Support": {
+        "name": "Ice Bite Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Faster Projectiles Support": {
+        "name": "Faster Projectiles Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Critical Strike Affliction Support": {
+        "name": "Critical Strike Affliction Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Slower Projectiles Support": {
+        "name": "Slower Projectiles Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Advanced Traps Support": {
+        "name": "Advanced Traps Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Charged Traps Support": {
+        "name": "Charged Traps Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Second Wind Support": {
+        "name": "Second Wind Support",
+        "qualities": { "Superior": 50, "Anomalous": 20, "Divergent": 10 }
+    },
+    "Swift Affliction Support": {
+        "name": "Swift Affliction Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 10 }
+    },
+    "Mark On Hit Support": {
+        "name": "Mark On Hit Support",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Cluster Traps Support": {
+        "name": "Cluster Traps Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Cast on Death Support": {
+        "name": "Cast on Death Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Cast On Critical Strike Support": {
+        "name": "Cast On Critical Strike Support",
+        "qualities": { "Superior": 50, "Anomalous": 50, "Divergent": 100 }
+    },
+    "Impale Support": {
+        "name": "Impale Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Barrage Support": {
+        "name": "Barrage Support",
+        "qualities": { "Superior": 50, "Anomalous": 10, "Divergent": 20 }
+    },
+    "Vile Toxins Support": {
+        "name": "Vile Toxins Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Greater Multiple Projectiles Support": {
+        "name": "Greater Multiple Projectiles Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 50 }
+    },
+    "Greater Volley Support": {
+        "name": "Greater Volley Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Withering Touch Support": {
+        "name": "Withering Touch Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 50 }
+    },
+    "Enlighten Support": {
+        "name": "Enlighten Support",
+        "qualities": { "Superior": 50, "Anomalous": 5 }
+    },
+    "Infused Channelling Support": {
+        "name": "Infused Channelling Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Elemental Proliferation Support": {
+        "name": "Elemental Proliferation Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Chain Support": {
+        "name": "Chain Support",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Arcane Surge Support": {
+        "name": "Arcane Surge Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Minion Damage Support": {
+        "name": "Minion Damage Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Added Lightning Damage Support": {
+        "name": "Added Lightning Damage Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Spell Cascade Support": {
+        "name": "Spell Cascade Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Summon Phantasm Support": {
+        "name": "Summon Phantasm Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Combustion Support": {
+        "name": "Combustion Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 50 }
+    },
+    "Infernal Legion Support": {
+        "name": "Infernal Legion Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Blastchain Mine Support": {
+        "name": "Blastchain Mine Support",
+        "qualities": { "Superior": 50, "Anomalous": 50, "Divergent": 20 }
+    },
+    "Increased Critical Strikes Support": {
+        "name": "Increased Critical Strikes Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Efficacy Support": {
+        "name": "Efficacy Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Unbound Ailments Support": {
+        "name": "Unbound Ailments Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Predator Support": {
+        "name": "Predator Support",
+        "qualities": { "Superior": 50, "Divergent": 100, "Anomalous": 100 }
+    },
+    "Minion Life Support": {
+        "name": "Minion Life Support",
+        "qualities": { "Superior": 50, "Anomalous": 20, "Divergent": 100 }
+    },
+    "Minion Speed Support": {
+        "name": "Minion Speed Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Concentrated Effect Support": {
+        "name": "Concentrated Effect Support",
+        "qualities": { "Superior": 50, "Anomalous": 10, "Divergent": 50 }
+    },
+    "Controlled Destruction Support": {
+        "name": "Controlled Destruction Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Faster Casting Support": {
+        "name": "Faster Casting Support",
+        "qualities": { "Superior": 50, "Anomalous": 5, "Divergent": 50 }
+    },
+    "Increased Critical Damage Support": {
+        "name": "Increased Critical Damage Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Overcharge Support": {
+        "name": "Overcharge Support",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Elemental Focus Support": {
+        "name": "Elemental Focus Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Physical to Lightning Support": {
+        "name": "Physical to Lightning Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Cursed Ground Support": {
+        "name": "Cursed Ground Support",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Archmage Support": {
+        "name": "Archmage Support",
+        "qualities": { "Superior": 50, "Anomalous": 20, "Divergent": 50 }
+    },
+    "Feeding Frenzy Support": {
+        "name": "Feeding Frenzy Support",
+        "qualities": { "Superior": 50, "Anomalous": 10, "Divergent": 100 }
+    },
+    "Power Charge On Critical Support": {
+        "name": "Power Charge On Critical Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 10 }
+    },
+    "Trinity Support": {
+        "name": "Trinity Support",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 20 }
+    },
+    "Blasphemy Support": {
+        "name": "Blasphemy Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 10 }
+    },
+    "Meat Shield Support": {
+        "name": "Meat Shield Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "High-Impact Mine Support": {
+        "name": "High-Impact Mine Support",
+        "qualities": { "Superior": 50, "Anomalous": 50, "Divergent": 100 }
+    },
+    "Innervate Support": {
+        "name": "Innervate Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 10 }
+    },
+    "Added Chaos Damage Support": {
+        "name": "Added Chaos Damage Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Charged Mines Support": {
+        "name": "Charged Mines Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Item Rarity Support": {
+        "name": "Item Rarity Support",
+        "qualities": { "Superior": 10000, "Anomalous": 1 }
+    },
+    "Elemental Penetration Support": {
+        "name": "Elemental Penetration Support",
+        "qualities": { "Superior": 50, "Anomalous": 100 }
+    },
+    "Lightning Penetration Support": {
+        "name": "Lightning Penetration Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Energy Leech Support": {
+        "name": "Energy Leech Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Swiftbrand Support": {
+        "name": "Swiftbrand Support",
+        "qualities": { "Superior": 50, "Anomalous": 50, "Divergent": 100 }
+    },
+    "Pinpoint Support": {
+        "name": "Pinpoint Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Impending Doom Support": {
+        "name": "Impending Doom Support",
+        "qualities": { "Anomalous": 100, "Superior": 50, "Divergent": 20 }
+    },
+    "Elemental Army Support": {
+        "name": "Elemental Army Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Intensify Support": {
+        "name": "Intensify Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 50, "Phantasmal": 50 }
+    },
+    "Hex Bloom Support": {
+        "name": "Hex Bloom Support",
+        "qualities": { "Superior": 100, "Anomalous": 50, "Divergent": 50 }
+    },
+    "Minefield Support": {
+        "name": "Minefield Support",
+        "qualities": { "Superior": 50, "Anomalous": 20, "Divergent": 5 }
+    },
+    "Cast when Stunned Support": {
+        "name": "Cast when Stunned Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Hextouch Support": {
+        "name": "Hextouch Support",
+        "qualities": { "Anomalous": 100, "Superior": 50, "Divergent": 100 }
+    },
+    "Bonechill Support": {
+        "name": "Bonechill Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Cast while Channelling Support": {
+        "name": "Cast while Channelling Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Spell Echo Support": {
+        "name": "Spell Echo Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Ignite Proliferation Support": {
+        "name": "Ignite Proliferation Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    },
+    "Decay Support": {
+        "name": "Decay Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 20 }
+    },
+    "Immolate Support": {
+        "name": "Immolate Support",
+        "qualities": { "Superior": 50, "Anomalous": 100, "Divergent": 100 }
+    }
+}
