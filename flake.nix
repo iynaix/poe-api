@@ -26,9 +26,9 @@
               # https://devenv.sh/reference/options/
               dotenv.disableHint = true;
 
-              # scripts.yarn-reset.exec = ''
-              #   rm -rf node_modules && rm yarn.lock && rm -rf .next && yarn
-              # '';
+              scripts.yarn-reset.exec = ''
+                rm -rf node_modules && rm yarn.lock && rm -rf .next && yarn
+              '';
 
               packages = with pkgs; [yarn];
 
