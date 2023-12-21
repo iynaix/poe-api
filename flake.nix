@@ -30,10 +30,18 @@
                 rm -rf node_modules && rm yarn.lock && rm -rf .next && yarn
               '';
 
-              packages = with pkgs; [yarn];
+              packages = with pkgs; [
+                yarn
+
+              (pkgs.fetchYarnDeps {
+                yarnLock = ./yarn.lock;
+                sha256 = lib.fakeSha256;
+              })
+              ];
 
               languages.javascript.enable = true;
               languages.typescript.enable = true;
+
             }
           ];
         };

@@ -16,7 +16,7 @@ export const fetchItemEndpoint = async (endpoint: ItemEndpointEnum, league: Leag
         const isRelic = item.detailsId.endsWith("-relic")
 
         if (isRelic) {
-            name = `${item.name} (Relic}`
+            name = `${item.name} (Relic)`
         }
 
         if (endpoint === "SkillGem") {
