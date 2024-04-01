@@ -2,7 +2,7 @@ export const NINJA_API_URL = "https://poe.ninja"
 
 export const CACHE_THRESHOLD = process.env.NODE_ENV === "production" ? 10 * 60 : 60 * 60
 
-const TMPSTANDARD = "Affliction"
+const TMPSTANDARD = "Necropolis"
 
 export const LEAGUES = {
     tmpstandard: TMPSTANDARD,
@@ -21,6 +21,8 @@ export type CurrencyEndpointEnum = (typeof CURRENCY_ENDPOINTS)[number]
 
 export const ITEM_ENDPOINTS = [
     // General
+    "Tattoo",
+    "Omen",
     "DivinationCard",
     "Artifact",
     "Oil",
@@ -31,6 +33,7 @@ export const ITEM_ENDPOINTS = [
     "UniqueAccessory",
     "UniqueFlask",
     "UniqueJewel",
+    "UniqueRelic",
     "SkillGem",
     "ClusterJewel",
     // Atlas
@@ -41,11 +44,11 @@ export const ITEM_ENDPOINTS = [
     "DeliriumOrb",
     "Invitation",
     "Scarab",
+    "Memory",
     // Crafting
     "BaseType",
     "Fossil",
     "Resonator",
-    "HelmetEnchant",
     "Beast",
     "Essence",
     "Vial",
