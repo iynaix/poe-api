@@ -21,6 +21,7 @@ export type CurrencyEndpointEnum = (typeof CURRENCY_ENDPOINTS)[number]
 
 export const ITEM_ENDPOINTS = [
     // General
+    "KalguuranRune",
     "Tattoo",
     "Omen",
     "DivinationCard",
