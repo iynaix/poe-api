@@ -5,6 +5,7 @@ type InputProps = {
     name: string
     className?: string
     onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void
+    min?: number
 } & (
     | {
           type: "number"
@@ -16,7 +17,7 @@ type InputProps = {
       }
 )
 
-const Input = ({ name, className, type = "text", value, onChange }: InputProps) => {
+const Input = ({ name, className, type = "text", value, onChange, min }: InputProps) => {
     return (
         <input
             className={classNames(
@@ -27,8 +28,7 @@ const Input = ({ name, className, type = "text", value, onChange }: InputProps) 
             name={name}
             value={value}
             onChange={onChange}
-            {...(type === "number" ? { min: 0 } : {})}
-            min={0}
+            min={min}
         />
     )
 }

@@ -30,6 +30,8 @@ const InflationRow = ({ targetId, target, price }: InflationRowProps) => {
                             inflation,
                         })
                     }}
+                    // allow for deflation
+                    min={-1000000}
                 />
             </div>
 

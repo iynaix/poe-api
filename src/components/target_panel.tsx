@@ -38,6 +38,7 @@ const TargetPanel = () => {
                     className="px-0 md:px-8"
                     inflation={earnRate}
                     setInflation={earnRateStore.set.earnRate}
+                    min={0}
                 />
             </div>
 

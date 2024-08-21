@@ -8,9 +8,10 @@ type ChaosRateInputProps = {
     className?: string
     inflation: Inflation
     setInflation: (inflation: Inflation) => void
+    min?: number
 }
 
-const ChaosRateInput = ({ className, inflation, setInflation }: ChaosRateInputProps) => {
+const ChaosRateInput = ({ className, inflation, setInflation, min = 0 }: ChaosRateInputProps) => {
     const randomId = useId()
 
     return (
@@ -39,6 +40,7 @@ const ChaosRateInput = ({ className, inflation, setInflation }: ChaosRateInputPr
                     type="number"
                     name={`${randomId}-inflation`}
                     value={inflation.rate}
+                    min={min}
                     onChange={(ev) => {
                         setInflation({
                             ...inflation,
