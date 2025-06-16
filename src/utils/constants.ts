@@ -2,7 +2,7 @@ export const NINJA_API_URL = "https://poe.ninja"
 
 export const CACHE_THRESHOLD = process.env.NODE_ENV === "production" ? 10 * 60 : 60 * 60
 
-const TMPSTANDARD = "Settlers"
+const TMPSTANDARD = "Mercenaries"
 
 export const LEAGUES = {
     tmpstandard: TMPSTANDARD,
@@ -22,6 +22,7 @@ export type CurrencyEndpointEnum = (typeof CURRENCY_ENDPOINTS)[number]
 export const ITEM_ENDPOINTS = [
     // General
     "KalguuranRune",
+    "AllflameEmber",
     "Tattoo",
     "Omen",
     "DivinationCard",
@@ -34,6 +35,7 @@ export const ITEM_ENDPOINTS = [
     "UniqueAccessory",
     "UniqueFlask",
     "UniqueJewel",
+    "UniqueTincture",
     "UniqueRelic",
     "SkillGem",
     "ClusterJewel",

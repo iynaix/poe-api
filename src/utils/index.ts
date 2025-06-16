@@ -16,6 +16,7 @@ const ninjaAPIUrl = (endpoint: AllEndpoints, league: LeagueName = "tmpstandard")
         league: LEAGUES[league] || LEAGUES.tmpstandard,
         type: endpoint,
     }).toString()
+    console.log("ninja api url", url.toString())
     return url.toString()
 }
 
