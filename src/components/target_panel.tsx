@@ -65,7 +65,7 @@ const TargetPanel = () => {
                             setShowHourStat(!showHourStat)
                         }}
                     >
-                        {truncateFloat(showHourStat ? etaInHours : etaInHours / 24, 3)}
+                        {Math.max(truncateFloat(showHourStat ? etaInHours : etaInHours / 24, 3), 0)}
                     </Stat>
                 )}
                 <Stat
