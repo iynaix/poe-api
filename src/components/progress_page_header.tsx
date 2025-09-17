@@ -21,13 +21,13 @@ export default function ProgressPageHeader({ isFetching }: ProgressPageHeaderPro
         <div className="bg-crust p-4 lg:flex lg:items-center lg:justify-between">
             <div className="min-w-0 flex-1">
                 <h2 className="pl-4 text-2xl font-bold leading-7 text-subtext1 sm:truncate sm:text-3xl sm:tracking-tight">
-                    Are We There Yet?
+                    {LEAGUES[league]}
                     {isFetching && (
                         <Spinner className="relative -top-1 ml-4 inline-block !h-6 !w-6" />
                     )}
                 </h2>
             </div>
-            <div className="mt-5 flex lg:mt-0 lg:ml-4">
+            <div className="mt-5 flex lg:ml-4 lg:mt-0">
                 <span className="sm:ml-3">
                     <Button
                         className="bg-peach text-sm text-mantle hover:bg-rosewater focus:ring-peach"
@@ -63,7 +63,7 @@ export default function ProgressPageHeader({ isFetching }: ProgressPageHeaderPro
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95"
                     >
-                        <Menu.Items className="absolute right-0 z-10 mt-2 -ml-1 w-48 origin-top-left rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <Menu.Items className="absolute right-0 z-10 -ml-1 mt-2 w-48 origin-top-left rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                             {Object.entries(LEAGUES).map(([value, name]) => (
                                 <Menu.Item key={value}>
                                     {({ active }) => (
