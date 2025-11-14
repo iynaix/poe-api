@@ -2,7 +2,7 @@ export const NINJA_API_URL = "https://poe.ninja"
 
 export const CACHE_THRESHOLD = process.env.NODE_ENV === "production" ? 10 * 60 : 60 * 60
 
-const TMPSTANDARD = "Mercenaries"
+const TMPSTANDARD = "Keepers"
 
 export const LEAGUES = {
     tmpstandard: TMPSTANDARD,
