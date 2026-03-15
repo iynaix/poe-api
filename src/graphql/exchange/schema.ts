@@ -1,6 +1,6 @@
 import { Aggregator } from "mingo"
 
-import { fetchCurrencies, fetchCurrencyEndpoint } from "./fetcher"
+import { fetchExchanges, fetchExchangeEndpoint } from "./fetcher"
 import { builder, League, CurrencyEndpoint } from "../builder"
 import { StringFilter, FloatFilter, createWhere, EnumFilter } from "../../utils/filters"
 import { createOrderBy } from "../../utils/orderby"
@@ -9,7 +9,7 @@ builder.objectType("Currency", {
     fields: (t) => ({
         id: t.exposeID("id"),
         name: t.exposeString("name"),
-        icon: t.exposeString("icon", { nullable: true }),
+        icon: t.exposeString("image", { nullable: true }),
         chaosValue: t.exposeFloat("chaosValue"),
         divineValue: t.exposeFloat("divineValue"),
         endpoint: t.exposeString("endpoint"),
@@ -44,19 +44,16 @@ builder.queryFields((t) => ({
             // console.log("$match", $match)
             const agg = new Aggregator([{ $match }, { $sort }])
 
-            const currencies = await fetchCurrencies(args.league || "tmpstandard")
-            console.log(currencies)
+            const currencies = await fetchExchanges(args.league || "tmpstandard")
             return agg.run(currencies) as unknown as typeof currencies
         },
     }),
     divineValue: t.field({
         type: "Float",
         resolve: async () => {
-            const currencies = await fetchCurrencyEndpoint("Currency", "tmpstandard")
+            const currencies = await fetchExchangeEndpoint("Currency", "tmpstandard")
 
-            const divineOrb = currencies.find(
-                (currency) => currency.currencyTypeName === "Divine Orb"
-            )
+            const divineOrb = currencies.find((currency) => currency.id === "divine")
 
             if (!divineOrb?.chaosValue) {
                 throw new Error("Divine Orb not found")

@@ -45,6 +45,7 @@ const TargetRow = ({ targetId, target }: TargetRowProps) => {
                         <Input
                             type="number"
                             name={price.name}
+                            min={0}
                             value={target.count}
                             onChange={(ev) =>
                                 targetStore.set.add(price.id, {

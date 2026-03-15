@@ -42,6 +42,7 @@ const AssetRow = ({ assetId, asset }: AssetRowProps) => {
                     <Input
                         type="number"
                         name={price.name}
+                        min={0}
                         value={asset.count}
                         onChange={(ev) =>
                             assetStore.set.add(price.id, {

@@ -1,4 +1,4 @@
-import type { CurrencyEndpointEnum, ItemEndpointEnum } from "../../utils/constants"
+import type { ExchangeEndpointEnum, StashEndpointEnum } from "../../utils/constants"
 
 export type Combined = {
     id: string
@@ -6,5 +6,5 @@ export type Combined = {
     icon?: string
     chaosValue: number
     divineValue: number
-    endpoint: CurrencyEndpointEnum | ItemEndpointEnum
+    endpoint: ExchangeEndpointEnum | StashEndpointEnum
 }

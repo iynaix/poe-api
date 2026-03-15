@@ -1,8 +1,8 @@
 import { Aggregator } from "mingo"
 
 import { builder, League } from "../builder"
-import { fetchCurrencies } from "../currencies/fetcher"
-import { fetchItems } from "../items/fetcher"
+import { fetchExchanges } from "../exchange/fetcher"
+import { fetchStash } from "../stash/fetcher"
 import { StringFilter, FloatFilter, createWhere } from "../../utils/filters"
 import { createOrderBy } from "../../utils/orderby"
 import type { LeagueName } from "../../utils"
@@ -32,15 +32,15 @@ const [orderBy, orderByAgg] = createOrderBy("CombinedOrderBy", [
 ])
 
 export const fetchCombined = async (league: LeagueName = "tmpstandard") => {
-    const currencies = await fetchCurrencies(league)
-    const items = await fetchItems(league)
+    const currencies = await fetchExchanges(league)
+    const items = await fetchStash(league)
 
     return [
         // overwrite id with currencyTypeName
-        ...currencies.map(({ currencyTypeName, ...currency }) => ({
-            id: currencyTypeName,
+        ...currencies.map(({ id, ...currency }) => ({
+            id,
             name: currency.name,
-            icon: currency.icon,
+            icon: currency.image,
             chaosValue: currency.chaosValue,
             divineValue: currency.divineValue,
             endpoint: currency.endpoint,

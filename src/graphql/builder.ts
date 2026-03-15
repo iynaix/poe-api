@@ -1,9 +1,9 @@
 import SchemaBuilder from "@pothos/core"
-import type { Currency } from "./currencies/types"
-import type { Item } from "./items/types"
-import type { ExplicitModifier } from "./items/ninja_types"
+import type { Currency } from "./exchange/types"
+import type { Item } from "./stash/types"
+import type { ExplicitModifier } from "./stash/ninja_types"
 import type { Combined } from "./combined/types"
-import { CURRENCY_ENDPOINTS, ITEM_ENDPOINTS } from "../utils/constants"
+import { EXCHANGE_ENDPOINTS, STASH_ENDPOINTS } from "../utils/constants"
 
 export const builder = new SchemaBuilder<{
     Objects: {
@@ -28,9 +28,9 @@ export const League = builder.enumType("League", {
 })
 
 export const CurrencyEndpoint = builder.enumType("CurrencyEndpoint", {
-    values: CURRENCY_ENDPOINTS,
+    values: EXCHANGE_ENDPOINTS,
 })
 
 export const ItemEndpoint = builder.enumType("ItemEndpoint", {
-    values: ITEM_ENDPOINTS,
+    values: STASH_ENDPOINTS,
 })

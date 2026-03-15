@@ -1,4 +1,4 @@
-export interface NinjaItems {
+export interface NinjaStash {
     lines: Line[]
 }
 
@@ -6,13 +6,17 @@ export interface Line {
     id: number
     name: string
     icon: string
-    levelRequired?: number
-    baseType?: string
+    baseType: string
+    corrupted: boolean
+    gemLevel: number
+    gemQuality: number
+    variant?: string
     itemClass: number
-    sparkline: Sparkline
-    lowConfidenceSparkline: LowConfidenceSparkline
+    sparkLine: SparkLine
+    lowConfidenceSparkLine: LowConfidenceSparkLine
     implicitModifiers: ImplicitModifier[]
     explicitModifiers: ExplicitModifier[]
+    mutatedModifiers: MutatedModifier[]
     flavourText: string
     itemType: string
     chaosValue: number
@@ -20,22 +24,20 @@ export interface Line {
     divineValue: number
     count: number
     detailsId: string
+    tradeInfo: TradeInfo[]
     listingCount: number
+    levelRequired?: number
     links?: number
-    corrupted?: boolean
-    gemLevel?: number
-    gemQuality?: number
-    variant?: string
 }
 
-export interface Sparkline {
-    data: number | undefined[]
+export interface SparkLine {
     totalChange: number
+    data: number | undefined[]
 }
 
-export interface LowConfidenceSparkline {
-    data: number | undefined[]
+export interface LowConfidenceSparkLine {
     totalChange: number
+    data: number | undefined[]
 }
 
 export interface ImplicitModifier {
@@ -46,4 +48,15 @@ export interface ImplicitModifier {
 export interface ExplicitModifier {
     text: string
     optional: boolean
+}
+
+export interface MutatedModifier {
+    text: string
+    optional: boolean
+}
+
+export interface TradeInfo {
+    mod: string
+    min: number
+    max: number
 }

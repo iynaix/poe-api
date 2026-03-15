@@ -1,22 +1,19 @@
-import type { CurrencyEndpointEnum, ItemEndpointEnum } from "./constants"
-import { NINJA_API_URL, CURRENCY_ENDPOINTS, LEAGUES } from "./constants"
+import type { ExchangeEndpointEnum, StashEndpointEnum } from "./constants"
+import { NINJA_API_URL, EXCHANGE_ENDPOINTS, LEAGUES } from "./constants"
 
 export type LeagueName = keyof typeof LEAGUES
 
-type AllEndpoints = CurrencyEndpointEnum | ItemEndpointEnum
+type AllEndpoints = ExchangeEndpointEnum | StashEndpointEnum
 
 const ninjaAPIUrl = (endpoint: AllEndpoints, league: LeagueName = "tmpstandard") => {
     const url = new URL(NINJA_API_URL)
 
-    url.pathname = `/api/data/${
-        // @ts-expect-error ignore includes error
-        CURRENCY_ENDPOINTS.includes(endpoint) ? "currencyoverview" : "itemoverview"
-    }`
+    const rate_source = EXCHANGE_ENDPOINTS.includes(endpoint) ? "exchange" : "stash"
+    url.pathname = `/poe1/api/economy/${rate_source}/current/overview`
     url.search = new URLSearchParams({
         league: LEAGUES[league] || LEAGUES.tmpstandard,
         type: endpoint,
     }).toString()
-    console.log("ninja api url", url.toString())
     return url.toString()
 }
 

@@ -15,46 +15,57 @@ export const LEAGUES = {
     hardcoreruthless: "Hardcore Ruthless",
 } as const
 
-export const CURRENCY_ENDPOINTS = ["Currency", "Fragment"] as const
-
-export type CurrencyEndpointEnum = (typeof CURRENCY_ENDPOINTS)[number]
-
-export const ITEM_ENDPOINTS = [
+export const EXCHANGE_ENDPOINTS = [
     // General
-    "KalguuranRune",
-    "AllflameEmber",
-    "Tattoo",
-    "Omen",
-    "DivinationCard",
-    "Artifact",
-    "Oil",
-    "Incubator",
-    // Equipment & Gems
-    "UniqueWeapon",
-    "UniqueArmour",
-    "UniqueAccessory",
-    "UniqueFlask",
-    "UniqueJewel",
-    "UniqueTincture",
-    "UniqueRelic",
-    "SkillGem",
-    "ClusterJewel",
-    // Atlas
-    "Map",
-    "BlightedMap",
-    "BlightRavagedMap",
-    "UniqueMap",
-    "DeliriumOrb",
-    "Invitation",
-    "Scarab",
-    "Memory",
-    // Crafting
-    "BaseType",
-    "Fossil",
-    "Resonator",
-    "Beast",
-    "Essence",
-    "Vial",
+    "Currency",
+    // "Fragment",
+    // "Runegraft",
+    // "AllflameEmber",
+    // "Tattoo",
+    // "Omen",
+    // "Djinn Coins",
+    // "DivinationCard",
+    // "Artifact",
+    // "Oil",
+    // // Atlas
+    // "DeliriumOrb",
+    // // Crafting
+    // "Fossil",
+    // "Resonator",
+    // "Essence",
 ] as const
 
-export type ItemEndpointEnum = (typeof ITEM_ENDPOINTS)[number]
+export type ExchangeEndpointEnum = (typeof EXCHANGE_ENDPOINTS)[number]
+
+export const STASH_ENDPOINTS = [
+    // General
+    // "Wombgift",
+    // "Incubator",
+    // // Equipment & Gems
+    // "UniqueWeapon",
+    // "UniqueArmour",
+    // "UniqueAccessory",
+    // "UniqueFlask",
+    // "UniqueJewel",
+    // "ForbiddenJewel",
+    // "UniqueTincture",
+    // "UniqueRelic",
+    // "SkillGem",
+    // "ClusterJewel",
+    // // Atlas
+    // "Map",
+    // "BlightedMap",
+    // "BlightRavagedMap",
+    // "UniqueMap",
+    // "ValdoMap",
+    // "Invitation",
+    // "Scarab",
+    // "Astrolabe",
+    // // "Memory", // no longer available
+    // // Crafting
+    // "BaseType",
+    // "Beast",
+    // "Vial",
+] as const
+
+export type StashEndpointEnum = (typeof STASH_ENDPOINTS)[number]

@@ -3,8 +3,8 @@ import pThrottle from "p-throttle"
 import { load as cheerioLoad, type CheerioAPI } from "cheerio"
 import { router, publicProcedure } from "../trpc"
 // import CachedGemData from "./gemData.json"
-import { fetchItemEndpoint } from "../../../graphql/items/fetcher"
-import { fetchCurrencyEndpoint } from "../../../graphql/currencies/fetcher"
+import { fetchStashEndpoint } from "../../../graphql/stash/fetcher"
+import { fetchExchangeEndpoint } from "../../../graphql/exchange/fetcher"
 
 export const textLink = (sel: ReturnType<CheerioAPI>) =>
     [sel.text().trim(), sel.attr("href")] as const
@@ -73,7 +73,7 @@ export const gemRouter = router({
 
     profit: publicProcedure.query(async () => {
         // get price of lenses
-        const currencies = await fetchCurrencyEndpoint("Currency", "standard")
+        const currencies = await fetchExchangeEndpoint("Currency", "standard")
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const primaryLens = currencies.find(
             (currency) => currency.name === "Prime Regrading Lens"
@@ -85,7 +85,7 @@ export const gemRouter = router({
 
         // get gem prices
 
-        const gemPrices = await fetchItemEndpoint("SkillGem", "standard")
+        const gemPrices = await fetchStashEndpoint("SkillGem", "standard")
 
         const minPrice = Math.min(primaryLens, secondaryLens)
         const candidates = gemPrices.filter((gem) => {

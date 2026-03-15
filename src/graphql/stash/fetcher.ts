@@ -2,13 +2,13 @@ import pThrottle from "p-throttle"
 import type { LeagueName } from "../../utils"
 import { fetchNinja } from "../../utils"
 import { cachedLeagueData } from "../../utils/cache"
-import type { ItemEndpointEnum } from "../../utils/constants"
-import { ITEM_ENDPOINTS } from "../../utils/constants"
-import type { NinjaItems } from "./ninja_types"
+import type { StashEndpointEnum } from "../../utils/constants"
+import { STASH_ENDPOINTS } from "../../utils/constants"
+import type { NinjaStash } from "./ninja_types"
 import type { Item } from "./types"
 
-export const fetchItemEndpoint = async (endpoint: ItemEndpointEnum, league: LeagueName) => {
-    const items = await fetchNinja<NinjaItems>(endpoint, league)
+export const fetchStashEndpoint = async (endpoint: StashEndpointEnum, league: LeagueName) => {
+    const items = await fetchNinja<NinjaStash>(endpoint, league)
 
     return items["lines"].map((item) => {
         let name = item.name
@@ -34,14 +34,14 @@ export const fetchItemEndpoint = async (endpoint: ItemEndpointEnum, league: Leag
 }
 
 // fetches and inserts the items if needed
-export const fetchItems = async (league: LeagueName) =>
+export const fetchStash = async (league: LeagueName) =>
     cachedLeagueData<Item[]>("/tmp/__cache__items.json", league, async () => {
         let ITEMS: Item[] = []
         const throttle = pThrottle({ limit: 5, interval: 1000 })
-        const throttledFetch = throttle(fetchItemEndpoint)
+        const throttledFetch = throttle(fetchStashEndpoint)
 
         await Promise.all(
-            ITEM_ENDPOINTS.map(async (endpoint) => {
+            STASH_ENDPOINTS.map(async (endpoint) => {
                 const fetchedItems = await throttledFetch(endpoint, league)
 
                 ITEMS = ITEMS.concat(fetchedItems)

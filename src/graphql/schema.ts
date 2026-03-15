@@ -1,8 +1,8 @@
 // load all mingo operators
 import "mingo/init/system"
 
-import "./currencies/schema"
-import "./items/schema"
+import "./exchange/schema"
+import "./stash/schema"
 import "./combined/schema"
 import "./trade/schema"
 

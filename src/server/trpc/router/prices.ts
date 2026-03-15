@@ -2,10 +2,14 @@ import { z } from "zod"
 import { orderBy } from "lodash"
 
 import { router, publicProcedure } from "../trpc"
-import { type CurrencyEndpointEnum, type ItemEndpointEnum, LEAGUES } from "../../../utils/constants"
+import {
+    type ExchangeEndpointEnum,
+    type StashEndpointEnum,
+    LEAGUES,
+} from "../../../utils/constants"
 import type { LeagueName } from "../../../utils"
-import { fetchCurrencies } from "../../../graphql/currencies/fetcher"
-import { fetchItems } from "../../../graphql/items/fetcher"
+import { fetchExchanges } from "../../../graphql/exchange/fetcher"
+import { fetchStash } from "../../../graphql/stash/fetcher"
 import { CHAOS_ICON } from "../../../components/poe_icon"
 
 export type Price = {
@@ -14,25 +18,25 @@ export type Price = {
     icon?: string
     divineValue: number
     chaosValue: number
-    endpoint: CurrencyEndpointEnum | ItemEndpointEnum
+    endpoint: ExchangeEndpointEnum | StashEndpointEnum
 }
 
 const fetchPrices = async (league: LeagueName = "tmpstandard") => {
-    const currencies = await fetchCurrencies(league)
-    const items = await fetchItems(league)
+    const currencies = await fetchExchanges(league)
+    const items = await fetchStash(league)
     // placeholder value, updated below
     let divineValue = 1
 
     // overwrite id with currencyTypeName
-    const processedCurrencies = currencies.map(({ currencyTypeName, ...currency }) => {
-        if (currencyTypeName === "Divine Orb") {
+    const processedCurrencies = currencies.map(({ id, ...currency }) => {
+        if (id === "divine") {
             divineValue = currency.chaosValue
         }
 
         return {
-            id: currency.id,
+            id,
             name: currency.name,
-            icon: currency.icon,
+            icon: currency.image,
             chaosValue: currency.chaosValue,
             divineValue: currency.divineValue,
             endpoint: currency.endpoint,

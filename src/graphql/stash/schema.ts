@@ -1,6 +1,6 @@
 import { Aggregator } from "mingo"
 
-import { fetchItems } from "./fetcher"
+import { fetchStash } from "./fetcher"
 import { builder, ItemEndpoint, League } from "../builder"
 import {
     StringFilter,
@@ -94,7 +94,7 @@ builder.queryFields((t) => ({
 
             const agg = new Aggregator([{ $match }, { $sort }])
 
-            const items = await fetchItems(args.league || "tmpstandard")
+            const items = await fetchStash(args.league || "tmpstandard")
             return agg.run(items) as unknown as typeof items
         },
     }),

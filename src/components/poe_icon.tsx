@@ -16,9 +16,11 @@ export type PoeIconProps = {
 }
 
 const PoeIcon = ({ icon, alt, className, size }: PoeIconProps) => {
+    icon = icon.startsWith("/") ? `https://web.poecdn.com${icon}` : icon
+
     return (
         <Image
-            src={icon.replace(/\?.*$/, "")}
+            src={icon}
             alt={alt}
             className={`inline-block ${className}`}
             style={{
