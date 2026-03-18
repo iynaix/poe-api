@@ -5,4 +5,4 @@ export type LineWithChaos = Line & {
     endpoint: ExchangeEndpointEnum
 }
 
-export type Currency = Item & LineWithChaos & { chaosValue: number; divineValue: number }
+export type Exchange = Item & LineWithChaos & { chaosValue: number; divineValue: number }

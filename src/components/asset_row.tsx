@@ -1,6 +1,6 @@
 import { priceStore, assetStore, type Asset } from "../utils/progress_stores"
 import { TrashIcon } from "@heroicons/react/24/outline"
-import { TogglePrice, PoeIconText } from "./poe_icon"
+import { TogglePrice, PoeIconText, DIVINE_ICON } from "./poe_icon"
 import Input from "./input"
 
 type AssetRowProps = {
@@ -11,15 +11,27 @@ type AssetRowProps = {
 const AssetRow = ({ assetId, asset }: AssetRowProps) => {
     const showDelete = !(assetId === "divine" || assetId === "chaos")
 
-    const price = priceStore.get.priceById(assetId)
+    let price
+    if (assetId === "divine") {
+        const chaosPrice = priceStore.get.priceById("chaos")
+        price = {
+            id: "divine",
+            name: "Divine Orb",
+            icon: DIVINE_ICON,
+            chaosValue: Math.ceil(1 / chaosPrice.divineValue),
+            divineValue: 1,
+            endpoint: "Currency",
+        }
+    } else {
+        price = priceStore.get.priceById(assetId)
+    }
 
     return (
         <tr>
             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
                 <PoeIconText
                     iconProps={{
-                        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                        icon: price.icon!,
+                        icon: price.icon,
                         alt: price.name,
                         size: 36,
                     }}

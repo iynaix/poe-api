@@ -5,7 +5,7 @@ import { cachedLeagueData } from "../../utils/cache"
 import type { StashEndpointEnum } from "../../utils/constants"
 import { STASH_ENDPOINTS } from "../../utils/constants"
 import type { NinjaStash } from "./ninja_types"
-import type { Item } from "./types"
+import type { Stash } from "./types"
 
 export const fetchStashEndpoint = async (endpoint: StashEndpointEnum, league: LeagueName) => {
     const items = await fetchNinja<NinjaStash>(endpoint, league)
@@ -35,18 +35,21 @@ export const fetchStashEndpoint = async (endpoint: StashEndpointEnum, league: Le
 
 // fetches and inserts the items if needed
 export const fetchStash = async (league: LeagueName) =>
-    cachedLeagueData<Item[]>("/tmp/__cache__items.json", league, async () => {
-        let ITEMS: Item[] = []
+    cachedLeagueData<Stash[]>("/tmp/__cache__items.json", league, async () => {
+        let STASHES: Stash[] = []
         const throttle = pThrottle({ limit: 5, interval: 1000 })
         const throttledFetch = throttle(fetchStashEndpoint)
 
         await Promise.all(
             STASH_ENDPOINTS.map(async (endpoint) => {
-                const fetchedItems = await throttledFetch(endpoint, league)
-
-                ITEMS = ITEMS.concat(fetchedItems)
+                try {
+                    const fetchedStashes = await throttledFetch(endpoint, league)
+                    STASHES = STASHES.concat(fetchedStashes)
+                } catch (err) {
+                    console.error(`Failed to fetch from ${endpoint} (stash):`, err)
+                }
             })
         )
 
-        return ITEMS
+        return STASHES
     })

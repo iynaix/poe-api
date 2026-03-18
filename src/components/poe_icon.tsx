@@ -9,13 +9,17 @@ export const CHAOS_ICON = "https://web.poecdn.com/image/Art/2DItems/Currency/Cur
 export const DIVINE_ICON = "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyModValues.png"
 
 export type PoeIconProps = {
-    icon: string
+    icon?: string
     alt: string
     className?: string
     size: number
 }
 
 const PoeIcon = ({ icon, alt, className, size }: PoeIconProps) => {
+    if (!icon) {
+        return null
+    }
+
     icon = icon.startsWith("/") ? `https://web.poecdn.com${icon}` : icon
 
     return (

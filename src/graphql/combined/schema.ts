@@ -32,12 +32,12 @@ const [orderBy, orderByAgg] = createOrderBy("CombinedOrderBy", [
 ])
 
 export const fetchCombined = async (league: LeagueName = "tmpstandard") => {
-    const currencies = await fetchExchanges(league)
-    const items = await fetchStash(league)
+    const exchanges = await fetchExchanges(league)
+    const stashes = await fetchStash(league)
 
     return [
         // overwrite id with currencyTypeName
-        ...currencies.map(({ id, ...currency }) => ({
+        ...exchanges.map(({ id, ...currency }) => ({
             id,
             name: currency.name,
             icon: currency.image,
@@ -46,7 +46,7 @@ export const fetchCombined = async (league: LeagueName = "tmpstandard") => {
             endpoint: currency.endpoint,
         })),
         // overwrite id with detailsId
-        ...items.map(({ detailsId, ...item }) => ({
+        ...stashes.map(({ detailsId, ...item }) => ({
             id: detailsId,
             name: item.name,
             icon: item.icon,

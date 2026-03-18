@@ -1,16 +1,17 @@
 import { z } from "zod"
-import { orderBy } from "lodash"
 
 import { router, publicProcedure } from "../trpc"
 import {
     type ExchangeEndpointEnum,
     type StashEndpointEnum,
+    EXCHANGE_ENDPOINTS,
     LEAGUES,
 } from "../../../utils/constants"
 import type { LeagueName } from "../../../utils"
-import { fetchExchanges } from "../../../graphql/exchange/fetcher"
-import { fetchStash } from "../../../graphql/stash/fetcher"
+import { fetchExchangeEndpoint, fetchExchanges } from "../../../graphql/exchange/fetcher"
+import { fetchStash, fetchStashEndpoint } from "../../../graphql/stash/fetcher"
 import { CHAOS_ICON } from "../../../components/poe_icon"
+import { fetchSearch, type SearchResultWithEndpoint } from "../../../graphql/search/fetcher"
 
 export type Price = {
     id: string
@@ -71,7 +72,7 @@ const fetchPrices = async (league: LeagueName = "tmpstandard") => {
 }
 
 export const priceRouter = router({
-    byName: publicProcedure
+    searchByName: publicProcedure
         .input(
             z.object({
                 query: z.string(),
@@ -83,14 +84,68 @@ export const priceRouter = router({
                     }),
             })
         )
-        .query(async ({ input: { query, league } }): Promise<Price[]> => {
+        .query(async ({ input: { query, league } }): Promise<SearchResultWithEndpoint[]> => {
             if (!query || query.length < 3) return []
 
             const re = new RegExp(query.replace(" ", ".*"), "i")
-            const prices = await fetchPrices((league as keyof typeof LEAGUES) || "tmpstandard")
+            const results = await fetchSearch((league as keyof typeof LEAGUES) || "tmpstandard")
 
-            const filteredPrices = prices.filter((price) => re.test(price.name))
-            return orderBy(filteredPrices, (price) => price.chaosValue, "desc")
+            return results.filter((result) => re.test(result.name))
+        }),
+    priceByName: publicProcedure
+        .input(
+            z.object({
+                name: z.string(),
+                league: z
+                    .string()
+                    .optional()
+                    .refine((s) => (s ? s.toLowerCase() in LEAGUES : true), {
+                        message: "League is invalid",
+                    }),
+                endpoint: z.string(),
+            })
+        )
+        .query(async ({ input: { name, league, endpoint } }): Promise<Price | undefined> => {
+            const resolvedLeague: LeagueName = (league as keyof typeof LEAGUES) || "tmpstandard"
+
+            // @ts-expect-error cannot check string against enum
+            if (EXCHANGE_ENDPOINTS.includes(endpoint)) {
+                // fetch exchange
+                const exchanges = await fetchExchangeEndpoint(
+                    endpoint as ExchangeEndpointEnum,
+                    resolvedLeague
+                )
+                return exchanges
+                    .filter((exchange) => name == exchange.name)
+                    .map((exchange) => {
+                        return {
+                            id: exchange.id,
+                            name: exchange.name,
+                            icon: exchange.image,
+                            chaosValue: exchange.chaosValue,
+                            divineValue: exchange.divineValue,
+                            endpoint: exchange.endpoint,
+                        } as Price
+                    })[0]
+            } else {
+                // fetch stash
+                const stashes = await fetchStashEndpoint(
+                    endpoint as StashEndpointEnum,
+                    resolvedLeague
+                )
+                return stashes
+                    .filter((stash) => name == stash.name)
+                    .map((stash) => {
+                        return {
+                            id: stash.id,
+                            name: stash.name,
+                            icon: stash.icon,
+                            chaosValue: stash.chaosValue,
+                            divineValue: stash.divineValue,
+                            endpoint: stash.endpoint,
+                        } as Price
+                    })[0]
+            }
         }),
     list: publicProcedure
         .input(
@@ -108,15 +163,54 @@ export const priceRouter = router({
             // each id will only produce a single result
             const matchesByItemId: Record<string, Price> = {}
 
-            const prices = await fetchPrices((league as keyof typeof LEAGUES) || "tmpstandard")
-            for (const price of prices) {
-                // must be exact match
-                const matchedId = ids.find((id) => id === price.id)
-                if (matchedId) {
-                    matchesByItemId[matchedId] = price
+            const resolvedLeague: LeagueName = (league as keyof typeof LEAGUES) || "tmpstandard"
+            const searchResults = await fetchSearch(resolvedLeague)
+            const resultsByEndpoint = Object.groupBy(
+                searchResults.filter((result) => ids.includes(result.name)),
+                (result) => result.endpoint
+            )
+
+            // get prices for each endpoint
+            for (const endpoint in resultsByEndpoint) {
+                // @ts-expect-error cannot check string against enum
+                if (EXCHANGE_ENDPOINTS.includes(endpoint)) {
+                    // fetch exchange
+                    const exchanges = await fetchExchangeEndpoint(
+                        endpoint as ExchangeEndpointEnum,
+                        resolvedLeague
+                    )
+                    exchanges
+                        .filter((exchange) => ids.includes(exchange.name))
+                        .forEach((exchange) => {
+                            matchesByItemId[exchange.name] = {
+                                id: exchange.id,
+                                name: exchange.name,
+                                icon: exchange.image,
+                                chaosValue: exchange.chaosValue,
+                                divineValue: exchange.divineValue,
+                                endpoint: exchange.endpoint,
+                            }
+                        })
+                } else {
+                    // fetch stash
+                    const stashes = await fetchStashEndpoint(
+                        endpoint as StashEndpointEnum,
+                        resolvedLeague
+                    )
+                    stashes
+                        .filter((stash) => ids.includes(stash.name))
+                        .forEach((stash) => {
+                            matchesByItemId[stash.name] = {
+                                id: stash.id,
+                                name: stash.name,
+                                icon: stash.icon,
+                                chaosValue: stash.chaosValue,
+                                divineValue: stash.divineValue,
+                                endpoint: stash.endpoint,
+                            }
+                        })
                 }
             }
-
             return matchesByItemId
         }),
 })

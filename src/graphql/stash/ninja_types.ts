@@ -3,7 +3,7 @@ export interface NinjaStash {
 }
 
 export interface Line {
-    id: number
+    id: string
     name: string
     icon: string
     baseType: string

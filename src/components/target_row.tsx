@@ -21,8 +21,7 @@ const TargetRow = ({ targetId, target }: TargetRowProps) => {
                 <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
                     <PoeIconText
                         iconProps={{
-                            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                            icon: price.icon!,
+                            icon: price.icon,
                             alt: price.name,
                             size: 36,
                         }}

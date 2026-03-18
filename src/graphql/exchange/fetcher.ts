@@ -5,7 +5,7 @@ import { cachedLeagueData } from "../../utils/cache"
 import type { ExchangeEndpointEnum } from "../../utils/constants"
 import { EXCHANGE_ENDPOINTS } from "../../utils/constants"
 import type { NinjaExchange } from "./ninja_types"
-import type { Currency, LineWithChaos } from "./types"
+import type { Exchange, LineWithChaos } from "./types"
 
 let DIVINE_VALUE = 0
 
@@ -25,8 +25,14 @@ export const fetchExchangeEndpoint = async (endpoint: ExchangeEndpointEnum, leag
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             const line = linesByType[item.id]!
 
+            // div cards don't send an image
+            if (endpoint === "DivinationCard") {
+                item.image =
+                    "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
+            }
+
             if (!item.image) {
-                console.log("no image", item)
+                console.error("no image", item)
             }
 
             return {
@@ -35,25 +41,29 @@ export const fetchExchangeEndpoint = async (endpoint: ExchangeEndpointEnum, leag
                 chaosValue: line.primaryValue,
                 divineValue: line.primaryValue / DIVINE_VALUE,
             }
-        }) as Currency[]
+        }) as Exchange[]
 }
 
 // fetches and returns the currencies
 export const fetchExchanges = async (league: LeagueName = "tmpstandard") =>
-    cachedLeagueData<Currency[]>("/tmp/__cache__currencies.json", league, async () => {
-        let CURRENCIES: Currency[] = []
+    cachedLeagueData<Exchange[]>("/tmp/__cache__currencies.json", league, async () => {
+        let EXCHANGES: Exchange[] = []
 
         const throttle = pThrottle({ limit: 5, interval: 1000 })
         const throttledFetch = throttle(fetchExchangeEndpoint)
 
         await Promise.all(
             EXCHANGE_ENDPOINTS.map(async (endpoint) => {
-                const fetchedCurrencies = await throttledFetch(endpoint, league)
-                CURRENCIES = CURRENCIES.concat(fetchedCurrencies)
+                try {
+                    const fetchedExchange = await throttledFetch(endpoint, league)
+                    EXCHANGES = EXCHANGES.concat(fetchedExchange)
+                } catch (err) {
+                    console.error(`Failed to fetch from ${endpoint} (exchange):`, err)
+                }
             })
         )
 
-        return CURRENCIES.map((item) => ({
+        return EXCHANGES.map((item) => ({
             ...item,
             divineValue: truncateFloat(item.chaosValue / DIVINE_VALUE, 3),
         }))

@@ -18,54 +18,54 @@ export const LEAGUES = {
 export const EXCHANGE_ENDPOINTS = [
     // General
     "Currency",
-    // "Fragment",
-    // "Runegraft",
-    // "AllflameEmber",
-    // "Tattoo",
-    // "Omen",
-    // "Djinn Coins",
-    // "DivinationCard",
-    // "Artifact",
-    // "Oil",
-    // // Atlas
-    // "DeliriumOrb",
-    // // Crafting
-    // "Fossil",
-    // "Resonator",
-    // "Essence",
+    "Fragment",
+    "Runegraft",
+    "AllflameEmber",
+    "Tattoo",
+    "Omen",
+    "DjinnCoins",
+    "DivinationCard",
+    "Artifact",
+    "Oil",
+    // Atlas
+    "DeliriumOrb",
+    // Crafting
+    "Fossil",
+    "Resonator",
+    "Essence",
 ] as const
 
 export type ExchangeEndpointEnum = (typeof EXCHANGE_ENDPOINTS)[number]
 
 export const STASH_ENDPOINTS = [
     // General
-    // "Wombgift",
-    // "Incubator",
-    // // Equipment & Gems
-    // "UniqueWeapon",
-    // "UniqueArmour",
-    // "UniqueAccessory",
-    // "UniqueFlask",
-    // "UniqueJewel",
-    // "ForbiddenJewel",
-    // "UniqueTincture",
-    // "UniqueRelic",
-    // "SkillGem",
-    // "ClusterJewel",
-    // // Atlas
-    // "Map",
-    // "BlightedMap",
-    // "BlightRavagedMap",
-    // "UniqueMap",
-    // "ValdoMap",
-    // "Invitation",
-    // "Scarab",
-    // "Astrolabe",
-    // // "Memory", // no longer available
-    // // Crafting
-    // "BaseType",
-    // "Beast",
-    // "Vial",
+    "Wombgift",
+    "Incubator",
+    // Equipment & Gems
+    "UniqueWeapon",
+    "UniqueArmour",
+    "UniqueAccessory",
+    "UniqueFlask",
+    "UniqueJewel",
+    "ForbiddenJewel",
+    "UniqueTincture",
+    "UniqueRelic",
+    "SkillGem",
+    "ClusterJewel",
+    // Atlas
+    "Map",
+    "BlightedMap",
+    "BlightRavagedMap",
+    "UniqueMap",
+    "ValdoMap",
+    "Invitation",
+    "Scarab",
+    "Astrolabe",
+    // "Memory", // no longer available
+    // Crafting
+    "BaseType",
+    "Beast",
+    "Vial",
 ] as const
 
 export type StashEndpointEnum = (typeof STASH_ENDPOINTS)[number]

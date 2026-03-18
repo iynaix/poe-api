@@ -4,19 +4,21 @@ import { MagnifyingGlassIcon } from "@heroicons/react/20/solid"
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline"
 import Spinner from "./spinner"
 import { trpc } from "../utils/trpc"
-import { DivinePrice, PoeIconText } from "./poe_icon"
+import { PoeIconText } from "./poe_icon"
 import { type Price } from "../server/trpc/router/prices"
 import { priceStore } from "../utils/progress_stores"
 import classNames from "classnames"
+import { type SearchResultWithEndpoint } from "../graphql/search/fetcher"
+import { EXCHANGE_ENDPOINTS, ExchangeEndpointEnum } from "../utils/constants"
 
 type SearchResultProps = {
-    price: Price
+    result: SearchResultWithEndpoint
 }
 
-const SearchResult = ({ price }: SearchResultProps) => {
+const SearchResult = ({ result }: SearchResultProps) => {
     return (
         <Combobox.Option
-            value={price}
+            value={result}
             className={({ active }) =>
                 classNames(
                     "flex cursor-default select-none rounded-xl p-3",
@@ -27,18 +29,14 @@ const SearchResult = ({ price }: SearchResultProps) => {
             {() => (
                 <div className="flex flex-1 items-center">
                     <PoeIconText
-                        text={price.name}
-                        secondary={price.id}
+                        text={result.name}
+                        secondary={result.name}
                         iconProps={{
-                            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                            icon: price.icon!,
-                            alt: price.name,
+                            icon: result.icon,
+                            alt: result.name,
                             size: 30,
                         }}
                     />
-                    <div className="ml-auto">
-                        <DivinePrice amount={price.divineValue} size={20} />
-                    </div>
                 </div>
             )}
         </Combobox.Option>
@@ -56,7 +54,8 @@ export default function SearchPalette({ open, setOpen, onSelect }: SearchModalPr
 
     const [query, setQuery] = useState("")
 
-    const { data: prices, isLoading } = trpc.prices.byName.useQuery({ query, league })
+    const { data: searchResults, isLoading } = trpc.prices.searchByName.useQuery({ query, league })
+    const utils = trpc.useUtils()
 
     return (
         <Transition.Root show={open} as={Fragment} afterLeave={() => setQuery("")} appear>
@@ -85,15 +84,23 @@ export default function SearchPalette({ open, setOpen, onSelect }: SearchModalPr
                     >
                         <Dialog.Panel className="mx-auto max-w-xl transform divide-y divide-surface1 overflow-hidden rounded-xl bg-base shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
                             <Combobox
-                                onChange={(price: Price) => {
-                                    onSelect(price)
-                                    priceStore.set.add(price.id, price)
-                                    setOpen(false)
+                                onChange={async (price: Price) => {
+                                    const priceResult = await utils.prices.priceByName.fetch({
+                                        name: price.name,
+                                        league,
+                                        endpoint: price.endpoint as string,
+                                    })
+
+                                    if (priceResult) {
+                                        onSelect(priceResult)
+                                        priceStore.set.add(priceResult.id, priceResult)
+                                        setOpen(false)
+                                    }
                                 }}
                             >
                                 <div className="relative">
                                     <MagnifyingGlassIcon
-                                        className="pointer-events-none absolute top-3.5 left-4 h-5 w-5 text-text"
+                                        className="pointer-events-none absolute left-4 top-3.5 h-5 w-5 text-text"
                                         aria-hidden="true"
                                     />
                                     <Combobox.Input
@@ -103,8 +110,8 @@ export default function SearchPalette({ open, setOpen, onSelect }: SearchModalPr
                                     />
                                 </div>
 
-                                {!isLoading && query.length >= 3 && prices?.length === 0 && (
-                                    <div className="py-14 px-6 text-center text-sm sm:px-14">
+                                {!isLoading && query.length >= 3 && searchResults?.length === 0 && (
+                                    <div className="px-6 py-14 text-center text-sm sm:px-14">
                                         <ExclamationCircleIcon
                                             type="outline"
                                             name="exclamation-circle"
@@ -116,18 +123,18 @@ export default function SearchPalette({ open, setOpen, onSelect }: SearchModalPr
                                     </div>
                                 )}
 
-                                {isLoading || !prices ? (
+                                {isLoading || !searchResults ? (
                                     <div className="flex items-center justify-center p-5">
                                         <Spinner />
                                     </div>
                                 ) : (
-                                    prices.length > 0 && (
+                                    searchResults.length > 0 && (
                                         <Combobox.Options
                                             static
                                             className="max-h-96 scroll-py-3 overflow-y-auto p-3"
                                         >
-                                            {prices.map((price) => (
-                                                <SearchResult key={price.id} price={price} />
+                                            {searchResults.map((result) => (
+                                                <SearchResult key={result.name} result={result} />
                                             ))}
                                         </Combobox.Options>
                                     )

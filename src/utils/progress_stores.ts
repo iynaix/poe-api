@@ -1,4 +1,4 @@
-import { CHAOS_ICON } from "../components/poe_icon"
+import { CHAOS_ICON, DIVINE_ICON } from "../components/poe_icon"
 import type { Price } from "../server/trpc/router/prices"
 import type { LeagueName } from "."
 import { trpc } from "./trpc"
@@ -35,6 +35,17 @@ export const priceStore = createStore("prices")<PricesStore>(
 )
     .extendSelectors((_, get) => ({
         priceById(id) {
+            if (id === "divine") {
+                const chaosPrice = get.prices()["chaos"]!
+                return {
+                    ...chaosPrice,
+                    id: "divine",
+                    name: "Divine Orb",
+                    icon: DIVINE_ICON,
+                    chaosValue: Math.ceil(1 / chaosPrice.divineValue),
+                    divineValue: 1,
+                }
+            }
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             return get.prices()[id]!
         },
@@ -200,7 +211,7 @@ export const usePricesQuery = () => {
     const targets = targetStore.use.targets()
 
     // construct ids from assets and targets
-    const priceIds = uniq(["divine", ...Object.keys(assets), ...Object.keys(targets)])
+    const priceIds = uniq(["Divine Orb", ...Object.keys(assets), ...Object.keys(targets)])
 
     return trpc.prices.list.useQuery(
         { ids: priceIds, league },
@@ -216,21 +227,22 @@ export const usePricesQuery = () => {
             },
             onSuccess: (data: Record<string, Price>) => {
                 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                const divineValue = data["divine"]!.chaosValue
+                const divineValue = data["Divine Orb"]!.chaosValue
 
                 priceStore.set.divineValue(divineValue)
 
-                priceStore.set.prices({
-                    ...data,
-                    // create chaos orb data as it isn't provided by poe ninja
-                    chaos: {
-                        id: "chaos",
-                        name: "Chaos Orb",
-                        icon: CHAOS_ICON,
-                        chaosValue: 1,
-                        divineValue: 1 / divineValue,
-                        endpoint: "Currency",
-                    },
+                Object.entries(data).forEach(([name, value]) => {
+                    priceStore.set.add(name, value)
+                })
+
+                // create chaos orb data as it isn't provided by poe ninja
+                priceStore.set.add("chaos", {
+                    id: "chaos",
+                    name: "Chaos Orb",
+                    icon: CHAOS_ICON,
+                    chaosValue: 1,
+                    divineValue: 1 / divineValue,
+                    endpoint: "Currency",
                 })
 
                 // initialize assets

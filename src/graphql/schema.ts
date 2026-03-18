@@ -4,6 +4,7 @@ import "mingo/init/system"
 import "./exchange/schema"
 import "./stash/schema"
 import "./combined/schema"
+import "./search/schema"
 import "./trade/schema"
 
 import { builder } from "./builder"
