@@ -8,7 +8,7 @@ type AllEndpoints = ExchangeEndpointEnum | StashEndpointEnum
 const ninjaAPIUrl = (endpoint: AllEndpoints, league: LeagueName = "tmpstandard") => {
     const url = new URL(NINJA_API_URL)
 
-    if (EXCHANGE_ENDPOINTS.includes(endpoint)) {
+    if (EXCHANGE_ENDPOINTS.includes(endpoint as ExchangeEndpointEnum)) {
         url.pathname = `/poe1/api/economy/exchange/current/overview`
     } else {
         url.pathname = `/poe1/api/economy/stash/current/item/overview`
