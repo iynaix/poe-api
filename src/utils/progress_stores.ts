@@ -47,7 +47,7 @@ export const priceStore = createStore("prices")<PricesStore>(
                 }
             }
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            return get.prices()[id]!
+            return get.prices()[id]
         },
         inDivines(chaos) {
             return chaos / get.divineValue() || 0
@@ -88,6 +88,7 @@ export const assetStore = createStore("assets")<AssetStore>(
             let total = 0
             for (const [assetId, asset] of Object.entries(get.assets())) {
                 const price = priceStore.get.priceById(assetId)
+                if (!price) continue
                 total += price.chaosValue * asset.count
             }
             return total || 0
@@ -135,6 +136,7 @@ export const targetStore = createStore("targets")<TargetStore>(
             let total = 0
             for (const [targetId, target] of Object.entries(get.targets())) {
                 const price = priceStore.get.priceById(targetId)
+                if (!price) continue
                 total += price.chaosValue * target.count
             }
             return total
@@ -211,7 +213,11 @@ export const usePricesQuery = () => {
     const targets = targetStore.use.targets()
 
     // construct ids from assets and targets
-    const priceIds = uniq(["Divine Orb", ...Object.keys(assets), ...Object.keys(targets)])
+    const priceIds = uniq(
+        ["Divine Orb", ...Object.keys(assets), ...Object.keys(targets)].filter(
+            (id) => id !== "divine" && id !== "chaos" // these never match a backend `name`
+        )
+    )
 
     return trpc.prices.list.useQuery(
         { ids: priceIds, league },
@@ -226,16 +232,11 @@ export const usePricesQuery = () => {
                 }
             },
             onSuccess: (data: Record<string, Price>) => {
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                const divineValue = data["Divine Orb"]!.chaosValue
+                const divineValue = data["Divine Orb"]?.chaosValue
+                if (divineValue === undefined) return // guard bad/partial responses
 
                 priceStore.set.divineValue(divineValue)
-
-                Object.entries(data).forEach(([name, value]) => {
-                    priceStore.set.add(name, value)
-                })
-
-                // create chaos orb data as it isn't provided by poe ninja
+                Object.entries(data).forEach(([name, value]) => priceStore.set.add(name, value))
                 priceStore.set.add("chaos", {
                     id: "chaos",
                     name: "Chaos Orb",
@@ -245,13 +246,10 @@ export const usePricesQuery = () => {
                     endpoint: "Currency",
                 })
 
-                // initialize assets
-                if (!("divine" in assets)) {
-                    assetStore.set.add("divine", { count: 0 })
-                }
-                if (!("chaos" in assets)) {
-                    assetStore.set.add("chaos", { count: 0 })
-                }
+                // read live state, not the closure-captured `assets`
+                const currentAssets = assetStore.get.assets()
+                if (!("divine" in currentAssets)) assetStore.set.add("divine", { count: 0 })
+                if (!("chaos" in currentAssets)) assetStore.set.add("chaos", { count: 0 })
             },
         }
     )

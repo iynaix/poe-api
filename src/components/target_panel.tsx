@@ -106,7 +106,7 @@ const TargetPanel = () => {
                 setOpen={setTargetOpenSearchModal}
                 onSelect={(price) => {
                     // default count to 1
-                    targetStore.set.add(price.id, {
+                    targetStore.set.add(price.name, {
                         count: 1,
                         inflation: {
                             currencyType: "divine",

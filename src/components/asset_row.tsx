@@ -14,6 +14,7 @@ const AssetRow = ({ assetId, asset }: AssetRowProps) => {
     let price
     if (assetId === "divine") {
         const chaosPrice = priceStore.get.priceById("chaos")
+        if (!chaosPrice) return null
         price = {
             id: "divine",
             name: "Divine Orb",
@@ -24,6 +25,7 @@ const AssetRow = ({ assetId, asset }: AssetRowProps) => {
         }
     } else {
         price = priceStore.get.priceById(assetId)
+        if (!price) return null
     }
 
     return (
@@ -57,7 +59,7 @@ const AssetRow = ({ assetId, asset }: AssetRowProps) => {
                         min={0}
                         value={asset.count}
                         onChange={(ev) =>
-                            assetStore.set.add(price.id, {
+                            assetStore.set.add(assetId, {
                                 count: Number(ev.target.value),
                             })
                         }

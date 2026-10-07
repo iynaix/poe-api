@@ -14,6 +14,7 @@ const TargetRow = ({ targetId, target }: TargetRowProps) => {
     const [showInflation, setShowInflation] = useState(false)
 
     const price = priceStore.get.priceById(targetId)
+    if (!price) return null
 
     return (
         <>
@@ -47,7 +48,7 @@ const TargetRow = ({ targetId, target }: TargetRowProps) => {
                             min={0}
                             value={target.count}
                             onChange={(ev) =>
-                                targetStore.set.add(price.id, {
+                                targetStore.set.add(targetId, {
                                     count: Number(ev.target.value),
                                     inflation: {
                                         currencyType: "divine",
